@@ -18,6 +18,7 @@ public class HealthyHearts {
         Scanner sc = new Scanner(System.in);
         
         //taking user age as input
+        //touching all code for commit
         System.out.println("What is your age:");
         age = sc.nextInt();
         rate = 220-age;

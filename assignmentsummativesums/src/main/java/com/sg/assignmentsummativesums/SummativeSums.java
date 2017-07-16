@@ -26,6 +26,7 @@ public class SummativeSums {
         
         
         //calling the function add that will pass the array as parameter and also print the sum of all elements in array
+        //touching all code for commit
         add(arr);
         add(arr1);
         add(arr2);
