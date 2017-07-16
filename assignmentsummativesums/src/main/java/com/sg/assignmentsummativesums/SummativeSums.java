@@ -24,6 +24,8 @@ public class SummativeSums {
         int[] arr2 = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 
         140, 150, 160, 170, 180, 190, 200, -99 };
         
+        
+        //calling the function add that will pass the array as parameter and also print the sum of all elements in array
         add(arr);
         add(arr1);
         add(arr2);

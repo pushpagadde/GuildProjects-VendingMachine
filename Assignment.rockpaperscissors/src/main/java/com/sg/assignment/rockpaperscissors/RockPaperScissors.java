@@ -19,12 +19,13 @@ public class RockPaperScissors {
         
         Scanner sc1 = new Scanner(System.in);
         
+        //initializing all counters to 0
         youWin = computerWin = tie = 0;
         Random rand = new Random();
         
+        //loop to go user keyed number of times
         for(int i = 0; i<no; i++) {
-            
-            
+                        
             //code to ask user to pick rock, paper or scissor
             System.out.println("Pick rock, paper or scissors:");
             youPick = sc1.next();
@@ -55,7 +56,7 @@ public class RockPaperScissors {
             } else if (youPick.equalsIgnoreCase("Rock") && computerPick.equalsIgnoreCase("Scissors")) {
                 youWin++;
             }    
-            System.out.println("iteration " + i + " youPick:" + youPick + " computerPick:" + computerPick);
+            //System.out.println("iteration " + i + " youPick:" + youPick + " computerPick:" + computerPick);
         }
         
         System.out.println("Computer wins: " + computerWin);
@@ -63,7 +64,6 @@ public class RockPaperScissors {
         System.out.println("User wins: " + youWin);
         
     }
-    
     
     public static void main(String[] args) {
         
