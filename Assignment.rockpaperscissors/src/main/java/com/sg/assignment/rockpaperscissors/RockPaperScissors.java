@@ -57,7 +57,7 @@ public class RockPaperScissors {
                 youWin++;
             }    
             //System.out.println("iteration " + i + " youPick:" + youPick + " computerPick:" + computerPick);
-            //touching all code for commit
+            
         }
         
         System.out.println("Computer wins: " + computerWin);
@@ -75,7 +75,7 @@ public class RockPaperScissors {
         do {
             System.out.println("How many games would you like to play?");
             play = sc.nextInt();
-            if(play > 1 && play <= 10) {
+            if(play >= 1 && play <= 10) {
                 game( play );
                                   
             } else  {
