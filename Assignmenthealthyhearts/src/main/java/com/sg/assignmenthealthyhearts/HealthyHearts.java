@@ -13,20 +13,18 @@ public class HealthyHearts {
     public static void main(String[] args) {
         
         int age, rate;
-        double mintarget, maxtarget;
+        double minTarget, maxTarget;
         
         Scanner sc = new Scanner(System.in);
         
         System.out.println("What is your age:");
         age = sc.nextInt();
         rate = 220-age;
-        mintarget = age*0.5;
-        maxtarget = age*0.85;
+        minTarget = age*0.5;
+        maxTarget = age*0.85;
         
         System.out.println("Your maximum heart rate should be " + rate );
-        System.out.println("Your target HR Zone is " + mintarget + " - " + maxtarget + "beats per minute.");
-        
-        
+        System.out.println("Your target HR Zone is " + minTarget + " - " + maxTarget + "beats per minute.");
         
     }
     

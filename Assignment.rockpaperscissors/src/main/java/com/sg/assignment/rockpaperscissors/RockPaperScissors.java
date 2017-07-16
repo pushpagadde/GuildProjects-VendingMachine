@@ -14,50 +14,53 @@ public class RockPaperScissors {
     
     public static void game(int no) {
         
-        int uWin, cWin, tie, cp;
-        String cpick, upick;
+        int youWin, computerWin, tie, computerPickNo;
+        String computerPick, youPick;
         
         Scanner sc1 = new Scanner(System.in);
         
-        uWin = cWin = tie = 0;
+        youWin = computerWin = tie = 0;
         Random rand = new Random();
-        
-        cp = rand.nextInt(2);
-        if (cp == 0) {
-            cpick = "Rock";
-        } else if (cp == 1) {
-            cpick = "Paper";
-        } else {
-            cpick = "Scissors";
-        }
-               
         
         for(int i = 0; i<no; i++) {
             
+            
+            //code to ask user to pick rock, paper or scissor
             System.out.println("Pick rock, paper or scissors:");
-            upick = sc1.next();
+            youPick = sc1.next();
+            
+            //code for computer to pick rock, paper or sicssors
+            computerPickNo = rand.nextInt(2);
+            if (computerPickNo == 0) {
+                computerPick = "Rock";
+            } else if (computerPickNo == 1) {
+                computerPick = "Paper";
+            } else {
+                computerPick = "Scissors";
+            }
         
-            if (upick.equalsIgnoreCase(cpick) ) {
+            //comparing to count and decide winner
+            if (youPick.equalsIgnoreCase(computerPick) ) {
                 tie ++ ;
-            } else if (upick.equalsIgnoreCase("Rock") && cpick.equalsIgnoreCase("Paper")) {
-                cWin++;
-            } else if (upick.equalsIgnoreCase("Paper") && cpick.equalsIgnoreCase("Scissors")) {
-                cWin++;
-            }else if (upick.equalsIgnoreCase("Scissors") && cpick.equalsIgnoreCase("Rock")) {
-                cWin++;
-            } else if (upick.equalsIgnoreCase("Paper") && cpick.equalsIgnoreCase("Rock")) {
-                uWin++;
-            } else if (upick.equalsIgnoreCase("Scissors") && cpick.equalsIgnoreCase("Paper")) {
-                uWin++;
-            } else if (upick.equalsIgnoreCase("Rock") && cpick.equalsIgnoreCase("Scissors")) {
-                uWin++;
+            } else if (youPick.equalsIgnoreCase("Rock") && computerPick.equalsIgnoreCase("Paper")) {
+                computerWin++;
+            } else if (youPick.equalsIgnoreCase("Paper") && computerPick.equalsIgnoreCase("Scissors")) {
+                computerWin++;
+            }else if (youPick.equalsIgnoreCase("Scissors") && computerPick.equalsIgnoreCase("Rock")) {
+                computerWin++;
+            } else if (youPick.equalsIgnoreCase("Paper") && computerPick.equalsIgnoreCase("Rock")) {
+                youWin++;
+            } else if (youPick.equalsIgnoreCase("Scissors") && computerPick.equalsIgnoreCase("Paper")) {
+                youWin++;
+            } else if (youPick.equalsIgnoreCase("Rock") && computerPick.equalsIgnoreCase("Scissors")) {
+                youWin++;
             }    
-            System.out.println("iteration " + i + " upick:" + upick + " cpick:" + cpick);
+            System.out.println("iteration " + i + " youPick:" + youPick + " computerPick:" + computerPick);
         }
         
-        System.out.println("Computer wins: " + cWin);
+        System.out.println("Computer wins: " + computerWin);
         System.out.println("Tie: " + tie);
-        System.out.println("User wins: " + uWin);
+        System.out.println("User wins: " + youWin);
         
     }
     
@@ -65,23 +68,23 @@ public class RockPaperScissors {
     public static void main(String[] args) {
         
         int play;
-        String goon;
+        String goOn;
         Scanner sc = new Scanner(System.in);
         
         do {
             System.out.println("How many games would you like to play?");
-        play = sc.nextInt();
-        if(play > 1 && play <= 10) {
-            game( play );
+            play = sc.nextInt();
+            if(play > 1 && play <= 10) {
+                game( play );
                                   
-        } else  {
-            System.out.println("You can key numbers from 1 to 10");
+            } else  {
+                System.out.println("You can key numbers from 1 to 10");
             
-        }
-        System.out.println("Do you want to play again(y/n)?");
-        goon = sc.next();
+            }
+            System.out.println("Do you want to play again(y/n)?");
+            goOn = sc.next();
         
-        } while (goon.equals("y"));
+        } while (goOn.equals("y"));
         
         System.out.println("Bye!");
         
