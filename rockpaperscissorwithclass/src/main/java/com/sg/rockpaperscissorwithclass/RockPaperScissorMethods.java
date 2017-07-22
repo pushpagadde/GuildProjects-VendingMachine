@@ -3,25 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.assignment.rockpaperscissors;
+package com.sg.rockpaperscissorwithclass;
 import java.util.Scanner;
 import java.util.Random;
 /**
  *
  * @author apprentice
  */
-public class RockPaperScissors {
+public class RockPaperScissorMethods {
     
-    public static void game(int numberOfRounds) {
-        
-        int youWin, computerWin, tie, computerPickNo;
-        String computerPick, youPick;
-        
-        Scanner sc1 = new Scanner(System.in);
-        
+    int youWin, computerWin, tie, computerPickNo;
+    String computerPick, youPick;
+    Random rand = new Random();
+    Scanner sc1 = new Scanner(System.in);
+    
+    //constructor
+    public RockPaperScissorMethods() {
+      
         //initializing all counters to 0
         youWin = computerWin = tie = 0;
-        Random rand = new Random();
+    
+    }
+    
+    //setter method
+    public int setRockPaperScissorMethods() {
+        System.out.println("How many games would you like to play?");
+        return this.sc1.nextInt();
+    }
+    
+    //getter method
+    public void getRockPaperScissorMethods() {
+        
+    }
+    
+    public void playGame(int numberOfRounds) {
+        
         
         //loop to go user keyed number of times
         for(int i = 0; i<numberOfRounds; i++) {
@@ -32,13 +48,6 @@ public class RockPaperScissors {
             
             //code for computer to pick rock, paper or sicssors
             computerPickNo = rand.nextInt(3);
-            /*if (computerPickNo == 0) {
-                computerPick = "Rock";
-            } else if (computerPickNo == 1) {
-                computerPick = "Paper";
-            } else {
-                computerPick = "Scissors";
-            }*/
             
             switch (computerPickNo) {
                 case 0:
@@ -75,30 +84,6 @@ public class RockPaperScissors {
         System.out.println("Tie: " + tie);
         System.out.println("User wins: " + youWin);
         
-    }
-    
-    public static void main(String[] args) {
-        
-        int play;
-        String goOn;
-        Scanner sc = new Scanner(System.in);
-        
-        do {
-            System.out.println("How many games would you like to play?");
-            play = sc.nextInt();
-            if(play >= 1 && play <= 10) {
-                game( play );
-                                  
-            } else  {
-                System.out.println("You can key numbers from 1 to 10");
-                break;
-            }
-            System.out.println("Do you want to play again(y/n)?");
-            goOn = sc.next();
-        
-        } while (goOn.equals("y"));
-        
-        System.out.println("Bye!");
         
     }
     
