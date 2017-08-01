@@ -14,7 +14,6 @@ public class StudentScoreMap {
 
     private ArrayList<Integer> scoreList = new ArrayList<>();
     double allStudentsAverage = 0;
-    int maxScore=0, minScore=10000;
     
     StudentScoreMap(Integer[] scores) {
         for(int i=0; i<3; i++) {
@@ -40,10 +39,7 @@ public class StudentScoreMap {
         for (int i=0; i < scoreList.size(); i++ ) {
             sum = sum + scoreList.get(i);
         }
-        if (maxScore <= sum)    {
-            maxScore = sum;
-        }
-        return maxScore;
+        return sum;
     }
     
     public boolean listOfStudentsMax(int highScore) {
@@ -63,11 +59,8 @@ public class StudentScoreMap {
         for (int i=0; i < scoreList.size(); i++ ) {
             sum = sum + scoreList.get(i);
         }
-        //if (minScore == -1) { minScore = sum; }
-        if (minScore > sum )    {
-            minScore = sum;
-        }
-        return minScore;
+        
+        return sum;
     }
     
     public boolean listOfStudentsMin(int lowScore) {
@@ -75,7 +68,7 @@ public class StudentScoreMap {
         for (int i=0; i < scoreList.size(); i++ ) {
             sum = sum + scoreList.get(i);
         }
-        if (lowScore > sum)    {
+        if (lowScore < sum)    {
             return false;
         }else {
             return true;

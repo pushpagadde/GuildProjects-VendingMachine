@@ -8,6 +8,7 @@ package com.sg.statecapital2;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 /**
@@ -63,6 +64,17 @@ public class StateCapital2 {
                              
         }
         
+        Scanner sc = new Scanner(System.in);
+        double minPopulation;
+        System.out.println("Enter minimum population:");
+        minPopulation = sc.nextDouble();
+        System.out.print("States with atleast " + minPopulation + " are: ");
+        for (String k : kSet) {
+                if (minPopulation < stateList.get(k).getPopulation()) {
+                    System.out.print(k + " ");
+                }
+                
+        }
         
     }
     

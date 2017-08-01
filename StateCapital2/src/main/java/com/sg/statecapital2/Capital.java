@@ -10,17 +10,18 @@ package com.sg.statecapital2;
  * @author apprentice
  */
 public class Capital {
-
-    private int scoreMath, scoreScience, scoreLA;
+    private String nameOfCapital;
+   
+    private double population, squareMileage;
     
     public Capital(){
         
     }
     
-    public Capital(int pscoreMath, int pscoreScience, int pscoreLA) {
-        this.scoreMath = pscoreMath;
-        this.scoreScience = pscoreScience;
-        this.scoreLA = pscoreLA;
+    public Capital(String nameOfCapital, double population, double squareMileage) {
+        this.nameOfCapital = nameOfCapital;
+        this.population = population;
+        this.squareMileage = squareMileage;
     }
     
     public String displayAll() {
