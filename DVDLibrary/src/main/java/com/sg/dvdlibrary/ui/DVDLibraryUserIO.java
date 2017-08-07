@@ -3,20 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.userio;
+package com.sg.dvdlibrary.ui;
+
+//import java.util.Date;
 
 /**
  *
  * @author apprentice
  */
-public interface UserIO {
-    void print(String message);//#1
+public interface DVDLibraryUserIO {
+    void print(String msg);
     double readDouble(String prompt);
     double readDouble(String prompt, double min, double max);
     float readFloat(String prompt);
     float readFloat(String prompt, float min, float max);
-    int readInt(String prompt);//#2
-    int readInt(String prompt, int min, int max);//#3
-    long readLong(String prompt);//#4
-    String readString(String prompt);//#5  
+    int readInt(String prompt);
+    int readInt(String prompt, int min, int max);
+    long readLong(String prompt);
+    long readLong(String prompt, long min, long max);
+    String readString(String prompt);
+    //Date readDate(Date pDate);
+    
 }

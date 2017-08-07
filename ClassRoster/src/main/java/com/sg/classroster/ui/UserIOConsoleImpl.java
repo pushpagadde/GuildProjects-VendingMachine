@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.userio;
+package com.sg.classroster.ui;
+
 import java.util.Scanner;
+
 /**
  *
  * @author apprentice
  */
-public class ImplementUserIO implements UserIO {
-    
-    Scanner sc = new Scanner(System.in);
+public class UserIOConsoleImpl implements UserIO {
+       Scanner sc = new Scanner(System.in);
     
     public void print(String message) {
         System.out.println("You entered: " + message);
@@ -29,7 +30,7 @@ public class ImplementUserIO implements UserIO {
         do {
             System.out.println(prompt);
             temp = sc.nextInt();
-        }   while (temp >= max || temp < min) ;
+        }   while (temp > max || temp < min) ;
         return temp;
     }
     //#3
@@ -56,7 +57,7 @@ public class ImplementUserIO implements UserIO {
             System.out.println("prompt");
             temp = sc.nextFloat();
 
-        } while(temp >=max || temp < min);
+        } while(temp >max || temp < min);
         return temp;
     }
     
@@ -75,7 +76,7 @@ public class ImplementUserIO implements UserIO {
             System.out.println(prompt);
             temp = sc.nextDouble();
  
-        } while(temp >=max || temp < min);
+        } while(temp >max || temp < min);
         return temp;
     }
           
@@ -84,5 +85,16 @@ public class ImplementUserIO implements UserIO {
         System.out.println(prompt);
         return sc.nextLong();
     }
-    
+
+    @Override
+    public long readLong(String prompt, long min, long max) {
+        long temp;
+        do {
+            
+            System.out.println(prompt);
+            temp = sc.nextLong();
+ 
+        } while(temp >max || temp < min);
+        return temp;
+    }
 }

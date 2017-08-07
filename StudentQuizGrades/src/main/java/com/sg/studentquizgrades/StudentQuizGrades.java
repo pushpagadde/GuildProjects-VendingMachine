@@ -6,6 +6,7 @@
 package com.sg.studentquizgrades;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class StudentQuizGrades {
         
         //highest quiz score
         int maxScore = 0;
-        int minScore= -1;
+        int minScore= 1000;
         List<Integer> totalScores = new ArrayList<>();
         List<String> maxStudents = new ArrayList<>();
         List<String> minStudents = new ArrayList<>();
@@ -66,14 +67,15 @@ public class StudentQuizGrades {
             if (maxScore < i) {
                 maxScore = i;
             }
-            if (minScore == -1) {
+            /*if (minScore == -1) {
                 minScore = i;
-            }
+            }*/
             if (minScore > i) {
                 minScore = i;
             }
         }
-        
+        maxScore=Collections.max(totalScores);
+        minScore=Collections.min(totalScores);
         for (String k : keySet) {
             if (studentScoreMap.get(k).listOfStudentsMax(maxScore)) {
                 maxStudents.add(k);

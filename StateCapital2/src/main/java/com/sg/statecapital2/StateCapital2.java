@@ -48,11 +48,14 @@ public class StateCapital2 {
         System.out.println("=====================================================");
         System.out.println();
         
-        
         Set<String> kSet = stateList.keySet();
         
         for (String k : kSet) {
                 System.out.println(k + ", " + stateList.get(k).displayAll() );
+        }
+        
+        for(String k : stateList.keySet()) {
+            System.out.println(k + " " + stateList.get(k));
         }
         
         Set set = stateList.entrySet();
@@ -73,9 +76,7 @@ public class StateCapital2 {
                 if (minPopulation < stateList.get(k).getPopulation()) {
                     System.out.print(k + " ");
                 }
-                
         }
-        
     }
     
 }
