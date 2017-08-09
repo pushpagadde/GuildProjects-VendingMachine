@@ -15,16 +15,18 @@ import java.util.Scanner;
 public class DVDLibraryUserIOConsoleImpl implements DVDLibraryUserIO{
     Scanner sc = new Scanner(System.in);
     
+    /**
+     *
+     * @param message
+     */
+    @Override
     public void print(String message) {
         System.out.println(message);
     }
-    //##1
     public int readInt(String prompt) {
         System.out.println("Enter an integer: ");
         return sc.nextInt();
     }
-    //#2
-
     /**
      *
      * @param prompt
@@ -35,27 +37,26 @@ public class DVDLibraryUserIOConsoleImpl implements DVDLibraryUserIO{
     @Override
     public int readInt(String prompt, int min, int max){
         int temp; //temporaty number to take user input
+        String stemp;
         do {
             System.out.println(prompt);
-            temp = sc.nextInt();
+            stemp = sc.nextLine();
+            temp = Integer.parseInt(stemp);
         }   while (temp > max || temp < min) ;
         return temp;
     }
-    //#3
     public String readString(String prompt){
         String temp;
         System.out.println(prompt);
-        temp = sc.next();
+        temp = sc.nextLine();
         return temp;
     }
-    //#4
     public float readFloat(String prompt) {
         float temp; //temp variable to store user input
         System.out.println(prompt);
         temp = sc.nextFloat();
         return temp;
     }
-    //#5
     public float readFloat(String prompt, float min, float max) {
         float temp;
         do {
@@ -64,12 +65,10 @@ public class DVDLibraryUserIOConsoleImpl implements DVDLibraryUserIO{
         } while(temp >max || temp < min);
         return temp;
     }
-    //#6
     public double readDouble(String prompt){
         System.out.println("Enter a decimal number: ");
         return sc.nextDouble();
     }
-    //#7
     public double readDouble(String prompt, double min, double max) {
         double temp;
         do {
@@ -78,12 +77,10 @@ public class DVDLibraryUserIOConsoleImpl implements DVDLibraryUserIO{
         } while(temp >max || temp < min);
         return temp;
     }
-    //#8
     public long readLong(String prompt){
         System.out.println(prompt);
         return sc.nextLong();
     }
-  //  @Override
     public long readLong(String prompt, long min, long max) {
         long temp;
         do {
@@ -92,8 +89,4 @@ public class DVDLibraryUserIOConsoleImpl implements DVDLibraryUserIO{
         } while(temp >max || temp < min);
         return temp;
     }
-    /*public Date readDate(String prompt, Date pDate) {
-        System.out.println(prompt);
-        return sc.nextInt();
-    }*/
 }

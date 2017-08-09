@@ -6,6 +6,7 @@
 package com.sg.dvdlibrary.ui;
 
 import com.sg.dvdlibrary.dto.DVDLibrary;
+import com.sg.dvdlibrary.exception.DVDNotFoundException;
 import java.util.List;
 
 /**
@@ -81,8 +82,10 @@ public class DVDLibraryView {
         }
         io.readString("Plesae hit enter to continue");
     }
-    public void displayDVDInfo(DVDLibrary DVDInfo){
-        if(DVDInfo != null) {
+    public void displayDVDInfo(DVDLibrary DVDInfo) throws DVDNotFoundException{
+        if(DVDInfo == null) {
+            throw new DVDNotFoundException("DVD Not Found");
+        } else {
             String allDetails;
             allDetails = DVDInfo.getTitle();
             allDetails = allDetails + " " + DVDInfo.getReleaseDate();
@@ -91,8 +94,7 @@ public class DVDLibraryView {
             allDetails = allDetails + " " +  DVDInfo.getStudio();
             allDetails = allDetails + " " +  DVDInfo.getUserNotes();
             io.print(allDetails);
-        } else {
-            io.print("Title not found.");
+            
         }
         io.readString("Plesae hit enter to continue");
     }

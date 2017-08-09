@@ -9,6 +9,7 @@ import com.sg.dvdlibrary.dao.DVDLibraryDao;
 import com.sg.dvdlibrary.dao.DVDLibraryDaoException;
 import com.sg.dvdlibrary.dao.DVDLibraryDaoFileImpl;
 import com.sg.dvdlibrary.dto.DVDLibrary;
+import com.sg.dvdlibrary.exception.DVDNotFoundException;
 import com.sg.dvdlibrary.ui.DVDLibraryUserIO;
 import com.sg.dvdlibrary.ui.DVDLibraryUserIOConsoleImpl;
 import com.sg.dvdlibrary.ui.DVDLibraryView;
@@ -25,7 +26,6 @@ public class DVDLibraryController {
     DVDLibraryDao dao = new DVDLibraryDaoFileImpl();
 
     public DVDLibraryController(DVDLibraryDao myDao, DVDLibraryView myView) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         this.view = myView;
         this.dao = myDao;
     }
@@ -114,7 +114,12 @@ public class DVDLibraryController {
     private void getDVDInfo() throws DVDLibraryDaoException {
         String title = view.getTitleChoice("to view");
         DVDLibrary DVDInfo = dao.getDVDInfo(title);
-        view.displayDVDInfo(DVDInfo);
+        try {
+            view.displayDVDInfo(DVDInfo);
+        } catch ( DVDNotFoundException e) {
+            //System.out.println(e.getMessage());
+            view.displayErrorMessage(e.getMessage());
+        }
     }
     private void searchByTitle() throws DVDLibraryDaoException {
         List<String> DVDTitleList = dao.getAllTitles();
