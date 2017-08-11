@@ -80,7 +80,7 @@ public class DVDLibraryView {
             allDetails = allDetails + " " +  currentDVD.getUserNotes();
             io.print(allDetails);
         }
-        io.readString("Plesae hit enter to continue");
+        io.readString("Please hit enter to continue");
     }
     public void displayDVDInfo(DVDLibrary DVDInfo) throws DVDNotFoundException{
         if(DVDInfo == null) {
@@ -96,14 +96,14 @@ public class DVDLibraryView {
             io.print(allDetails);
             
         }
-        io.readString("Plesae hit enter to continue");
+        io.readString("Please hit enter to continue");
     }
     public void displayAllTitles(List<String> DVDTitleList) {
         for(int i=0; i<DVDTitleList.size(); i++) {
             io.print(DVDTitleList.get(i));
         }
         io.print("All titles printed");
-        io.readString("Plesae hit enter to continue");
+        io.readString("Please hit enter to continue");
     }
     public int getCount(String operation) {
         int count = io.readInt("Enter how many records would you like to "+ operation + " ?", 0, 10);

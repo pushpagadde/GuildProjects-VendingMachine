@@ -29,7 +29,7 @@ public class DVDLibraryController {
         this.view = myView;
         this.dao = myDao;
     }
-    public void run() {
+    public void run() throws DVDNotFoundException {
         boolean keepGoing = true;
         int menuSelection = 0;
         try {
@@ -68,6 +68,7 @@ public class DVDLibraryController {
                         unknownCommand();
                 }
             }
+            
             io.print("Good bye!");
         } catch (DVDLibraryDaoException e) {
             view.displayErrorMessage(e.getMessage());
@@ -121,8 +122,11 @@ public class DVDLibraryController {
             view.displayErrorMessage(e.getMessage());
         }
     }
-    private void searchByTitle() throws DVDLibraryDaoException {
+    private void searchByTitle() throws DVDLibraryDaoException, DVDNotFoundException {
         List<String> DVDTitleList = dao.getAllTitles();
         view.displayAllTitles(DVDTitleList);
+        String title = view.getTitleChoice(" to view");
+        DVDLibrary DVDInfo = dao.getDVDInfo(title);
+        view.displayDVDInfo(DVDInfo);
     }
 }

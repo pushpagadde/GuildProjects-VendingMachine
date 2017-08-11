@@ -103,7 +103,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
      */
     @Override
     public List<DVDLibrary> getAllDVD()throws DVDLibraryDaoException{
-        loadDVDLibrary();
+        loadDVDLibraryFromFile();
         return new ArrayList<>(DVD.values());
     }
 
@@ -115,7 +115,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
      */
     @Override
     public DVDLibrary getDVDInfo(String title) throws DVDLibraryDaoException{
-        loadDVDLibrary();
+        loadDVDLibraryFromFile();
         return DVD.get(title);
     }
 
@@ -126,10 +126,10 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
      */
     @Override
     public List getAllTitles() throws DVDLibraryDaoException {
-        loadDVDLibrary();
+        loadDVDLibraryFromFile();
         return new ArrayList(DVD.keySet());
     }
-    private void loadDVDLibrary() throws DVDLibraryDaoException {
+    private void loadDVDLibraryFromFile() throws DVDLibraryDaoException {
         Scanner scanner;
         try {
             scanner = new Scanner(new BufferedReader(new FileReader(DVDLIBRARY)));

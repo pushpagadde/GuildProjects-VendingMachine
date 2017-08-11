@@ -25,7 +25,13 @@ public class DVDLibraryUserIOConsoleImpl implements DVDLibraryUserIO{
     }
     public int readInt(String prompt) {
         System.out.println("Enter an integer: ");
-        return sc.nextInt();
+        int intCapture=0;
+        while (!sc.hasNextInt()) {
+            intCapture = sc.nextInt();
+            System.out.println("Please enter a valid number.");
+        }
+        String stemp2 = sc.nextLine();
+        return intCapture;
     }
     /**
      *
@@ -37,11 +43,14 @@ public class DVDLibraryUserIOConsoleImpl implements DVDLibraryUserIO{
     @Override
     public int readInt(String prompt, int min, int max){
         int temp; //temporaty number to take user input
-        String stemp;
         do {
             System.out.println(prompt);
-            stemp = sc.nextLine();
-            temp = Integer.parseInt(stemp);
+            while (!sc.hasNextInt()) {
+                String stemp = sc.next();
+                System.out.println("Please enter a valid number");
+            }
+            temp = sc.nextInt();
+            String stemp2 = sc.nextLine();
         }   while (temp > max || temp < min) ;
         return temp;
     }
