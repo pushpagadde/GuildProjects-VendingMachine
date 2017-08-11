@@ -25,8 +25,8 @@ public class DVDLibraryView {
             io.print("2. Remove DVD from Library");
             io.print("3. Edit DVD in Library");
             io.print("4. List all DVD in Library");
-            io.print("5. Display info. of DVD in Library by Title");
-            io.print("6. Search by Title");
+            io.print("5. Display info. of a DVD in Library by Title(search)");
+            io.print("6. List all Titles");
             io.print("7. Exit");
             return io.readInt("Enter selection", 1, 7);
     }
