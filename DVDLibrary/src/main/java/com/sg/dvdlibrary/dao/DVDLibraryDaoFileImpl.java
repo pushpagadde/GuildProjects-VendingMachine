@@ -23,8 +23,8 @@ import java.util.Scanner;
  * @author apprentice
  */
 public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
-    private Map<String, DVDLibrary> DVD = new HashMap<>();
-    public static final String DVDLIBRARY = "DVDLibrary.txt";
+    private Map<String, DVDLibrary> DVDCollection = new HashMap<>();
+    public static final String DVDLIBRARYFILENAME = "DVDLibrary.txt";
     public static final String DELIMITER = "::";
     
     /**
@@ -36,7 +36,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
      */
     @Override
     public DVDLibrary addDVD(String title, DVDLibrary dvd) throws DVDLibraryDaoException {
-        DVDLibrary newDVD = DVD.put(title, dvd);
+        DVDLibrary newDVD = DVDCollection.put(title, dvd);
         writeDVDLibrary();
         return newDVD;
     }
@@ -49,7 +49,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
      */
     @Override
     public DVDLibrary removeDVD(String title) throws DVDLibraryDaoException {
-        DVDLibrary removedDVD = DVD.remove(title);
+        DVDLibrary removedDVD = DVDCollection.remove(title);
         writeDVDLibrary();
         return removedDVD;
     }
@@ -64,7 +64,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
      */
     @Override
     public DVDLibrary editDVD(String title, int changeFieldInt, String changeFieldValue) throws DVDLibraryDaoException {
-        DVDLibrary editDVD = DVD.get(title);
+        DVDLibrary editDVD = DVDCollection.get(title);
         String changeField = "";
         switch(changeFieldInt) {
             case 1:
@@ -73,8 +73,8 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
                 break;
             case 2:
                 changeField = "MPAARating";
-                int rating = Integer.parseInt(changeFieldValue);
-                editDVD.setMPAARating(rating);
+                //int rating = Integer.parseInt(changeFieldValue);
+                editDVD.setMPAARating(changeFieldValue);
                 break;
             case 3:
                 changeField = "directorName";
@@ -104,7 +104,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
     @Override
     public List<DVDLibrary> getAllDVD()throws DVDLibraryDaoException{
         loadDVDLibraryFromFile();
-        return new ArrayList<>(DVD.values());
+        return new ArrayList<>(DVDCollection.values());
     }
 
     /**
@@ -116,7 +116,7 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
     @Override
     public DVDLibrary getDVDInfo(String title) throws DVDLibraryDaoException{
         loadDVDLibraryFromFile();
-        return DVD.get(title);
+        return DVDCollection.get(title);
     }
 
     /**
@@ -127,12 +127,12 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
     @Override
     public List getAllTitles() throws DVDLibraryDaoException {
         loadDVDLibraryFromFile();
-        return new ArrayList(DVD.keySet());
+        return new ArrayList(DVDCollection.keySet());
     }
     private void loadDVDLibraryFromFile() throws DVDLibraryDaoException {
         Scanner scanner;
         try {
-            scanner = new Scanner(new BufferedReader(new FileReader(DVDLIBRARY)));
+            scanner = new Scanner(new BufferedReader(new FileReader(DVDLIBRARYFILENAME)));
         } catch(FileNotFoundException  e) {
             throw new DVDLibraryDaoException ("Could not load data into memory", e);
         }
@@ -143,18 +143,18 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
             currentTokens = currentLine.split(DELIMITER);
             DVDLibrary currentDVD = new DVDLibrary(currentTokens[0]);
             currentDVD.setReleaseDate(currentTokens[1]);
-            currentDVD.setMPAARating(Integer.parseInt(currentTokens[2]));
+            currentDVD.setMPAARating(currentTokens[2]);
             currentDVD.setDirectorName(currentTokens[3]);
             currentDVD.setStudio(currentTokens[4]);
             currentDVD.setUserNotes(currentTokens[4]);
-            DVD.put(currentDVD.getTitle(), currentDVD);
+            DVDCollection.put(currentDVD.getTitle(), currentDVD);
         }
         scanner.close();
     }
     private void writeDVDLibrary() throws DVDLibraryDaoException {
         PrintWriter out;
         try {
-            out = new PrintWriter(new FileWriter(DVDLIBRARY));
+            out = new PrintWriter(new FileWriter(DVDLIBRARYFILENAME));
         } catch (IOException e) {
             throw new DVDLibraryDaoException("Could not save data", e);
         }

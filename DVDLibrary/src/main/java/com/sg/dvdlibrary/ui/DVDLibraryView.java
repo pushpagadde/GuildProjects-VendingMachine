@@ -18,6 +18,7 @@ public class DVDLibraryView {
     
     public DVDLibraryView (DVDLibraryUserIO io) {
         this.io = io;
+        ///touching to submit back
     }
     public int printMenuAndGetSelection() {
             io.print("======Main Menu:======");
@@ -25,7 +26,7 @@ public class DVDLibraryView {
             io.print("2. Remove DVD from Library");
             io.print("3. Edit DVD in Library");
             io.print("4. List all DVD in Library");
-            io.print("5. Display info. of a DVD in Library by Title(search)");
+            io.print("5. Search by Title");
             io.print("6. List all Titles");
             io.print("7. Exit");
             return io.readInt("Enter selection", 1, 7);
@@ -37,7 +38,7 @@ public class DVDLibraryView {
         io.print("Enter new DVD Details");
         String title = io.readString("Enter title of DVD");
         String releaseDate = io.readString("Enter Release Date");
-        int rating = io.readInt("Enter MPAA rating", 1,10);
+        String rating = io.readString("Enter MPAA rating");
         String directorName = io.readString("Enter Directors name");
         String studio = io.readString("Enter name of Studio");
         String userNotes = io.readString("Enter user notes");
@@ -94,7 +95,6 @@ public class DVDLibraryView {
             allDetails = allDetails + " " +  DVDInfo.getStudio();
             allDetails = allDetails + " " +  DVDInfo.getUserNotes();
             io.print(allDetails);
-            
         }
         io.readString("Please hit enter to continue");
     }

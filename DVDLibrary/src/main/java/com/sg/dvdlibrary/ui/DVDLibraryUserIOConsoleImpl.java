@@ -28,7 +28,7 @@ public class DVDLibraryUserIOConsoleImpl implements DVDLibraryUserIO{
         int intCapture=0;
         while (!sc.hasNextInt()) {
             intCapture = sc.nextInt();
-            System.out.println("Please enter a valid number.");
+            System.out.println("Not a valid number. Please enter a valid number.");
         }
         String stemp2 = sc.nextLine();
         return intCapture;
@@ -47,7 +47,7 @@ public class DVDLibraryUserIOConsoleImpl implements DVDLibraryUserIO{
             System.out.println(prompt);
             while (!sc.hasNextInt()) {
                 String stemp = sc.next();
-                System.out.println("Please enter a valid number");
+                System.out.println("Not a valid number. Please enter a valid number between " + min + " and " + max);
             }
             temp = sc.nextInt();
             String stemp2 = sc.nextLine();
@@ -69,7 +69,7 @@ public class DVDLibraryUserIOConsoleImpl implements DVDLibraryUserIO{
     public float readFloat(String prompt, float min, float max) {
         float temp;
         do {
-            System.out.println("prompt");
+            System.out.println(prompt + " between " + min + " and " + max);
             temp = sc.nextFloat();
         } while(temp >max || temp < min);
         return temp;

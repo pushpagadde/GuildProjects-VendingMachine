@@ -12,7 +12,7 @@ package com.sg.dvdlibrary.dto;
 public class DVDLibrary {
     private String title;
     private String releaseDate;
-    private int MPAARating;
+    private String MPAARating;
     private String directorName;
     private String studio;
     private String userNotes;
@@ -32,10 +32,10 @@ public class DVDLibrary {
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
-    public int getMPAARating() {
+    public String getMPAARating() {
         return MPAARating;
     }
-    public void setMPAARating(int MPAARating) {
+    public void setMPAARating(String MPAARating) {
         this.MPAARating = MPAARating;
     }
     public String getDirectorName() {

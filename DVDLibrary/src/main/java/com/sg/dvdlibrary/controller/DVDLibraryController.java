@@ -118,15 +118,14 @@ public class DVDLibraryController {
         try {
             view.displayDVDInfo(DVDInfo);
         } catch ( DVDNotFoundException e) {
-            //System.out.println(e.getMessage());
             view.displayErrorMessage(e.getMessage());
         }
     }
     private void searchByTitle() throws DVDLibraryDaoException, DVDNotFoundException {
         List<String> DVDTitleList = dao.getAllTitles();
         view.displayAllTitles(DVDTitleList);
-        String title = view.getTitleChoice(" to view");
-        DVDLibrary DVDInfo = dao.getDVDInfo(title);
-        view.displayDVDInfo(DVDInfo);
+        //String title = view.getTitleChoice(" to view");
+        //DVDLibrary DVDInfo = dao.getDVDInfo(title);
+        //view.displayDVDInfo(DVDInfo);
     }
 }
