@@ -6,6 +6,7 @@
 package com.sg.dvdlibrary.dao;
 
 import com.sg.dvdlibrary.dto.DVDLibrary;
+import com.sg.dvdlibrary.service.DVDLibraryDuplicateNameException;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

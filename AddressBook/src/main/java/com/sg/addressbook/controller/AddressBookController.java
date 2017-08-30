@@ -5,9 +5,11 @@
  */
 package com.sg.addressbook.controller;
 
-import com.sg.addressbook.dao.AddressBookDao;
-import com.sg.addressbook.dao.AddressBookDaoFileImpl;
 import com.sg.addressbook.dto.AddressBook;
+import com.sg.addressbook.service.AddressBookDataValidationErrorException;
+import com.sg.addressbook.service.AddressBookDuplicateNameException;
+import com.sg.addressbook.service.AddressBookPersistenceException;
+import com.sg.addressbook.service.AddressBookServiceLayer;
 import com.sg.addressbook.ui.AddressBookView;
 import com.sg.addressbook.ui.UserIO;
 import com.sg.addressbook.ui.UserIOConsoleImpl;
@@ -18,19 +20,21 @@ import java.util.List;
  * @author apprentice
  */
 public class AddressBookController {
+    private AddressBookServiceLayer service;
     AddressBookView view;
     private UserIO io = new UserIOConsoleImpl();
-    AddressBookDao dao;
+    //AddressBookDao dao;
     
     boolean keepGoing = true;
     int menuSelection = 0;
 
-    public AddressBookController(AddressBookDao myDao, AddressBookView myView) {
+    public AddressBookController(AddressBookServiceLayer service, AddressBookView myView) {
         this.view = myView;
-        this.dao = myDao;
+        this.service = service;
         System.out.println("constructor");
     }
     public void run() {
+        try {
         while(keepGoing) {
             menuSelection = getMenuSelection();
             switch(menuSelection) {
@@ -63,28 +67,39 @@ public class AddressBookController {
         }
         io.print("Bye");
         //exit;
+        } catch (AddressBookPersistenceException | AddressBookDuplicateNameException | AddressBookDataValidationErrorException e ) {
+            view.displayErrorMessage("Error");
+        }
     }
     private int getMenuSelection() {
         return view.printMenuAndGetSelection();
     }
-    private void addAddress() {
-        AddressBook newAddress = view.getNewAddressInfo();
-        dao.addAddress(newAddress.getLastName(), newAddress );
+    private void addAddress() throws AddressBookDuplicateNameException, AddressBookDataValidationErrorException, AddressBookPersistenceException {
+        boolean hasErrors = false;
+        do {
+            AddressBook newAddress = view.getNewAddressInfo();
+            try {
+                service.createAddress(newAddress);
+            } catch (AddressBookDuplicateNameException | AddressBookDataValidationErrorException e) {
+                hasErrors = true;
+                view.displayErrorMessage("Error.");
+            }
+        } while(hasErrors);
     }
-    private void displayList() {
-        List<AddressBook> addressList = dao.getAllAddress();
+    private void displayList() throws AddressBookPersistenceException {
+        List<AddressBook> addressList = service.listAll();// getAllAddress();
         view.displayList(addressList);
     }
-    private void removeAddress() {
+    private void removeAddress() throws AddressBookPersistenceException {
         String lastName = view.getLastNameChoice();
-        dao.removeAddress(lastName);
+        service.removeAddress(lastName);
         io.print("Address removed");
     }
-    private void displayAddress() {
+    private void displayAddress() throws AddressBookPersistenceException {
         String lastName = view.getLastNameChoice();
-        dao.findAddress(lastName);
+        service.findAddress(lastName);
     }
-    private void countAddress() {
-        System.out.println(dao.countAddress());
+    private void countAddress() throws AddressBookPersistenceException {
+        System.out.println(service.count());//   countAddress());
     }
 }

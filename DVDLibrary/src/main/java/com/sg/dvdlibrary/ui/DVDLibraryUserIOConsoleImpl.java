@@ -44,7 +44,7 @@ public class DVDLibraryUserIOConsoleImpl implements DVDLibraryUserIO{
     public int readInt(String prompt, int min, int max){
         int temp; //temporaty number to take user input
         do {
-            System.out.println(prompt);
+            System.out.println(prompt + "Number has to be between " + min + " and " + max);
             while (!sc.hasNextInt()) {
                 String stemp = sc.next();
                 System.out.println("Not a valid number. Please enter a valid number between " + min + " and " + max);

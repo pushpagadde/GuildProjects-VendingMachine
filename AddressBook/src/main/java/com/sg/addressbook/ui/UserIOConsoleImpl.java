@@ -35,7 +35,7 @@ public class UserIOConsoleImpl implements UserIO {
     public String readString(String prompt){
         String temp;
         System.out.println(prompt);
-        temp = sc.next();
+        temp = sc.nextLine();
         return temp;
     }
     //#4

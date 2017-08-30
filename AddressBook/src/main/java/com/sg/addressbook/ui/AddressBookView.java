@@ -27,7 +27,7 @@ public class AddressBookView {
         io.print("4. How many address in the boook?");
         io.print("5. List all addresses");
         io.print("6. Exit");
-        return io.readInt("Please select from the above choices.", 1,5);
+        return io.readInt("Please select from the above choices.", 1,6);
     }
     public AddressBook getNewAddressInfo() {
         String firstName = io.readString("Enter first name");
@@ -65,5 +65,8 @@ public class AddressBookView {
     }
     public String getLastNameChoice() {
         return io.readString("Enter last name");
+    }
+    public void displayErrorMessage(String message) {
+        io.print("Error" + message);
     }
 }

@@ -20,7 +20,13 @@ public class UserIOConsoleImpl implements UserIO {
     //##1
     public int readInt(String prompt) {
         System.out.println("Enter an integer: ");
-        return sc.nextInt();
+        int intCapture=0;
+        while (!sc.hasNextInt()) {
+            intCapture = sc.nextInt();
+            System.out.println("Not a valid number. Please enter a valid number.");
+        }
+        String stemp2 = sc.nextLine();
+        return intCapture;
         
     }
     //#2
@@ -28,8 +34,13 @@ public class UserIOConsoleImpl implements UserIO {
     public int readInt(String prompt, int min, int max){
         int temp; //temporaty number to take user input
         do {
-            System.out.println(prompt);
+            System.out.println(prompt + "Number has to be between " + min + " and " + max);
+            while (!sc.hasNextInt()) {
+                String stemp = sc.next();
+                System.out.println("Not a valid number. Please enter a valid number between " + min + " and " + max);
+            }
             temp = sc.nextInt();
+            String stemp2 = sc.nextLine();
         }   while (temp > max || temp < min) ;
         return temp;
     }
