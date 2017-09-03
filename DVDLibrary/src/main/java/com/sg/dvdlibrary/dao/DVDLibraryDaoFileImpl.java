@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,7 +71,8 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
         switch(changeFieldInt) {
             case 1:
                 changeField = "releaseDate";
-                editDVD.setReleaseDate(changeFieldValue);
+                LocalDate releaseDateChangeValue = LocalDate.parse(changeFieldValue);
+                editDVD.setReleaseDate(releaseDateChangeValue);
                 break;
             case 2:
                 changeField = "MPAARating";
@@ -143,7 +145,8 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
             currentLine = scanner.nextLine();
             currentTokens = currentLine.split(DELIMITER);
             DVDLibrary currentDVD = new DVDLibrary(currentTokens[0]);
-            currentDVD.setReleaseDate(currentTokens[1]);
+            LocalDate currentValue = LocalDate.parse(currentTokens[1]);
+            currentDVD.setReleaseDate(currentValue);
             currentDVD.setMPAARating(currentTokens[2]);
             currentDVD.setDirectorName(currentTokens[3]);
             currentDVD.setStudio(currentTokens[4]);

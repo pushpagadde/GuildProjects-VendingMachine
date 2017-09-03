@@ -6,6 +6,7 @@
 package com.sg.dvdlibrary.dao;
 
 import com.sg.dvdlibrary.dto.DVDLibrary;
+import java.time.LocalDate;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -40,7 +41,8 @@ public class DVDLibraryDaoTest {
         DVDLibrary dvd = new DVDLibrary("title1");
         dvd.setDirectorName("Director 1");
         dvd.setMPAARating("rating1");
-        dvd.setReleaseDate("release date1");
+        LocalDate releaseDate = LocalDate.parse("2015-01-01");
+        dvd.setReleaseDate(releaseDate);
         dvd.setStudio("studio1");
         dvd.setTitle("title1 ");
         dvd.setUserNotes("notes1");
@@ -57,7 +59,8 @@ public class DVDLibraryDaoTest {
         DVDLibrary dvd1 = new DVDLibrary("title1");
         dvd1.setDirectorName("Director 1");
         dvd1.setMPAARating("rating1");
-        dvd1.setReleaseDate("release date1");
+        LocalDate releaseDate = LocalDate.parse("2015-01-01");
+        dvd1.setReleaseDate(releaseDate);
         dvd1.setStudio("studio1");
         dvd1.setTitle("title1 ");
         dvd1.setUserNotes("notes1");
@@ -66,7 +69,8 @@ public class DVDLibraryDaoTest {
         DVDLibrary dvd2 = new DVDLibrary("title2");
         dvd2.setDirectorName("Director 2");
         dvd2.setMPAARating("rating2");
-        dvd2.setReleaseDate("release date2");
+        releaseDate = LocalDate.parse("2018-01-01");
+        dvd2.setReleaseDate(releaseDate);
         dvd2.setStudio("studio2");
         dvd2.setTitle("title2 ");
         dvd2.setUserNotes("notes2");
@@ -89,7 +93,8 @@ public class DVDLibraryDaoTest {
         DVDLibrary dvd = new DVDLibrary("title1");
         dvd.setDirectorName("Director 1");
         dvd.setMPAARating("rating1");
-        dvd.setReleaseDate("release date1");
+        LocalDate releaseDate = LocalDate.parse("2015-01-01");
+        dvd.setReleaseDate(releaseDate);
         dvd.setStudio("studio1");
         dvd.setTitle("title1 ");
         dvd.setUserNotes("notes1");
@@ -99,7 +104,8 @@ public class DVDLibraryDaoTest {
         DVDLibrary dvd2 = new DVDLibrary("title12");
         dvd2.setDirectorName("Director 2");
         dvd2.setMPAARating("rating2");
-        dvd2.setReleaseDate("release date2");
+        releaseDate = LocalDate.parse("2018-01-01");
+        dvd2.setReleaseDate(releaseDate);
         dvd2.setStudio("studio2");
         dvd2.setTitle("title2 ");
         dvd2.setUserNotes("notes2");

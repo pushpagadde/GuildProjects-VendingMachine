@@ -6,6 +6,7 @@
 package com.sg.dvdlibrary.dao;
 
 import com.sg.dvdlibrary.dto.DVDLibrary;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,8 @@ public class DVDLibraryDaoStubImpl implements DVDLibraryDao{
 
     public DVDLibraryDaoStubImpl() {
         onlyDVD = new DVDLibrary("Title1");
-        onlyDVD.setReleaseDate("Release Date");
+        LocalDate releaseDate = LocalDate.parse("2015-01-01");
+        onlyDVD.setReleaseDate(releaseDate);
         onlyDVD.setMPAARating("Rating");
         onlyDVD.setDirectorName("Director name");
         onlyDVD.setStudio("Studio");
@@ -50,7 +52,8 @@ public class DVDLibraryDaoStubImpl implements DVDLibraryDao{
         if(title.equalsIgnoreCase(onlyDVD.getTitle())) {
             switch(newKey) {
                 case 1:
-                    onlyDVD.setReleaseDate(newValue);
+                    LocalDate newDate = LocalDate.parse(newValue);
+                    onlyDVD.setReleaseDate(newDate);
                     break;
                 case 2:
                     onlyDVD.setMPAARating(newValue);

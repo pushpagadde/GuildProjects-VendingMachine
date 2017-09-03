@@ -10,6 +10,7 @@ import com.sg.dvdlibrary.dao.DVDLibraryAuditDaoStubImpl;
 import com.sg.dvdlibrary.dao.DVDLibraryDao;
 import com.sg.dvdlibrary.dao.DVDLibraryDaoStubImpl;
 import com.sg.dvdlibrary.dto.DVDLibrary;
+import java.time.LocalDate;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
@@ -57,7 +58,8 @@ public class DVDLibraryServiceLayerTest {
         DVDLibrary dvd = new DVDLibrary("Title2");
         dvd.setDirectorName("Director name 2");
         dvd.setMPAARating("Rating 2");
-        dvd.setReleaseDate("Release Date 2");
+        LocalDate releaseDate = LocalDate.parse("2015-01-01");
+        dvd.setReleaseDate(releaseDate);
         dvd.setStudio("Studio 2");
         dvd.setUserNotes("Notes 2");
         service.createDVD(dvd);
@@ -68,7 +70,8 @@ public class DVDLibraryServiceLayerTest {
         DVDLibrary dvd = new DVDLibrary("Title1");
         dvd.setDirectorName("Director name 1");
         dvd.setMPAARating("Rating 1");
-        dvd.setReleaseDate("Release Date 1");
+        LocalDate releaseDate = LocalDate.parse("2018-01-01");
+        dvd.setReleaseDate(releaseDate);
         dvd.setStudio("Studio 1");
         dvd.setUserNotes("Notes 1");
         try {
@@ -84,7 +87,8 @@ public class DVDLibraryServiceLayerTest {
         DVDLibrary dvd = new DVDLibrary("Title2");
         dvd.setDirectorName("");
         dvd.setMPAARating("Rating 2");
-        dvd.setReleaseDate("Release Date 2");
+        LocalDate releaseDate = LocalDate.parse("2015-01-01");
+        dvd.setReleaseDate(releaseDate);
         dvd.setStudio("Studio 2");
         dvd.setUserNotes("Notes 2");
         try {

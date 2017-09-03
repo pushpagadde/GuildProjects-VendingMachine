@@ -20,5 +20,5 @@ public interface DVDLibraryServiceLayer {
     DVDLibrary editDVD (String title, int editKey, String newValue) throws DVDLibraryPersistenceException, DVDLibraryDataValidationException, DVDLibraryDaoException;
     List<DVDLibrary> getAllDVD () throws DVDLibraryPersistenceException, DVDLibraryDVDNotFoundException,DVDLibraryDaoException;
     DVDLibrary getDVDInfo(String title) throws DVDLibraryPersistenceException, DVDLibraryDVDNotFoundException,DVDLibraryDaoException;
-    List<String> getAllTitles() throws DVDLibraryPersistenceException, DVDLibraryDVDNotFoundException,DVDLibraryDaoException;
+    List<String> getAllTitles() throws DVDEmptyLibraryException, DVDLibraryPersistenceException, DVDLibraryDVDNotFoundException,DVDLibraryDaoException;
 }

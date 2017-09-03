@@ -9,6 +9,7 @@ import com.sg.dvdlibrary.dao.DVDLibraryAuditDao;
 import com.sg.dvdlibrary.dao.DVDLibraryDao;
 import com.sg.dvdlibrary.dao.DVDLibraryDaoException;
 import com.sg.dvdlibrary.dto.DVDLibrary;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -65,18 +66,26 @@ public class DVDLibraryServiceLayerImpl implements DVDLibraryServiceLayer {
     }
 
     @Override
-    public List<String> getAllTitles() throws DVDLibraryPersistenceException, DVDLibraryDVDNotFoundException,DVDLibraryDaoException {
-        return dao.getAllTitles();
+    public List<String> getAllTitles() throws DVDEmptyLibraryException, DVDLibraryPersistenceException, DVDLibraryDVDNotFoundException, DVDLibraryDaoException {
+        
+        if(dao.getAllTitles() != null) {
+            return dao.getAllTitles();
+        } else {
+            throw new DVDEmptyLibraryException("0 Records. Nothing to show");
+        }
     }
     
     private void validateDVDInfo(DVDLibrary dvd) throws DVDLibraryDataValidationException {
+        String sReleaseDate = dvd.getReleaseDate().toString();
         if(dvd.getDirectorName() == null        || dvd.getDirectorName().trim().length() == 0 
                 || dvd.getMPAARating() == null  || dvd.getMPAARating().trim().length() == 0 
-                || dvd.getReleaseDate() == null || dvd.getReleaseDate().trim().length() == 0 
+                || sReleaseDate == null         || sReleaseDate.trim().length() == 0 
                 || dvd.getStudio() == null      || dvd.getStudio().trim().length() == 0 
                 || dvd.getTitle() == null       || dvd.getTitle().trim().length() == 0 
                 || dvd.getUserNotes() == null   || dvd.getUserNotes().trim().length() == 0 ){
             throw new DVDLibraryDataValidationException ( "Error: Key all fields.");
         }
     }
+    
+    
 }

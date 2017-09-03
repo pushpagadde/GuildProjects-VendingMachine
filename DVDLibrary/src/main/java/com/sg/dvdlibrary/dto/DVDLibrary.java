@@ -5,6 +5,7 @@
  */
 package com.sg.dvdlibrary.dto;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -13,7 +14,8 @@ import java.util.Objects;
  */
 public class DVDLibrary {
     private String title;
-    private String releaseDate;
+    //private String releaseDate;
+    private LocalDate releaseDate = LocalDate.now();
     private String MPAARating;
     private String directorName;
     private String studio;
@@ -28,10 +30,10 @@ public class DVDLibrary {
     public void setTitle(String title) {
         this.title = title;
     }
-    public String getReleaseDate() {
+    public LocalDate getReleaseDate() {
         return releaseDate;
     }
-    public void setReleaseDate(String releaseDate) {
+    public void setReleaseDate(LocalDate releaseDate) {
         this.releaseDate = releaseDate;
     }
     public String getMPAARating() {

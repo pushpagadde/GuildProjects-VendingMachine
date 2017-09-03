@@ -7,6 +7,7 @@ package com.sg.dvdlibrary.ui;
 
 import com.sg.dvdlibrary.dto.DVDLibrary;
 import com.sg.dvdlibrary.exception.DVDNotFoundException;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -37,13 +38,30 @@ public class DVDLibraryView {
     public DVDLibrary getDVDInfo() {
         io.print("Enter new DVD Details");
         String title = io.readString("Enter title of DVD");
-        String releaseDate = io.readString("Enter Release Date");
+        
+        boolean invalidDate = true;
+        LocalDate releaseDateField = null;
+        String releaseDate = null;
+        do {
+            releaseDate = io.readString("Enter Release Date");
+            try{
+                releaseDateField = LocalDate.parse(releaseDate);
+            }catch (java.lang.Exception e){
+                System.out.println("print"+e);
+                continue;
+            }
+            invalidDate = validateDate(releaseDateField);
+            if(invalidDate) {
+                System.out.println("Entered date should not be after today's date.");
+            }
+        }while(invalidDate);
+        
         String rating = io.readString("Enter MPAA rating");
         String directorName = io.readString("Enter Directors name");
         String studio = io.readString("Enter name of Studio");
         String userNotes = io.readString("Enter user notes");
         DVDLibrary currentDVD = new DVDLibrary(title);
-        currentDVD.setReleaseDate(releaseDate);
+        currentDVD.setReleaseDate(releaseDateField);
         currentDVD.setMPAARating(rating);
         currentDVD.setDirectorName(directorName);
         currentDVD.setStudio(studio);
@@ -51,6 +69,15 @@ public class DVDLibraryView {
         io.print("New DVD added to Library");
         return currentDVD;
     }
+    
+    private boolean validateDate(LocalDate releaseDate) {
+        if(releaseDate.isBefore(LocalDate.now())) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
     public String getTitleChoice(String action) {
         return io.readString("Enter title " + action);
     }
