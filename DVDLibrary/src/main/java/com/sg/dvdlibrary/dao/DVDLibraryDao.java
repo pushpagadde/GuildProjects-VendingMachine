@@ -19,4 +19,13 @@ public interface DVDLibraryDao {
     List<DVDLibrary> getAllDVD() throws DVDLibraryDaoException;
     DVDLibrary getDVDInfo(String title) throws DVDLibraryDaoException;
     List<String> getAllTitles() throws DVDLibraryDaoException;
+    
+    //lambdas,streams, aggregates
+    List<DVDLibrary> getAllDVDByDirector(String director);
+    List<DVDLibrary> getAllDVDByStudio(String studio);
+    List<DVDLibrary> getAllDVDByRating(String rating);
+    List<DVDLibrary> getAllDVDReleasedIn(int numberOfYears);
+    DVDLibrary getOldestDVD();
+    DVDLibrary getNewestDVD();
+    
 }

@@ -6,6 +6,7 @@
 package com.sg.dvdlibrary.dto;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 
 /**
@@ -106,4 +107,8 @@ public class DVDLibrary {
         return true;
     }
     
+    public long getDVDAge() {
+        Period p = releaseDate.until(LocalDate.now());
+        return p.getYears();
+    }
 }

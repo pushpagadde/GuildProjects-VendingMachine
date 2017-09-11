@@ -15,27 +15,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
-/**
- *
- * @author apprentice
- */
 public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
     private Map<String, DVDLibrary> DVDCollection = new HashMap<>();
     public static final String DVDLIBRARYFILENAME = "DVDLibrary.txt";
     public static final String DELIMITER = "::";
     
-    /**
-     * 
-     * @param title
-     * @param dvd
-     * @return DVDLibrary
-     * @throws DVDLibraryDaoException
-     */
     @Override
     public DVDLibrary addDVD(String title, DVDLibrary dvd) throws DVDLibraryDaoException {
         DVDLibrary newDVD = DVDCollection.put(title, dvd);
@@ -43,12 +34,6 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
         return newDVD;
     }
 
-    /**
-     *
-     * @param title
-     * @return
-     * @throws DVDLibraryDaoException
-     */
     @Override
     public DVDLibrary removeDVD(String title) throws DVDLibraryDaoException {
         DVDLibrary removedDVD = DVDCollection.remove(title);
@@ -56,14 +41,6 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
         return removedDVD;
     }
 
-    /**
-     *
-     * @param title
-     * @param changeFieldInt
-     * @param changeFieldValue
-     * @return
-     * @throws DVDLibraryDaoException
-     */
     @Override
     public DVDLibrary editDVD(String title, int changeFieldInt, String changeFieldValue) throws DVDLibraryDaoException {
         DVDLibrary editDVD = DVDCollection.get(title);
@@ -99,34 +76,18 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
         return editDVD;
     }
 
-    /**
-     *
-     * @return
-     * @throws DVDLibraryDaoException
-     */
     @Override
     public List<DVDLibrary> getAllDVD()throws DVDLibraryDaoException{
         loadDVDLibraryFromFile();
         return new ArrayList<>(DVDCollection.values());
     }
 
-    /**
-     *
-     * @param title
-     * @return
-     * @throws DVDLibraryDaoException
-     */
     @Override
     public DVDLibrary getDVDInfo(String title) throws DVDLibraryDaoException{
         loadDVDLibraryFromFile();
         return DVDCollection.get(title);
     }
 
-    /**
-     *
-     * @return
-     * @throws DVDLibraryDaoException
-     */
     @Override
     public List getAllTitles() throws DVDLibraryDaoException {
         loadDVDLibraryFromFile();
@@ -176,5 +137,47 @@ public class DVDLibraryDaoFileImpl implements DVDLibraryDao {
             out.flush();
         }
         out.close();
+    }
+
+    @Override
+    public List<DVDLibrary> getAllDVDByDirector(String director) {
+        return DVDCollection.values().stream()
+                            .filter(dvd -> dvd.getDirectorName().equalsIgnoreCase(director))
+                            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DVDLibrary> getAllDVDByStudio(String studio) {
+        return DVDCollection.values().stream()
+                            .filter(dvd -> dvd.getStudio().equalsIgnoreCase(studio))
+                            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DVDLibrary> getAllDVDByRating(String rating) {
+        return DVDCollection.values().stream()
+                            .filter(dvd -> dvd.getMPAARating().equalsIgnoreCase(rating))
+                            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<DVDLibrary> getAllDVDReleasedIn(int numberOfYears) {
+        return DVDCollection.values().stream()
+                            .filter(dvd -> dvd.getDVDAge() < numberOfYears)
+                            .collect(Collectors.toList());
+    }
+    
+    @Override
+    public DVDLibrary getOldestDVD() {
+        return DVDCollection.values().stream()
+                            .max(Comparator.comparing(dvd -> dvd.getDVDAge()))
+                            .get();
+    }
+
+    @Override
+    public DVDLibrary getNewestDVD() {
+        return DVDCollection.values().stream()
+                            .min(Comparator.comparing(dvd -> dvd.getDVDAge()))
+                            .get();
     }
 }

@@ -96,4 +96,34 @@ public class DVDLibraryDaoStubImpl implements DVDLibraryDao{
         titlesList.add(onlyDVD.getTitle());
         return titlesList;
     }
+
+    @Override
+    public List<DVDLibrary> getAllDVDByDirector(String director) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<DVDLibrary> getAllDVDByStudio(String studio) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<DVDLibrary> getAllDVDByRating(String rating) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<DVDLibrary> getAllDVDReleasedIn(int numberOfYears) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public DVDLibrary getOldestDVD() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public DVDLibrary getNewestDVD() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
