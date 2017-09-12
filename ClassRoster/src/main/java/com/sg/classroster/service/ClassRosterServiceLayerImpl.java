@@ -28,31 +28,31 @@ public class ClassRosterServiceLayerImpl implements ClassRosterServiceLayer{
         ClassRosterDataValidationException, 
         ClassRosterPersistenceException {
 
-    // First check to see if there is alreay a student 
-    // associated with the given student's id
-    // If so, we're all done here - 
-    // throw a ClassRosterDuplicateIdException
-    if (dao.getStudent(student.getStudentId()) != null) {
-        throw new ClassRosterDuplicateIdException(
-                "ERROR: Could not create student.  Student Id "
-                + student.getStudentId()
-                + " already exists");
+        // First check to see if there is alreay a student 
+        // associated with the given student's id
+        // If so, we're all done here - 
+        // throw a ClassRosterDuplicateIdException
+        if (dao.getStudent(student.getStudentId()) != null) {
+            throw new ClassRosterDuplicateIdException(
+                    "ERROR: Could not create student.  Student Id "
+                    + student.getStudentId()
+                    + " already exists");
+        }
+
+        // Now validate all the fields on the given Student object.  
+        // This method will throw an
+        // exception if any of the validation rules are violated.
+        validateStudentData(student);
+
+        // We passed all our business rules checks so go ahead 
+        // and persist the Student object
+        dao.addStudent(student.getStudentId(), student);
+
+        // The student was successfully created, now write to the audit log
+        auditDao.writeAuditEntry(
+                "Student " + student.getStudentId() + " CREATED.");
+
     }
-
-    // Now validate all the fields on the given Student object.  
-    // This method will throw an
-    // exception if any of the validation rules are violated.
-    validateStudentData(student);
-
-    // We passed all our business rules checks so go ahead 
-    // and persist the Student object
-    dao.addStudent(student.getStudentId(), student);
-
-    // The student was successfully created, now write to the audit log
-    auditDao.writeAuditEntry(
-            "Student " + student.getStudentId() + " CREATED.");
-
-}
 
     /**
      *
