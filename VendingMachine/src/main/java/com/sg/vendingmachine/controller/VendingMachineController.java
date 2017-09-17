@@ -9,7 +9,6 @@ import com.sg.vendingmachine.dao.VendingMachineDAOFileImpl;
 import com.sg.vendingmachine.dao.VendingMachineDaoException;
 import com.sg.vendingmachine.dto.VendingMachineItem;
 import com.sg.vendingmachine.service.VendingMachineServiceLayer;
-import com.sg.vendingmachine.service.VendingMachineServiceLayerImpl;
 import com.sg.vendingmachine.ui.UserIO;
 import com.sg.vendingmachine.ui.UserIOConsoleImpl;
 import com.sg.vendingmachine.ui.VendingMachineView;

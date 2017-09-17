@@ -81,12 +81,8 @@ public class DVDLibraryController {
         view.unknownCommand();
     }
     private void addDVD() throws DVDLibraryDaoException{
-        int count;
-        count = view.getCount(" add");
-        for(int c=0; c<count; c++) {
-            DVDLibrary newDVD = view.getDVDInfo();
-            dao.addDVD(newDVD.getTitle(), newDVD);
-        }
+        DVDLibrary newDVD = view.getDVDInfo();
+        dao.addDVD(newDVD.getTitle(), newDVD);
     }
     private void removeDVD()throws DVDLibraryDaoException {
         int count;
