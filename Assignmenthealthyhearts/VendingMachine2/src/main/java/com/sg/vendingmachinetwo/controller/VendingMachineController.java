@@ -34,11 +34,10 @@ public class VendingMachineController {
                              VendingMachineItemNotFoundException,
                              VendingMachineInsufficientFundsException {
         System.out.println("Test");
-       boolean keepGoing = true;
+        boolean keepGoing = true;
         int menuSelection ;
         while (keepGoing) {
             menuSelection = printMenuAndGetSelection();
-            
             switch(menuSelection) {
                 case 1: 
                     addItem();
@@ -76,7 +75,6 @@ public class VendingMachineController {
     
     private void addItem() throws VendingMachineFileNotFoundException,
                                   VendingMachineDuplicateItemException {
-        
         boolean duplicateItem = false;
         do {
             Item newItem = view.getItemInfo(service.getLastItemNumber()+1);
@@ -93,11 +91,9 @@ public class VendingMachineController {
     
     private void removeItem() throws VendingMachineFileNotFoundException,
                                      VendingMachineItemNotFoundException {
-        int deleteItem;
         listAllItems();
-        deleteItem = view.getItemNumber("Enter the item number to remove...");
         try {
-            service.removeItem(deleteItem);
+            service.removeItem(view.getItemNumber());
         } catch (Exception ex) {
             view.displayErrorMessage(ex.getMessage());
         }
@@ -106,12 +102,12 @@ public class VendingMachineController {
     
     private void editItemInventory() throws VendingMachineFileNotFoundException,
                                             VendingMachineItemNotFoundException{
-        int editItem, newInventory;
+        int newInventory, editItem;
         Item returnItem;
         boolean invalidItemNumber = true;
         do {
             listAllItemsForNewInventory();
-            editItem = view.getItemNumber("Enter the item number to edit...");
+            editItem = view.getItemNumber();
             newInventory = view.getItemInventory();
             try {
                 returnItem = service.editItem(editItem, newInventory);
@@ -126,8 +122,40 @@ public class VendingMachineController {
                 invalidItemNumber = false;
             }    
         } while (invalidItemNumber);
-        
         listAllItems();
+    }
+    
+    private void buyItem() throws VendingMachineFileNotFoundException,
+                                  VendingMachineItemNotFoundException,
+                                  VendingMachineInsufficientFundsException {
+        boolean wrongEntry = true, wrongItem = true;
+        Change changeInCoins;
+        List<Item> itemList = service.getAllItems();
+        double userMoney = view.getUserMoney();
+        do {
+            view.displayAllItems(itemList);
+            int itemNumber = view.getItemNumber();
+            try{
+                service.validateItemSelection(itemNumber);
+                wrongItem = false;
+                do {
+                    try {
+                        changeInCoins = service.editItemInventoryGetChange(itemNumber, userMoney);
+                        view.printChange(changeInCoins);
+                        wrongEntry = false;
+                    } catch (Exception ex) {
+                        wrongEntry = true;
+                        view.displayErrorMessage(ex.getMessage());
+                    }
+                    if(wrongEntry) {
+                        userMoney = view.getUserMoney();
+                    }
+                }while(wrongEntry);
+            } catch (Exception ex) {
+                wrongItem = true;
+                view.displayErrorMessage(ex.getMessage());
+            }
+        } while (wrongItem);
     }
     
     private void listAllItems() throws VendingMachineFileNotFoundException{
@@ -148,32 +176,5 @@ public class VendingMachineController {
             view.displayErrorMessage(ex.getMessage());
         }
         view.displayItem("");
-    }
-    
-    private void buyItem() throws VendingMachineFileNotFoundException,
-                                  VendingMachineItemNotFoundException,
-                                  VendingMachineInsufficientFundsException {
-        boolean wrongEntry = true;
-        Change changeInCoins;
-        do {
-            double userMoney = view.getUserMoney();
-            try {
-                List<Item> itemList = service.getAllItems();
-                view.displayAllItems(itemList);
-                int itemNumber = view.getItemNumber("Enter the item number to buy...");
-                wrongEntry = false;
-                try {
-                   changeInCoins = service.editItemInventoryGetChange(itemNumber, userMoney);
-                    view.printChange(changeInCoins);
-                    wrongEntry = false;
-                } catch (Exception ex) {
-                    wrongEntry = true;
-                    view.displayErrorMessage(ex.getMessage());
-                }
-            } catch (Exception ex) {
-                wrongEntry = true;
-                view.displayErrorMessage(ex.getMessage());
-            }
-        } while (wrongEntry);
     }
 }

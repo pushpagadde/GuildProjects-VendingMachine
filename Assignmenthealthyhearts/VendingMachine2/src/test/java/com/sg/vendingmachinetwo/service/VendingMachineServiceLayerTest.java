@@ -7,10 +7,9 @@ package com.sg.vendingmachinetwo.service;
 
 import com.sg.vendingmachinetwo.dao.VendingMachineDao;
 import com.sg.vendingmachinetwo.dao.VendingMachineDaoStubImpl;
+import com.sg.vendingmachinetwo.dao.VendingMachineFileNotFoundException;
 import com.sg.vendingmachinetwo.dto.Item;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
@@ -49,12 +48,14 @@ public class VendingMachineServiceLayerTest {
     }
 
     @Test
-    public void testAddItem() throws Exception {
+    public void testAddAndGetItem() throws Exception {
         Item item = new Item(2);
         item.setInventory(10);
         item.setItemName("kitkat");
         item.setPrice(BigDecimal.valueOf(1.00));
         service.addItem(2, item);
+        assertEquals(item.getItemNumber(),2);
+        assertEquals(service.getLastItemNumber(), 2);
     }
     
     @Test
@@ -74,7 +75,9 @@ public class VendingMachineServiceLayerTest {
     @Test
     public void testInsufficientFunds() throws Exception {
         try {
-            service.editItemInventoryGetChange(1, 1.00);
+            service.editItemInventoryGetChange(1, 0.90);
+            //assertFail()
+            fail("Expected vendingMachineInsufficientFundsException was not thrown");
         }catch(VendingMachineInsufficientFundsException insFund){
             return;
         }
@@ -83,8 +86,9 @@ public class VendingMachineServiceLayerTest {
     @Test
     public void testInvalidItemSelection() throws Exception{
         try {
-            service.getItemInfo("Item 2");
-        } catch(VendingMachineItemNotFoundException e){
+            service.getItemInfo(null);
+            fail("Expected VendingMachineFileNotFoundException was not thrown");
+        } catch(VendingMachineFileNotFoundException e){
             return;
         }
     }

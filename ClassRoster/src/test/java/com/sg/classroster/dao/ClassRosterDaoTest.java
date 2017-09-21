@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  * @author apprentice
  */
 public class ClassRosterDaoTest {
-    private ClassRosterDao dao = new ClassRosterDaoFileImpl();
+    private ClassRosterDao dao = new ClassRosterDaoStubImpl();
     
     public ClassRosterDaoTest() {
     }

@@ -18,6 +18,9 @@ import java.util.List;
  */
 public class VendingMachineServiceLayerImpl implements VendingMachineServiceLayer {
     VendingMachineDao dao;
+    double totalUserMoney = 0;
+    int count = 0;
+        
 
     public VendingMachineServiceLayerImpl(VendingMachineDao dao) {
         this.dao = dao;
@@ -64,10 +67,22 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
     }
     
     @Override
+    public void validateItemSelection(int itemNumber) 
+            throws VendingMachineItemNotFoundException,
+                   VendingMachineFileNotFoundException {
+        Item item = dao.getItem(itemNumber);
+        if (item.getInventory() < 1) {
+            throw new VendingMachineItemNotFoundException("Not valid item selection. Enter from list above.");
+        }
+    }
+    
+    @Override
     public Change editItemInventoryGetChange(int itemNumber, double userMoney)
             throws VendingMachineFileNotFoundException,
                    VendingMachineItemNotFoundException,
                    VendingMachineInsufficientFundsException {
+        totalUserMoney = totalUserMoney + userMoney;
+        System.out.println("total user money=" + totalUserMoney);
         List<Integer> keys = dao.getKeySet();
         Item item;
         if(keys.contains(itemNumber)) {
@@ -75,13 +90,17 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
         } else {
             throw new VendingMachineItemNotFoundException("Not valid item selection. Enter from list above.");
         }
-        if( item.getPrice().compareTo(BigDecimal.valueOf(userMoney)) > 0 ) {
+        
+        if( item.getPrice().compareTo(BigDecimal.valueOf(totalUserMoney)) > 0 ) {
             String message;
-            double difference = item.getPrice().doubleValue() - userMoney;
+            double difference = item.getPrice().doubleValue() - totalUserMoney;
             message = "Not valid amount. Enter " + String.format( "%.2f",difference) + " more. The price of item is " + item.getPrice();
+            count = count + 1;
             throw new VendingMachineInsufficientFundsException(message);
         }
         dao.editItemInventory(itemNumber );
+        userMoney = totalUserMoney;
+        totalUserMoney = 0;
         return returnchange(item.getPrice().subtract(BigDecimal.valueOf(userMoney)));
     }
     

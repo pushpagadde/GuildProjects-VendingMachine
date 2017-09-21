@@ -75,7 +75,7 @@ public class VendingMachineView {
     public void displayAllItems(List<Item> itemList ){
         displayTopBanner();
         for(Item currentItem : itemList) {
-            if (currentItem.getInventory() != 0){
+            if (currentItem.getInventory() > 0){
                 io.print(currentItem.getItemNumber()+"  "+currentItem.getItemName()+"        "+currentItem.getPrice()+"    "+currentItem.getInventory());
             }
         }
@@ -94,8 +94,8 @@ public class VendingMachineView {
         return io.readInt("Enter new Inventory for selected item");
     }
     
-    public int getItemNumber(String prompt){
-        return io.readInt(prompt);
+    public int getItemNumber(){
+        return io.readInt("Enter the item number:");
     }
     
     public void displayErrorMessage(String errorMsg) {

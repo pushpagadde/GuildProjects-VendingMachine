@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
  */
 public class VendingMachineDaoTest {
     
-    private VendingMachineDao dao = new VendingMachineDaoFileImpl();
+    private VendingMachineDao dao = new VendingMachineDaoFileImpl("VendingMachine2Test.txt");
     
     
     public VendingMachineDaoTest() {
@@ -78,7 +78,6 @@ public class VendingMachineDaoTest {
         dao.removeItem(1);
         assertEquals(dao.getAllItems().size(),0);
         assertNull(dao.getItem(1));
-        
     }
 
     /**

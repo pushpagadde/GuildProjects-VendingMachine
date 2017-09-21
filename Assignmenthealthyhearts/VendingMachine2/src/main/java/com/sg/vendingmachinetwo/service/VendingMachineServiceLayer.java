@@ -28,5 +28,7 @@ public interface VendingMachineServiceLayer {
             throws VendingMachineFileNotFoundException, 
                    VendingMachineItemNotFoundException,
                    VendingMachineInsufficientFundsException;
-
+    void validateItemSelection(int itemNumber) throws VendingMachineItemNotFoundException,
+                                                      VendingMachineFileNotFoundException;
+    
 }

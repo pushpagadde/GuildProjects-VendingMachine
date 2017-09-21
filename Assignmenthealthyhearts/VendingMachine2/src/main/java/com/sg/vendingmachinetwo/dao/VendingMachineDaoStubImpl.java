@@ -57,7 +57,9 @@ public class VendingMachineDaoStubImpl implements VendingMachineDao {
     }
     
     public Item getItemInfo(String title) throws VendingMachineFileNotFoundException{
-        if(item.getItemName().equalsIgnoreCase(title)) {
+        if (title == null){
+            throw new VendingMachineFileNotFoundException("File Not Found");
+        } else if(item.getItemName().equalsIgnoreCase(title)) {
             return item;
         } else {
             return null;

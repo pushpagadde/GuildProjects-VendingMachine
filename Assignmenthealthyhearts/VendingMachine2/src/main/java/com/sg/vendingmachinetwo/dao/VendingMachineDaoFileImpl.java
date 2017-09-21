@@ -25,10 +25,11 @@ import java.util.Scanner;
  */
 public class VendingMachineDaoFileImpl implements VendingMachineDao {    
     private Map<String, Item> vendingMachineItemsMap;
-    public static final String VENDINGMACHINEFILENAME = "VendingMachine2.txt";
+    private String vendingMachineFileName = "VendingMachine2.txt";
     public static final String DELIMITER = "::";
     
-    public VendingMachineDaoFileImpl(){
+    public VendingMachineDaoFileImpl(String fileName){
+        vendingMachineFileName = fileName;
         vendingMachineItemsMap = new HashMap<>();
     }
     
@@ -83,9 +84,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
     public Item getItemInfo(String itemName) throws VendingMachineFileNotFoundException{
         loadItemsFromFile();
         List<Item> itemList = this.getAllItems();
-        System.out.println("new item "+ itemName);
         for(Item currentItem : itemList) {
-            System.out.println("in inventory " + currentItem.getItemName());
             if (currentItem.getItemName().equalsIgnoreCase(itemName)){
                 return currentItem;
             }
@@ -108,7 +107,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
     private void loadItemsFromFile() throws VendingMachineFileNotFoundException {
         Scanner scanner;
         try {
-            scanner = new Scanner(new BufferedReader(new FileReader(VENDINGMACHINEFILENAME)));
+            scanner = new Scanner(new BufferedReader(new FileReader(vendingMachineFileName)));
         } catch(FileNotFoundException  e) {
             throw new VendingMachineFileNotFoundException ("Could not load data into memory", e);
         }
@@ -129,7 +128,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
     private void writeToFile() throws VendingMachineFileNotFoundException {
         PrintWriter out;
         try {
-            out = new PrintWriter(new FileWriter(VENDINGMACHINEFILENAME));
+            out = new PrintWriter(new FileWriter(vendingMachineFileName));
         } catch (IOException e) {
             throw new VendingMachineFileNotFoundException("Could not save data", e);
         }
