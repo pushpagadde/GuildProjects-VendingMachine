@@ -17,6 +17,8 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -27,8 +29,10 @@ public class VendingMachineServiceLayerTest {
     private VendingMachineServiceLayer service;
         
     public VendingMachineServiceLayerTest() {
-        VendingMachineDao dao = new VendingMachineDaoStubImpl();
-        service = new VendingMachineServiceLayerImpl(dao);
+        //VendingMachineDao dao = new VendingMachineDaoStubImpl();
+        //service = new VendingMachineServiceLayerImpl(dao);
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+        service = ctx.getBean("serviceLayer", VendingMachineServiceLayer.class);
     }
     
     @BeforeClass

@@ -17,6 +17,8 @@ import com.sg.vendingmachinetwo.service.VendingMachineServiceLayerImpl;
 import com.sg.vendingmachinetwo.ui.UserIO;
 import com.sg.vendingmachinetwo.ui.UserIOImpl;
 import com.sg.vendingmachinetwo.ui.VendingMachineView;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -29,11 +31,15 @@ public class App {
                                                   VendingMachineItemNotFoundException,
                                                   VendingMachineInsufficientFundsException
                                                   {
-        UserIO myIo = new UserIOImpl();
+        /*UserIO myIo = new UserIOImpl();
         VendingMachineView myView = new VendingMachineView(myIo);
-        VendingMachineDao myDao = new VendingMachineDaoFileImpl("VendingMachine2.txt");
+        VendingMachineDao myDao = new VendingMachineDaoFileImpl();
         VendingMachineServiceLayer myService = new VendingMachineServiceLayerImpl(myDao);
         VendingMachineController controller = new VendingMachineController(myService, myView);
+        controller.run();*/
+        
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+        VendingMachineController controller = ctx.getBean("controller", VendingMachineController.class);
         controller.run();
     }
 }

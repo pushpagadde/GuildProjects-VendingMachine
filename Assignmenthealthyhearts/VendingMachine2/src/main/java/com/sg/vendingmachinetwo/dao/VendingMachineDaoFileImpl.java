@@ -29,8 +29,8 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
     private String vendingMachineFileName = "VendingMachine2.txt";
     public static final String DELIMITER = "::";
     
-    public VendingMachineDaoFileImpl(String fileName){
-        vendingMachineFileName = fileName;
+    public VendingMachineDaoFileImpl(){
+        //vendingMachineFileName = fileName;
         vendingMachineItemsMap = new HashMap<>();
     }
     

@@ -18,6 +18,11 @@ public class Item {
     private BigDecimal price;
     private int inventory;
 
+    @Override
+    public String toString() {
+        return "item Number: " + itemNumber + " | Item Name:" + itemName + " | Price:" + price + " | Inventory:" + inventory;
+    }
+    
     public Item(int itemNumber) {
         this.itemNumber = itemNumber;
     }

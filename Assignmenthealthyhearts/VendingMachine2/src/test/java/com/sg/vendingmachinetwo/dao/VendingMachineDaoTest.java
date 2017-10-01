@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
  */
 public class VendingMachineDaoTest {
     
-    private VendingMachineDao dao = new VendingMachineDaoFileImpl("VendingMachine2Test.txt");
+    private VendingMachineDao dao = new VendingMachineDaoFileImpl();
     
     
     public VendingMachineDaoTest() {

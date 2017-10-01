@@ -5,6 +5,7 @@
  */
 package com.sg.vendingmachinetwo.service;
 
+import com.sg.vendingmachinetwo.dao.VendingMachineAuditDao;
 import com.sg.vendingmachinetwo.dao.VendingMachineDao;
 import com.sg.vendingmachinetwo.dao.VendingMachineFileNotFoundException;
 import com.sg.vendingmachinetwo.dto.Item;
@@ -18,11 +19,13 @@ import java.util.List;
  */
 public class VendingMachineServiceLayerImpl implements VendingMachineServiceLayer {
     VendingMachineDao dao;
+    VendingMachineAuditDao auditDao;
     double totalUserMoney = 0;
     int count = 0;
 
-    public VendingMachineServiceLayerImpl(VendingMachineDao dao) {
+    public VendingMachineServiceLayerImpl(VendingMachineDao dao, VendingMachineAuditDao auditDao) {
         this.dao = dao;
+        this.auditDao = auditDao;
     }
        
     @Override
@@ -32,6 +35,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             throw new VendingMachineDuplicateItemException("Item already exists in inventory.");
         }
         dao.addItem(itemNumber, item);
+        //auditDao.writeAuditEntry("Item: " + item.getItemName() + " added.");
         return item;
     }   
     
@@ -56,6 +60,8 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
     @Override
     public Item removeItem(int itemNumber) throws VendingMachineFileNotFoundException,
                                                   VendingMachineItemNotFoundException {
+        
+        //auditDao.writeAuditEntry("Item: " + itemNumber + " removed.");
         return dao.removeItem(itemNumber);
     }
     
