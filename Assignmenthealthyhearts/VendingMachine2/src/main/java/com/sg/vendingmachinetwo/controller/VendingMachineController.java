@@ -33,7 +33,6 @@ public class VendingMachineController {
                              VendingMachineDuplicateItemException,
                              VendingMachineItemNotFoundException,
                              VendingMachineInsufficientFundsException {
-        System.out.println("Test");
         boolean keepGoing = true;
         int menuSelection ;
         while (keepGoing) {

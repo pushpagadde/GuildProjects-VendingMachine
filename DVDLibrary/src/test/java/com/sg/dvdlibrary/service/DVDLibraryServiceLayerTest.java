@@ -5,10 +5,6 @@
  */
 package com.sg.dvdlibrary.service;
 
-import com.sg.dvdlibrary.dao.DVDLibraryAuditDao;
-import com.sg.dvdlibrary.dao.DVDLibraryAuditDaoStubImpl;
-import com.sg.dvdlibrary.dao.DVDLibraryDao;
-import com.sg.dvdlibrary.dao.DVDLibraryDaoStubImpl;
 import com.sg.dvdlibrary.dto.DVDLibrary;
 import java.time.LocalDate;
 import org.junit.After;
@@ -20,6 +16,8 @@ import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -29,9 +27,11 @@ public class DVDLibraryServiceLayerTest {
     private DVDLibraryServiceLayer service;
     
     public DVDLibraryServiceLayerTest() {
-        DVDLibraryDao dao = new DVDLibraryDaoStubImpl();
+/*        DVDLibraryDao dao = new DVDLibraryDaoStubImpl();
         DVDLibraryAuditDao auditDao = new DVDLibraryAuditDaoStubImpl();
-        service = new DVDLibraryServiceLayerImpl(dao, auditDao);
+        service = new DVDLibraryServiceLayerImpl(dao, auditDao);*/
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+        service = ctx.getBean("serviceLayer", DVDLibraryServiceLayer.class);
     }
     
     @BeforeClass
@@ -115,9 +115,9 @@ public class DVDLibraryServiceLayerTest {
      */
     @Test
     public void testEditDVD() throws Exception {
-        assertEquals(service.getDVDInfo("Title1").getReleaseDate(), "Release Date");
-        DVDLibrary dvd = service.editDVD("Title1",1,"Release Date 2");
-        assertEquals(dvd.getReleaseDate(),"Release Date 2");
+        assertEquals(service.getDVDInfo("Title1").getReleaseDate(), LocalDate.parse("2015-01-01"));
+        DVDLibrary dvd = service.editDVD("Title1",1,"2015-01-01");
+        assertEquals(dvd.getReleaseDate(),LocalDate.parse("2015-01-01"));
         
         assertEquals(service.getDVDInfo("Title1").getMPAARating(), "Rating");
         dvd = service.editDVD("Title1",2,"Rating 2");

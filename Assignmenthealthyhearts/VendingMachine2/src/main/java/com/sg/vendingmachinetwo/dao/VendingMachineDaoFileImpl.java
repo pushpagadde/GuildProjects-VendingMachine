@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -54,6 +55,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
             keySet.add(currentItem.getItemNumber());
         }
         return keySet;
+        
     }
     //edit the inventory for any item 
     @Override
@@ -77,7 +79,9 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
     @Override
     public List<Item> getAllItems() throws VendingMachineFileNotFoundException {
         loadItemsFromFile();
-        return new ArrayList<Item>(vendingMachineItemsMap.values());
+        //return new ArrayList<Item>(vendingMachineItemsMap.values());
+        return vendingMachineItemsMap.values().stream()
+                                     .collect(Collectors.toList());
     }
 
     @Override

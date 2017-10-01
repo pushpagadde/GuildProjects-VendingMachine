@@ -1,2 +1,5 @@
 2017-08-15T21:56:57.583 : Student id CREATED.
 2017-08-15T21:57:18.313 : Student 1 REMOVED.
+2017-09-30T19:36:15.414 : createStudent: ID: 1 |Name: student 1 |Cohort: 1
+2017-09-30T19:36:57.571 : createStudent: ID: 2 |Name: student2 2 |Cohort: 2
+2017-09-30T19:37:47.084 : removeStudent: 1

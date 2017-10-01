@@ -20,7 +20,6 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
     VendingMachineDao dao;
     double totalUserMoney = 0;
     int count = 0;
-        
 
     public VendingMachineServiceLayerImpl(VendingMachineDao dao) {
         this.dao = dao;
@@ -82,7 +81,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
                    VendingMachineItemNotFoundException,
                    VendingMachineInsufficientFundsException {
         totalUserMoney = totalUserMoney + userMoney;
-        System.out.println("total user money=" + totalUserMoney);
+        //System.out.println("total user money=" + totalUserMoney);
         List<Integer> keys = dao.getKeySet();
         Item item;
         if(keys.contains(itemNumber)) {
@@ -90,7 +89,6 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
         } else {
             throw new VendingMachineItemNotFoundException("Not valid item selection. Enter from list above.");
         }
-        
         if( item.getPrice().compareTo(BigDecimal.valueOf(totalUserMoney)) > 0 ) {
             String message;
             double difference = item.getPrice().doubleValue() - totalUserMoney;
@@ -112,7 +110,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
         double nickel = 5;
         double penny = 1;
         double dollar = 100;
-        List<Integer> chaneList = new ArrayList<Integer>(5);
+        List<Integer> changeList = new ArrayList<Integer>(5);
         Change changeInCoins = new Change();
         
         double totalDollar = (change/dollar);
