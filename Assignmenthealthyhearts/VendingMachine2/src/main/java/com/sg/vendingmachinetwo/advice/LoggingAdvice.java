@@ -19,23 +19,68 @@ public class LoggingAdvice {
     public LoggingAdvice(VendingMachineAuditDao auditDao) {
         this.auditDao = auditDao;
     }
-    
     public void createAuditEntry(JoinPoint jp) {
         Object[] args = jp.getArgs();
-        String auditEntry = jp.getSignature().getName() + ": ";
-        if (args.length > 5) {
-            for (Object currentArg : args) {
-               auditEntry += currentArg;
-            }
+        String auditEntry = jp.getSignature().getName();
+        if (auditEntry.equals("editItem")) {
+            auditEntry += " : Wrong item selection exception thrown.";
+            auditEntry += " Item selected was # " + args[0];// jp.getArgs().toString().substring(1, 1);
+        } else if (auditEntry.equals("editItemInventoryGetChange")) {
+            auditEntry += " : insufficient funds exception thrown.";
+            auditEntry += " Item selected was # " + args[0];// jp.getArgs().toString().substring(1, 1);
+        }else if (auditEntry.equals("validateItemSelection")) {
+            auditEntry += " : invalid item selection exception thrown.";
+            auditEntry += " Item selected was # " + args[0];
         } else {
-            auditEntry += "Exception thrown.";
-        }
-        
+            for (Object currentArg : args) {
+                auditEntry += currentArg;
+            }
+        }    
         try {
             auditDao.writeAuditEntry(auditEntry);
         } catch (VendingMachineFileNotFoundException e) {
-            System.err.println(
-               "ERROR: Could not create audit entry in LoggingAdvice.");
+            System.err.println("ERROR: Could not create audit entry in LoggingAdvice.");
         }
     }
 }
+    /*public void createAuditEntry(JoinPoint jp) {
+        Object[] args = jp.getArgs();
+        String auditEntry = jp.getSignature().getName();
+        //if (auditEntry.equals("editItem")) {
+            //if(args.length < 5) {
+              //  auditEntry += " : Wrong item selection exception thrown.";
+            //} else {
+            for (Object currentArg : args) {
+              auditEntry += currentArg;
+            }
+            try {
+               auditDao.writeAuditEntry(auditEntry);
+            } catch (VendingMachineFileNotFoundException e) {
+                System.err.println("ERROR: Could not create audit entry in LoggingAdvice.");
+            }
+    }
+           // }
+        /*} else if (auditEntry.equals("editItemInventoryGetChange")){
+            if(args.length < 5) {
+                auditEntry += " : wrong item or insufficient funds exception thrown.";
+            } else {
+                for (Object currentArg : args) {
+                   auditEntry += currentArg;
+                }
+            }
+        } else if(auditEntry.equals("validateItemSelection")) {
+            if(args.length < 5) {
+                auditEntry += " : Wrong item selection exception thrown.";
+            } else {
+                for (Object currentArg : args) {
+                   auditEntry += currentArg;
+                }
+            }
+        } else {
+            for (Object currentArg : args) {
+               auditEntry += currentArg;
+            }
+        }*/
+        
+    //}
+//}*/

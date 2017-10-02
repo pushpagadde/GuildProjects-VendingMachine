@@ -42,27 +42,22 @@
             />
             <aop:after-returning
                 method="createAuditEntry"
-                pointcut="execution(* com.sg.vendingmachinetwo.service.VendingMachineServiceLayer.editItem(..))"
+                pointcut="execution(* com.sg.vendingmachinetwo.service.VendingMachineServiceLayer.removeItem(..))"
             />
-            
             <aop:after-throwing
                 method="createAuditEntry"
                 pointcut="execution(* com.sg.vendingmachinetwo.service.VendingMachineServiceLayer.editItem(..))"
             />
-            
-            <aop:after-returning
+            <aop:after-throwing
                 method="createAuditEntry"
-                pointcut="execution(* com.sg.vendingmachinetwo.service.VendingMachineServiceLayer.removeItem(..))"
+                pointcut="execution(* com.sg.vendingmachinetwo.service.VendingMachineServiceLayer.validateItemSelection(..))"
             />
-           <aop:after-throwing
+            <aop:after-throwing
                 method="createAuditEntry"
                 pointcut="execution(* com.sg.vendingmachinetwo.service.VendingMachineServiceLayer.editItemInventoryGetChange(..))" 
-           />
-           
-           <aop:after-returning
-                method="createAuditEntry"
-                pointcut="execution(* com.sg.vendingmachinetwo.service.VendingMachineServiceLayer.editItemInventoryGetChange(..))" 
-           />
+            />
+            
+
            <!-- after throwing advice -->
            <!--
            <aop:after-throwing 

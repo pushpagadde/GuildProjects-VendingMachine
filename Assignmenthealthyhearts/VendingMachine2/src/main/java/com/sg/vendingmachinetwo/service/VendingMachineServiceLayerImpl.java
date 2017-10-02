@@ -76,7 +76,7 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
             throws VendingMachineItemNotFoundException,
                    VendingMachineFileNotFoundException {
         Item item = dao.getItem(itemNumber);
-        if (item.getInventory() < 1) {
+        if (item == null || item.getInventory() < 1) {
             throw new VendingMachineItemNotFoundException("Not valid item selection. Enter from list above.");
         }
     }
@@ -87,14 +87,14 @@ public class VendingMachineServiceLayerImpl implements VendingMachineServiceLaye
                    VendingMachineItemNotFoundException,
                    VendingMachineInsufficientFundsException {
         totalUserMoney = totalUserMoney + userMoney;
-        //System.out.println("total user money=" + totalUserMoney);
         List<Integer> keys = dao.getKeySet();
         Item item;
-        if(keys.contains(itemNumber)) {
-            item = dao.getItem(itemNumber);
+        item = dao.getItem(itemNumber);
+        /*if(keys.contains(itemNumber)) {
+            
         } else {
             throw new VendingMachineItemNotFoundException("Not valid item selection. Enter from list above.");
-        }
+        }*/
         if( item.getPrice().compareTo(BigDecimal.valueOf(totalUserMoney)) > 0 ) {
             String message;
             double difference = item.getPrice().doubleValue() - totalUserMoney;
