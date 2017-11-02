@@ -6,12 +6,9 @@
 package com.sg.flooringmasteryApp;
 
 import com.sg.flooringmastery.controller.FlooringMasteryController;
-import com.sg.flooringmastery.dao.FlooringMasteryDao;
-import com.sg.flooringmastery.dao.FlooringMasteryDaoFileImpl;
 import com.sg.flooringmastery.dao.FlooringMasteryFileNotFoundException;
-import com.sg.flooringmastery.service.FlooringMasteryServiceLayer;
-import com.sg.flooringmastery.service.FlooringMasteryServiceLayerImpl;
-import com.sg.flooringmastery.ui.FlooringMasteryView;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -19,11 +16,8 @@ import com.sg.flooringmastery.ui.FlooringMasteryView;
  */
 public class App {
     public static void main(String[] args) throws FlooringMasteryFileNotFoundException {
-        FlooringMasteryView view = new FlooringMasteryView();
-        FlooringMasteryDao dao = new FlooringMasteryDaoFileImpl();
-        FlooringMasteryServiceLayer service = new FlooringMasteryServiceLayerImpl(dao);
-        FlooringMasteryController controller = new FlooringMasteryController(service, view);
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+        FlooringMasteryController controller = ctx.getBean("controller", FlooringMasteryController.class);
         controller.run();
     }
-    
 }

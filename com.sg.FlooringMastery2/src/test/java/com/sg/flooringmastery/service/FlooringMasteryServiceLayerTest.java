@@ -5,11 +5,7 @@
  */
 package com.sg.flooringmastery.service;
 
-import com.sg.flooringmastery.dao.FlooringMasteryDao;
-import com.sg.flooringmastery.dao.FlooringMasteryDaoStubImpl;
-import com.sg.flooringmastery.dao.FlooringMasteryFileNotFoundException;
 import com.sg.flooringmastery.dto.Order;
-import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -17,6 +13,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  *
@@ -27,8 +25,8 @@ public class FlooringMasteryServiceLayerTest {
     private FlooringMasteryServiceLayer service;
     
     public FlooringMasteryServiceLayerTest() {
-        FlooringMasteryDao dao = new FlooringMasteryDaoStubImpl();
-        service = new FlooringMasteryServiceLayerImpl(dao);
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+        service = ctx.getBean("serviceLayer", FlooringMasteryServiceLayer.class);
     }
     
     @BeforeClass

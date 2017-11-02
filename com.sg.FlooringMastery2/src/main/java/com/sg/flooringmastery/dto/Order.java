@@ -27,44 +27,28 @@ public class Order {
     //order number, customer name, state, tax rate, product type, 
     //area, cost per square foot, labor cost per square foot, 
     //material cost, labor cost, tax, and total
-
+    
+    @Override
+    public String toString() {
+        String fullRecord;
+        fullRecord = "OrderNumber: " + orderNumber + " | ";
+        fullRecord = "Customer Name: " + customerName + " | ";
+        fullRecord = "State :"  + state + " | ";
+        fullRecord = "Tax Rate: " + taxRate + " | ";
+        fullRecord = "Product Type :" + productType + " | ";
+        fullRecord = "Area: " + area + " | ";
+        fullRecord = "Cost per Square Foot: " + costPerSquareFoot + " | ";
+        fullRecord = "Labor Cost per square fott: " + laborCostPerSquareFoot + " | ";
+        fullRecord = "Material Cost: " + materialCost + " | ";
+        fullRecord = "Labor Cost: " + laborCost + " | ";
+        fullRecord = "Tax: " + tax + " | ";
+        fullRecord = "Total: " + total ;
+        return fullRecord;
+    }
+    
     public Order(){
     }
     
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + this.orderNumber;
-        hash = 97 * hash + Objects.hashCode(this.customerName);
-        hash = 97 * hash + Objects.hashCode(this.state);
-        hash = 97 * hash + Objects.hashCode(this.taxRate);
-        hash = 97 * hash + Objects.hashCode(this.productType);
-        hash = 97 * hash + Objects.hashCode(this.area);
-        hash = 97 * hash + Objects.hashCode(this.costPerSquareFoot);
-        hash = 97 * hash + Objects.hashCode(this.laborCostPerSquareFoot);
-        hash = 97 * hash + Objects.hashCode(this.materialCost);
-        hash = 97 * hash + Objects.hashCode(this.laborCost);
-        hash = 97 * hash + Objects.hashCode(this.tax);
-        hash = 97 * hash + Objects.hashCode(this.total);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {           return true;         }
-        if (obj == null) {           return false;        }
-        if (getClass() != obj.getClass()) {            return false;        }
-        
-        final Order other = (Order) obj;
-        if (this.orderNumber != other.orderNumber) {            return false;        }
-        if (this.customerName != other.customerName) {            return false;        }
-        if (!Objects.equals(this.customerName, other.customerName)) {            return false;        }
-        if (!Objects.equals(this.state, other.state)) {            return false;        }
-        return true;
-    }
-    //order number, customer name, state, tax rate, product type, 
-    //area, cost per square foot, labor cost per square foot, 
-    //material cost, labor cost, tax, and total
     
     public Order(int orderNumber) {
         this.orderNumber = orderNumber;
@@ -140,6 +124,38 @@ public class Order {
     }
     public void setTotal(double total) {
         this.total = total;
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + this.orderNumber;
+        hash = 97 * hash + Objects.hashCode(this.customerName);
+        hash = 97 * hash + Objects.hashCode(this.state);
+        hash = 97 * hash + Objects.hashCode(this.taxRate);
+        hash = 97 * hash + Objects.hashCode(this.productType);
+        hash = 97 * hash + Objects.hashCode(this.area);
+        hash = 97 * hash + Objects.hashCode(this.costPerSquareFoot);
+        hash = 97 * hash + Objects.hashCode(this.laborCostPerSquareFoot);
+        hash = 97 * hash + Objects.hashCode(this.materialCost);
+        hash = 97 * hash + Objects.hashCode(this.laborCost);
+        hash = 97 * hash + Objects.hashCode(this.tax);
+        hash = 97 * hash + Objects.hashCode(this.total);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {           return true;         }
+        if (obj == null) {           return false;        }
+        if (getClass() != obj.getClass()) {            return false;        }
+        
+        final Order other = (Order) obj;
+        if (this.orderNumber != other.orderNumber) {            return false;        }
+        if (this.customerName != other.customerName) {            return false;        }
+        if (!Objects.equals(this.customerName, other.customerName)) {            return false;        }
+        if (!Objects.equals(this.state, other.state)) {            return false;        }
+        return true;
     }
     
     

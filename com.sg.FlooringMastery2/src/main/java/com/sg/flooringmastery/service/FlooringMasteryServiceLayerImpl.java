@@ -5,6 +5,7 @@
  */
 package com.sg.flooringmastery.service;
 
+import com.sg.flooringmastery.dao.FlooringMasteryAuditDao;
 import com.sg.flooringmastery.dao.FlooringMasteryDao;
 import com.sg.flooringmastery.dao.FlooringMasteryFileNotFoundException;
 import com.sg.flooringmastery.dto.Order;
@@ -21,10 +22,12 @@ import java.util.List;
  */
 public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLayer {
     FlooringMasteryDao dao;
+    //FlooringMasteryAuditDao auditDao;
     private static DecimalFormat df2 = new DecimalFormat(".##");
 
     public FlooringMasteryServiceLayerImpl(FlooringMasteryDao dao) {
         this.dao = dao;
+        //this.auditDao = auditDao;
     }
     
     @Override
