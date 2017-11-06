@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.vendingmachinetwo.service;
+package com.sg.flooringmastery.service;
 
 /**
  *
  * @author apprentice
  */
-public class VendingMachineItemNotFoundException extends Exception{
-    public VendingMachineItemNotFoundException(String message) {
+public class FlooringMasteryOrderNotFoundException extends Exception{
+    public FlooringMasteryOrderNotFoundException(String message) {
         super(message);
     }
-    public VendingMachineItemNotFoundException(String message, Throwable cause) {
+    public FlooringMasteryOrderNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 }

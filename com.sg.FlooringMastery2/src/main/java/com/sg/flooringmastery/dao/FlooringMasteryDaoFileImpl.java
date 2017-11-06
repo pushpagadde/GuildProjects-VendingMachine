@@ -74,21 +74,6 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
     }
       
     @Override
-    public List<Order> listAllOrders() throws FlooringMasteryFileNotFoundException {
-        loadOrdersFromFile();
-        List<Order> orderList = new ArrayList<Order>();
-        for (String key : flooringMasteryOrdersMap.keySet()){
-            Order ord = flooringMasteryOrdersMap.get(key);
-            orderList.add(ord);
-        }
-        for (String key : flooringMasteryOtherOrdersMap.keySet()){
-            Order ord = flooringMasteryOtherOrdersMap.get(key);
-            orderList.add(ord);
-        }
-        return orderList;
-    }
-    
-    @Override
     public List<String> displayExistingFiles() {
         List<String> fileNames = new ArrayList<>();
         File curDir = new File(".");
@@ -155,49 +140,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
         }
         return tax;
     }
-    
-    private void loadOrdersFromFile() throws FlooringMasteryFileNotFoundException {
-        File curDir = new File(".");
-        File[] filesList = curDir.listFiles();
-        for(File orderFile : filesList){
-            if (orderFile.isFile()){
-                if (orderFile.getName().startsWith("Orders")){
-                    String orderFileName = orderFile.getName();
-                    Scanner scanner;
-                    try {
-                        scanner = new Scanner(new BufferedReader(new FileReader(orderFileName)));
-                    }catch (FileNotFoundException e){
-                        throw new FlooringMasteryFileNotFoundException(e.getMessage());
-                    }
-                    String currentLine;
-                    String[] currentTokens;
-                    while(scanner.hasNextLine()) {
-                        currentLine = scanner.nextLine();
-                        currentTokens = currentLine.split(DELIMITER);
-                        Order currentItem = new Order(Integer.parseInt(currentTokens[0]));
-                        currentItem.setCustomerName(currentTokens[1]);
-                        currentItem.setState(currentTokens[2]);
-                        currentItem.setTaxRate(Double.parseDouble(currentTokens[3]) );
-                        currentItem.setProductType(currentTokens[4]);
-                        currentItem.setArea(Double.parseDouble(currentTokens[5]));
-                        currentItem.setCostPerSquareFoot(Double.parseDouble(currentTokens[6]));
-                        currentItem.setLaborCostPerSquareFoot(Double.parseDouble(currentTokens[7]));
-                        currentItem.setMaterialCost(Double.parseDouble(currentTokens[8]));
-                        currentItem.setLaborCost(Double.parseDouble(currentTokens[9]));
-                        currentItem.setTax(Double.parseDouble(currentTokens[10]));
-                        currentItem.setTotal(Double.parseDouble(currentTokens[11]));
-                        if (orderFileName.equalsIgnoreCase(ordersFileName)){
-                            flooringMasteryOrdersMap.put(currentItem.getOrderNumber()+"", currentItem);
-                        } else {
-                            flooringMasteryOtherOrdersMap.put( currentItem.getOrderNumber()+"", currentItem);
-                        }
-                    }
-                    scanner.close();
-                }
-            }
-        }
-    }
-    
+
     @Override
     public List<String> loadOrdersFromFile(String orderFileName) throws FlooringMasteryFileNotFoundException {
         List<String> orderRecords = new ArrayList<String>();
@@ -211,11 +154,13 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
         String currentLine = null;
         String[] currentTokens;
         flooringMasteryOrdersMap = new HashMap<String, Order>();
+        
         while(scanner.hasNextLine()) {
             currentLine = scanner.nextLine();
             currentTokens = currentLine.split(DELIMITER);
-            Order currentItem = new Order(Integer.parseInt(currentTokens[0]));
-            currentItem.setCustomerName(currentTokens[1]);
+            Order currentItem = new Order(Integer.parseInt(currentTokens[0]) );
+            //orderRecords[i] = Integer.parseInt(currentTokens[0]);
+            currentItem.setCustomerName(currentTokens[1] );
             currentItem.setState(currentTokens[2]);
             currentItem.setTaxRate(Double.parseDouble(currentTokens[3]) );
             currentItem.setProductType(currentTokens[4]);
@@ -227,7 +172,19 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
             currentItem.setTax(Double.parseDouble(currentTokens[10]));
             currentItem.setTotal(Double.parseDouble(currentTokens[11]));
             flooringMasteryOrdersMap.put(currentItem.getOrderNumber()+"", currentItem);
-            orderRecords.add(currentLine);
+            String modifiedLine = String.format("%-10s", currentTokens[0]) 
+                                 + String.format("%-20s", currentTokens[1])
+                                 + String.format("%-10s", currentTokens[2])
+                    + String.format("%-10s", currentTokens[3])
+                    + String.format("%-10s", currentTokens[4])
+                    + String.format("%-10s", currentTokens[5])
+                    + String.format("%-10s", currentTokens[6])
+                    + String.format("%-10s", currentTokens[7])
+                    + String.format("%-10s", currentTokens[8])
+                    + String.format("%-10s", currentTokens[9])
+                    + String.format("%-10s", currentTokens[10])
+                    + String.format("%-10s", currentTokens[11]);
+            orderRecords.add(modifiedLine);
         }
         scanner.close();
         return orderRecords;
@@ -266,11 +223,15 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
         Order removedOrder = flooringMasteryOrdersMap.remove(orderNumber+"");
         return removedOrder;
     }
-    
+    //0 orderNumber;String 1 customerName;String 2 state;double 3 taxRate;
+    //String 4 productType;double 5 area;double 6 costPerSquareFoot; double 7 laborCostPerSquareFoot;
+    //double 8 materialCost;double 9 laborCost;double 10 tax;double 11 total;
     @Override
-    public Order editOrder(int orderNumber, List<Double> newEntries) {
+    public Order editOrder(int orderNumber, List<Double> newEntries, String productType, String state) {
         Order editOrder = flooringMasteryOrdersMap.get(orderNumber+"");
+        editOrder.setState(state);
         editOrder.setArea(newEntries.get(0));
+        editOrder.setProductType(productType);
         editOrder.setMaterialCost(newEntries.get(1));
         editOrder.setLaborCost(newEntries.get(2));
         editOrder.setTax(newEntries.get(3));

@@ -49,7 +49,7 @@ public class FlooringMasteryView {
     }
     
     public void displayBottomBanner() {
-        io.print("===========================================");
+        io.print("--------------------------------------------------------------------------------------------------------------------------------");
     }
 
     public void displayUserSelection() {
@@ -68,44 +68,15 @@ public class FlooringMasteryView {
         io.readString("Hit enter to continue");
     }
 
-    public int getMode(){
-        io.print("Select execution mode:");
-        io.print("1. Production");
-        io.print("2. Test");
-
-        return io.readInt("Execution mode", 1, 2);
-    }
-
-    public int getOrderDate(int i){
-        return io.readInt("Enter a number to pick the date of a file", 1, i);
-        //return io.readString("Enter Order Date: ");
+    public String getOrderDate(){
+        return io.readString("Enter Order date of a file in MMDDYYYY format:");
     }
     
-    public String getState(){
-        io.print("Enter state from below:");
-        io.print("1. OH");
-        io.print("2. PA");
-        io.print("3. MI");
-        io.print("4. IN");
-        return io.readString("Enter State: ");
-    }
     
-    public String getProductType() {
-        io.print("Enter product type from below:");
-        io.print("1. Carpet");
-        io.print("2. Laminate");
-        io.print("3. Tile");
-        io.print("4. Wood");
-        return io.readString("Enter product type():");
-    }
-
     public String getConfirmation() {
         io.print("Do you want to save the changes?");
         return io.readString("(Y/N):");
     }
-    //order number, customer name, state, tax rate, product type, 
-    //area, cost per square foot, labor cost per square foot, 
-    //material cost, labor cost, tax, and total
     public List getOrderDetails() {
         List orderDetails = new ArrayList();
         String customerName = io.readString("Enter customer name:");
@@ -113,6 +84,27 @@ public class FlooringMasteryView {
         orderDetails.add(customerName);
         orderDetails.add(new Double(area));
         return orderDetails;
+    }
+    //order number, customer name, state, tax rate, product type, 
+    //area, cost per square foot, labor cost per square foot, 
+    //material cost, labor cost, tax, and total
+    public void displayTopBanner(){
+        String labels;
+        labels = String.format("%-10s","S.No.") 
+                + String.format("%-20s","Cust. Name")
+                + String.format("%-10s","State") 
+                + String.format("%-10s","Tax Rate")
+                + String.format("%-10s", "Product") 
+                + String.format("%-10s","Area")
+                + String.format("%-10s","Cost/SqFt")  
+                + String.format("%-10s","Lab/Sqft")
+                + String.format("%-10s","Mat. Cost") 
+                + String.format("%-10s","Lab. Cost")
+                + String.format("%-10s","Tax") 
+                + String.format("%-10s","Total");
+        io.print("--------------------------------------------------------------------------------------------------------------------------------");
+        io.print(labels);
+        io.print("--------------------------------------------------------------------------------------------------------------------------------");
     }
     
     public String displayOrderDatesGetDate(List<String> orderDates) {
@@ -138,6 +130,24 @@ public class FlooringMasteryView {
     public double getNewOrderArea() {
         double newArea = io.readDouble("Enter new order area:");
         return newArea;
-    }    
+    }
     
+    public String getState(){
+        io.print("Enter state from below:");
+        io.print("1. OH");
+        io.print("2. PA");
+        io.print("3. MI");
+        io.print("4. IN");
+        return io.readString("Enter State: ");
+    }
+    
+    public String getProductType() {
+        io.print("Enter product type from below:");
+        io.print("1. Carpet");
+        io.print("2. Laminate");
+        io.print("3. Tile");
+        io.print("4. Wood");
+        return io.readString("Enter product type():");
+    }
+
 }

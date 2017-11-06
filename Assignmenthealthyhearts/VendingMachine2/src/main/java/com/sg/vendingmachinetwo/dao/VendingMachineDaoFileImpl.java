@@ -69,7 +69,7 @@ public class VendingMachineDaoFileImpl implements VendingMachineDao {
     @Override
     public Item editItemInventory(int itemNumber)throws VendingMachineFileNotFoundException{
         Item editItem = vendingMachineItemsMap.get(itemNumber + "");
-        System.out.println("editItem.."+editItem.getItemName()+"..");
+        //System.out.println("editItem.."+editItem.getItemName()+"..");
         editItem.setInventory(editItem.getInventory() - 1);
         vendingMachineItemsMap.put(itemNumber+"", editItem);
         writeToFile();

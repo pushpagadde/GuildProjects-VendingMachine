@@ -23,11 +23,7 @@ public interface FlooringMasteryServiceLayer {
     double getStateTax(String state);
     boolean validateOrderToEdit(int orderToEdit);
     List<String> displayExistingFiles();
-    //List<Order> getAllOrders() throws FlooringMasteryFileNotFoundException;
     Order removeOrder(int orderNumber) throws FlooringMasteryOrderNotFoundException;
-    Order editOrder(int orderNumber, double newArea) throws FlooringMasteryOrderNotFoundException;
-    //Order getOrderInfo(int orderNumber) throws FlooringMasteryOrderNotFoundException;
-    //List<String> getOrderDates();
-    //void loadOrders() throws FlooringMasteryFileNotFoundException;
-    //void validateOrderSelection(int orderNumber) throws FlooringMasteryFileNotFoundException;
+    Order editOrder(int orderNumber, double newArea, double stateTax, double productCost, double laborCost, String productType, String state) throws FlooringMasteryOrderNotFoundException;
+    
 }

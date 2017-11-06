@@ -63,7 +63,7 @@ public class FlooringMasteryDaoTest {
     public void testAddOrder() throws Exception {
         dao.loadOrdersFromFile("Orders_10292017.txt");
         Order order = new Order();
-        order.setOrderNumber(1);
+        order.setOrderNumber(40);
         order.setCustomerName("Name 1");
         order.setState("MI");
         order.setTaxRate(Double.parseDouble("5.75") );
@@ -77,7 +77,7 @@ public class FlooringMasteryDaoTest {
         order.setTotal(Double.parseDouble("2650.03"));
         dao.addOrder(order);
         dao.saveWork("Orders_10292017.txt");
-        assertEquals(true, dao.validateOrderToEdit(1));
+        assertEquals(true, dao.validateOrderToEdit(40));
     }
     
     @After
@@ -193,7 +193,7 @@ public class FlooringMasteryDaoTest {
         try{
             dao.loadOrdersFromFile("Orders_10292017.txt");
             Order order = new Order();
-            order.setOrderNumber(1);
+            order.setOrderNumber(5);
             order.setCustomerName("Name 1");
             order.setState("MI");
             order.setTaxRate(Double.parseDouble("5.75") );
@@ -209,8 +209,8 @@ public class FlooringMasteryDaoTest {
         } catch (Exception e){
         }
 
-        assertEquals(false, dao.validateOrderToEdit(10));
-        assertEquals(true, dao.validateOrderToEdit(1));
+        assertEquals(false, dao.validateOrderToEdit(1000));
+        assertEquals(true, dao.validateOrderToEdit(5));
     }
 
     /**
@@ -241,7 +241,7 @@ public class FlooringMasteryDaoTest {
             editValues.add(new Double(102));//labor cost
             editValues.add(new Double(103));//tax
             editValues.add(new Double(104));//total
-            Order editedOrder = dao.editOrder(1, editValues);
+            Order editedOrder = dao.editOrder(1, editValues, "Laminate", "PA");
             dao.saveWork();
             
             assertEquals(100, editedOrder.getArea(), DELTA);
@@ -249,6 +249,8 @@ public class FlooringMasteryDaoTest {
             assertEquals(102, editedOrder.getLaborCost(), DELTA);
             assertEquals(103, editedOrder.getTax(), DELTA);
             assertEquals(104, editedOrder.getTotal(), DELTA);
+            assertEquals(true, editedOrder.getProductType().equals("Laminate"));
+            assertEquals(true, editedOrder.getState().equals("PA"));
         } catch (Exception e){
         }
     }
@@ -293,16 +295,16 @@ public class FlooringMasteryDaoTest {
 
             dao.addOrder(order);
             dao.saveWork();
-        
-            assertEquals(2, dao.loadOrdersFromFile("Orders_10292017.txt").size());
+            int ordersSize = dao.loadOrdersFromFile("Orders_10292017.txt").size();
+
             dao.removeOrder(2);
             dao.saveWork();
             assertEquals(false, dao.validateOrderToEdit(2));
-            assertEquals(true, dao.validateOrderToEdit(1));
+            assertEquals(true, dao.validateOrderToEdit(10));
             dao.removeOrder(1);
             dao.saveWork();
             assertEquals(false, dao.validateOrderToEdit(1));
-            
+            assertEquals((ordersSize), dao.loadOrdersFromFile("Orders_10292017.txt").size());
             }catch(Exception e){
         }
     }
@@ -313,23 +315,9 @@ public class FlooringMasteryDaoTest {
     public void testGetProductCost() {
         try{
             dao.loadOrdersFromFile("Orders_10292017.txt");
-            Order order = new Order();
-            order.setOrderNumber(1);
-            order.setCustomerName("Name 1");
-            order.setState("MI");
-            order.setTaxRate(Double.parseDouble("5.75") );
-            order.setProductType("Tile");
-            order.setArea(Double.parseDouble("222.0"));
-            order.setCostPerSquareFoot(Double.parseDouble("4.15"));
-            order.setLaborCostPerSquareFoot(Double.parseDouble("3.5"));
-            order.setMaterialCost(Double.parseDouble("921.3"));
-            order.setLaborCost(Double.parseDouble("777.0"));
-            order.setTax(Double.parseDouble("951.73"));
-            order.setTotal(Double.parseDouble("2650.03"));
-            dao.addOrder(order); dao.saveWork();
         } catch (Exception e){
         }
-        assertEquals(4.15, dao.getProductCost(1), DELTA);
+        assertEquals(4.15, dao.getProductCost(10), DELTA);
     }
 
     /**
@@ -339,23 +327,9 @@ public class FlooringMasteryDaoTest {
     public void testGetLaborCostPerSquareFoot() {
         try{
             dao.loadOrdersFromFile("Orders_10292017.txt");
-            Order order = new Order();
-            order.setOrderNumber(1);
-            order.setCustomerName("Name 1");
-            order.setState("MI");
-            order.setTaxRate(Double.parseDouble("5.75") );
-            order.setProductType("Tile");
-            order.setArea(Double.parseDouble("222.0"));
-            order.setCostPerSquareFoot(Double.parseDouble("4.15"));
-            order.setLaborCostPerSquareFoot(Double.parseDouble("3.5"));
-            order.setMaterialCost(Double.parseDouble("921.3"));
-            order.setLaborCost(Double.parseDouble("777.0"));
-            order.setTax(Double.parseDouble("951.73"));
-            order.setTotal(Double.parseDouble("2650.03"));
-            dao.addOrder(order); dao.saveWork();
         } catch (Exception e){
         }
-        assertEquals(3.5, dao.getLaborCostPerSquareFoot(1), DELTA);
+        assertEquals(3.5, dao.getLaborCostPerSquareFoot(10), DELTA);
     }
 
     /**
@@ -365,24 +339,9 @@ public class FlooringMasteryDaoTest {
     public void testGetStateTax_int() {
         try{
             dao.loadOrdersFromFile("Orders_10292017.txt");
-            Order order = new Order();
-            order.setOrderNumber(1);
-            order.setCustomerName("Name 1");
-            order.setState("MI");
-            order.setTaxRate(Double.parseDouble("5.75") );
-            order.setProductType("Tile");
-            order.setArea(Double.parseDouble("222.0"));
-            order.setCostPerSquareFoot(Double.parseDouble("4.15"));
-            order.setLaborCostPerSquareFoot(Double.parseDouble("3.5"));
-            order.setMaterialCost(Double.parseDouble("921.3"));
-            order.setLaborCost(Double.parseDouble("777.0"));
-            order.setTax(Double.parseDouble("951.73"));
-            order.setTotal(Double.parseDouble("2650.03"));
-
-            dao.addOrder(order); dao.saveWork();
         } catch (Exception e){
         }
-        assertEquals(951.73, dao.getStateTax(1), DELTA);
+        assertEquals(951.73, dao.getStateTax(10), DELTA);
     }
 
     /**
@@ -392,16 +351,8 @@ public class FlooringMasteryDaoTest {
     public void testDisplayExistingFiles() {
         List<String> fileList = dao.displayExistingFiles();
         java.util.Collections.sort(fileList);
-        assertEquals(true, fileList.get(0).equals("Orders_10162017.txt"));    
-        assertEquals(true, fileList.get(1).equals("Orders_10172017.txt"));    
-        assertEquals(true, fileList.get(2).equals("Orders_10192017.txt"));    
-        assertEquals(true, fileList.get(3).equals("Orders_10232017.txt"));    
-        assertEquals(true, fileList.get(4).equals("Orders_10242017.txt"));
-        assertEquals(true, fileList.get(5).equals("Orders_10252017.txt"));    
-        assertEquals(true, fileList.get(6).equals("Orders_10262017.txt"));    
-        assertEquals(true, fileList.get(7).equals("Orders_10272017.txt"));    
-        assertEquals(true, fileList.get(8).equals("Orders_10282017.txt"));  
-        assertEquals(true, fileList.get(9).equals("Orders_10292017.txt"));
+        System.out.println(""+fileList); 
+        assertEquals(true, fileList.get(0).equals("Orders_10292017.txt"));
     }
 
     /**

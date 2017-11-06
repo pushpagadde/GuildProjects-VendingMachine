@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.vendingmachinetwo.dao;
+package com.sg.flooringmastery.dao;
 
 /**
  *
  * @author apprentice
  */
-public class VendingMachineFileNotFoundException extends Exception {
+public class FlooringMasteryFileNotFoundException extends Exception {
     
-    public VendingMachineFileNotFoundException(String message) {
+    public FlooringMasteryFileNotFoundException(String message) {
         super(message);
     }
-    public VendingMachineFileNotFoundException(String message, Throwable cause) {
+    public FlooringMasteryFileNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 }

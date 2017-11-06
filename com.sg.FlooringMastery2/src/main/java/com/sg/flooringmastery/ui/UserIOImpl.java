@@ -95,6 +95,12 @@ public class UserIOImpl implements UserIO{
         String stemp2 = sc.nextLine();
         return temp;
     }
+    
+    public double readNullDouble(String prompt) {
+        System.out.println(prompt);
+        return sc.nextDouble();
+    }
+    
     public double readDouble(String prompt, double min, double max) {
         double temp;
         do {

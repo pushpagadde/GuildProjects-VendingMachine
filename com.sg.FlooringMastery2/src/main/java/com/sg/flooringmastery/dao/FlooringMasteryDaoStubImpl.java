@@ -43,10 +43,6 @@ public class FlooringMasteryDaoStubImpl implements FlooringMasteryDao {
         }
     }
     
-    @Override
-    public List<Order> listAllOrders() throws FlooringMasteryFileNotFoundException {
-        return orderList;
-    }
 
     @Override
     public boolean validateOrderToEdit(int orderToEdit) {
@@ -58,8 +54,10 @@ public class FlooringMasteryDaoStubImpl implements FlooringMasteryDao {
     }
 
     @Override
-    public Order editOrder(int orderNumber, List<Double> newEntries) {
+    public Order editOrder(int orderNumber, List<Double> newEntries,String productType, String state) {
         //1::CustomerName::OH::6.25::Carpet::100.0::2.1::2.25::210.0::225.0::13.27::225.52::
+        onlyOrder.setState(state);
+        onlyOrder.setProductType(productType);
         onlyOrder.setArea(newEntries.get(0));
         onlyOrder.setMaterialCost(newEntries.get(1));
         onlyOrder.setLaborCost(newEntries.get(2));
@@ -96,19 +94,16 @@ public class FlooringMasteryDaoStubImpl implements FlooringMasteryDao {
 
     @Override
     public void saveWork(String fileName) throws FlooringMasteryFileNotFoundException {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         //do nothing
     }
 
     @Override
     public double getStateTax(String state) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return onlyOrder.getTaxRate();
     }
 
     @Override
     public List<Double> getProductCostLabor(String productType) {
-     //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         List<Double> costLabor = new ArrayList<>();
         costLabor.add(onlyOrder.getLaborCostPerSquareFoot());
         costLabor.add(onlyOrder.getCostPerSquareFoot());
@@ -118,18 +113,15 @@ public class FlooringMasteryDaoStubImpl implements FlooringMasteryDao {
     @Override
     public double getProductCost(int orderNumber) {
         return onlyOrder.getCostPerSquareFoot();
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public double getLaborCostPerSquareFoot(int orderNumber) {
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         return onlyOrder.getLaborCostPerSquareFoot();
     }
 
     @Override
     public double getStateTax(int orderNumber) {
         return onlyOrder.getTax();
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

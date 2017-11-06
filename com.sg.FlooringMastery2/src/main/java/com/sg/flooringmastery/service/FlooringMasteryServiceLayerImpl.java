@@ -16,18 +16,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-/**
- *
- * @author apprentice
- */
 public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLayer {
     FlooringMasteryDao dao;
-    //FlooringMasteryAuditDao auditDao;
     private static DecimalFormat df2 = new DecimalFormat(".##");
 
     public FlooringMasteryServiceLayerImpl(FlooringMasteryDao dao) {
         this.dao = dao;
-        //this.auditDao = auditDao;
     }
     
     @Override
@@ -51,7 +45,6 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
         SimpleDateFormat formatter = new SimpleDateFormat("MMddyyyy");
         String folderDate = formatter.format(today);
         fileName = "Orders_" + folderDate+".txt";
-        //ordersFileName = fileName;
         return fileName;
     }
         
@@ -80,17 +73,23 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
         double totalAmount = materialCost + laborCost + totalTax;
         totalAmount = Double.parseDouble(df2.format(totalAmount));
         order.setTotal(totalAmount);
-        dao.loadOrdersFromFile(makeOrderFileName());
+        String fileName = makeOrderFileName();
+        for (String flName : displayExistingFiles()){
+            if (flName.equals(fileName)){
+                dao.loadOrdersFromFile(fileName);
+            }
+        }
+        
         dao.addOrder(order);
         return order;
     }
     @Override
-    public Order editOrder(int orderNumber, double newArea) throws FlooringMasteryOrderNotFoundException{
+    public Order editOrder(int orderNumber, double newArea, double newStateTax, double newProductCost, double newLaborCost, String productType, String state) throws FlooringMasteryOrderNotFoundException{
         Order editOrder = null;
         List<Double> newEntries = new ArrayList<Double>();
-        double productCost = dao.getProductCost(orderNumber);
-        double laborCostPerSft = dao.getLaborCostPerSquareFoot(orderNumber);
-        double stateTax = dao.getStateTax(orderNumber);
+        double productCost = (newProductCost == 0.0) ? dao.getProductCost(orderNumber) : newProductCost;
+        double laborCostPerSft = (newLaborCost  == 0.0) ? dao.getLaborCostPerSquareFoot(orderNumber) : newLaborCost;
+        double stateTax = (newStateTax == 0.0) ? dao.getStateTax(orderNumber) : newStateTax;
         double materialCost = newArea * productCost;
         materialCost = Double.parseDouble(df2.format(materialCost));
         double laborCost = newArea * laborCostPerSft;
@@ -104,7 +103,7 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
         newEntries.add(2, new Double(laborCost));
         newEntries.add(3, new Double(totalTax));
         newEntries.add(4, new Double(total));
-        editOrder = dao.editOrder(orderNumber, newEntries);
+        editOrder = dao.editOrder(orderNumber, newEntries, productType, state);
         return editOrder;
     }
     

@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sg.vendingmachinetwo.service;
+package com.sg.flooringmastery.service;
 
 /**
  *
  * @author apprentice
  */
-public class VendingMachineDuplicateItemException extends Exception{
-    public VendingMachineDuplicateItemException(String message) {
+public class FlooringMasteryDuplicateOrderException extends Exception{
+    public FlooringMasteryDuplicateOrderException(String message) {
         super(message);
     }
-    public VendingMachineDuplicateItemException(String message, Throwable cause) {
+    public FlooringMasteryDuplicateOrderException(String message, Throwable cause) {
         super(message, cause);
     }
 }
