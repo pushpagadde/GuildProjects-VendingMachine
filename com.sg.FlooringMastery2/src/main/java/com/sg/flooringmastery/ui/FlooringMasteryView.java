@@ -128,7 +128,7 @@ public class FlooringMasteryView {
     }    
 
     public double getNewOrderArea() {
-        double newArea = io.readDouble("Enter new order area:");
+        double newArea = io.readNullDouble("Enter new order area:");
         return newArea;
     }
     
@@ -150,4 +150,23 @@ public class FlooringMasteryView {
         return io.readString("Enter product type():");
     }
 
+    public String getNullState(){
+        io.print("Enter state from below:");
+        io.print("1. OH");
+        io.print("2. PA");
+        io.print("3. MI");
+        io.print("4. IN");
+        return io.readNull("Enter State: ");
+    }
+    
+    public String getNullProductType() {
+        io.print("Enter product type from below:");
+        io.print("1. Carpet");
+        io.print("2. Laminate");
+        io.print("3. Tile");
+        io.print("4. Wood");
+        return io.readNull("Enter product type():");
+    }
+
+    
 }

@@ -49,8 +49,17 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
     }
     
     @Override
-    public Order addOrder( Order order) {
+    public Order addOrder( Order order, String fileName) {
         int count=0;
+        for (String flName : displayExistingFiles()){
+            if (flName.equals(fileName)){
+                try {
+                    loadOrdersFromFile(fileName);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         for (Order ord : flooringMasteryOrdersMap.values()){
             if(count < ord.getOrderNumber()){
                 count = ord.getOrderNumber();
@@ -62,6 +71,32 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
         return order;
     }
 
+    @Override
+    public Order removeOrder(int orderNumber) {
+        Order removedOrder = flooringMasteryOrdersMap.remove(orderNumber+"");
+        return removedOrder;
+    }
+    
+    @Override
+    public Order editOrder(int orderNumber, List<Double> newEntries, String productType, String state, String fileName) {
+        Order editOrder = flooringMasteryOrdersMap.get(orderNumber+"");
+        removeOrder(orderNumber);
+        try {
+            saveWork();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        editOrder.setState(state);
+        editOrder.setArea(newEntries.get(0));
+        editOrder.setProductType(productType);
+        editOrder.setMaterialCost(newEntries.get(1));
+        editOrder.setLaborCost(newEntries.get(2));
+        editOrder.setTax(newEntries.get(3));
+        editOrder.setTotal(newEntries.get(4));
+        addOrder(editOrder, fileName);
+        return editOrder;
+    }
+    
     @Override
     public void saveWork() throws FlooringMasteryFileNotFoundException {
         writeToFile(ordersFileName);
@@ -80,7 +115,9 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
         File[] filesList = curDir.listFiles();
         for(File orderFile : filesList){
             if(orderFile.getName().contains("Orders_")){
-                fileNames.add(orderFile.getName());
+                if (orderFile.length() != 0 ) {
+                    fileNames.add(orderFile.getName());
+                }
             }
         }
         return fileNames;
@@ -218,25 +255,20 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
         out.close();
     }
     
-    @Override
-    public Order removeOrder(int orderNumber) {
-        Order removedOrder = flooringMasteryOrdersMap.remove(orderNumber+"");
-        return removedOrder;
+    
+    public String getProductType(int orderToEdit){
+        Order editOrder = flooringMasteryOrdersMap.get(orderToEdit+"");
+        return editOrder.getProductType();
     }
-    //0 orderNumber;String 1 customerName;String 2 state;double 3 taxRate;
-    //String 4 productType;double 5 area;double 6 costPerSquareFoot; double 7 laborCostPerSquareFoot;
-    //double 8 materialCost;double 9 laborCost;double 10 tax;double 11 total;
-    @Override
-    public Order editOrder(int orderNumber, List<Double> newEntries, String productType, String state) {
-        Order editOrder = flooringMasteryOrdersMap.get(orderNumber+"");
-        editOrder.setState(state);
-        editOrder.setArea(newEntries.get(0));
-        editOrder.setProductType(productType);
-        editOrder.setMaterialCost(newEntries.get(1));
-        editOrder.setLaborCost(newEntries.get(2));
-        editOrder.setTax(newEntries.get(3));
-        editOrder.setTotal(newEntries.get(4));
-        return editOrder;
+    
+    public String getState(int orderToEdit){
+        Order editOrder = flooringMasteryOrdersMap.get(orderToEdit+"");
+        return editOrder.getState();
+    }
+    
+    public double getArea(int orderToEdit) {
+        Order editOrder = flooringMasteryOrdersMap.get(orderToEdit+"");
+        return editOrder.getArea() ;
     }
     
     @Override

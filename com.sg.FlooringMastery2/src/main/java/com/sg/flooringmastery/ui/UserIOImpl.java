@@ -51,6 +51,36 @@ public class UserIOImpl implements UserIO{
         return temp;
     }
     @Override
+    public String readNull(String prompt) {
+        String temp;
+        System.out.println(prompt);
+        temp = sc.nextLine();
+        return temp;
+    }
+    
+    public double readNullDouble(String prompt) {
+        double temp = 0.0;
+        boolean invalidInput = false;
+        System.out.println(prompt);
+        do {
+            String stemp = sc.nextLine();
+            if (stemp.equals("") ){
+                temp = 0.0;
+                invalidInput = false;
+            } else {
+                if(Double.isNaN(Double.parseDouble(stemp))){
+                    System.out.println("Not a valid number." + prompt);
+                    invalidInput = true;
+                }else {
+                    temp = Double.parseDouble(stemp);
+                    invalidInput = false;
+                }
+            }
+        }while (invalidInput);
+        return temp;
+    }
+    
+    @Override
     public String readString(String prompt, String option1, String option2)
     {
         boolean invalidInput = true;
@@ -95,12 +125,7 @@ public class UserIOImpl implements UserIO{
         String stemp2 = sc.nextLine();
         return temp;
     }
-    
-    public double readNullDouble(String prompt) {
-        System.out.println(prompt);
-        return sc.nextDouble();
-    }
-    
+       
     public double readDouble(String prompt, double min, double max) {
         double temp;
         do {

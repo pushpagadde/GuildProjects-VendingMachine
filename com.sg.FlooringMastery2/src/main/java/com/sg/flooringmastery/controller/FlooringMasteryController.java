@@ -117,7 +117,7 @@ public class FlooringMasteryController {
         java.util.Collections.sort(fileNames);
         try{
             for (String names : fileNames) {
-                view.displayName(i++ + ". " + names);
+                view.displayName( names);
             }
             String choosenFileName = null;
             boolean validDateNotFound = true;
@@ -152,17 +152,16 @@ public class FlooringMasteryController {
     
     private void editOrder() {
         int orderToEdit,i=1;
+        String choosenFileName = null;
         List<String> fileNames = service.displayExistingFiles();
         java.util.Collections.sort(fileNames);
         try{
             for (String names : fileNames) {
-                view.displayName(i++ + ". " + names);
+                view.displayName( names);
             }
-            String choosenFileName = null;
             boolean validDateNotFound = true;
             do {
                 String orderDate =  view.getOrderDate();
-
                 for (String flName : fileNames){
                     if (flName.contains("Orders_"+orderDate+".txt")){                        
                         choosenFileName = flName;
@@ -186,7 +185,11 @@ public class FlooringMasteryController {
                 double stateTax=0.0, productCost=0.0, laborCost=0.0;
                 boolean validState=false, validProduct=false;
                 do{//check validity of state keyed by user
-                    state = view.getState();
+                    state = view.getNullState();
+                    if(state == null || state.equals("")) {
+                        state = service.getState(orderToEdit);
+                        break;
+                    }
                     stateTax = service.getStateTax(state);
                     if (stateTax == 0.0) {
                         view.displayErrorMessage("Not valid state");
@@ -197,7 +200,11 @@ public class FlooringMasteryController {
                 }while(!validState);
                 
                 do{//check validity of proudct keyed by user
-                    productType = view.getProductType();
+                    productType = view.getNullProductType();
+                    if(productType == null || productType.equals("")) {
+                        productType = service.getProductType(orderToEdit);
+                        break;
+                    }
                     List prodList = service.getProductCostLabor(productType);
                     if (prodList != null){
                         productCost =  service.getProductCostLabor(productType).get(1).doubleValue();
@@ -208,13 +215,18 @@ public class FlooringMasteryController {
                        view.displayErrorMessage("Not valid product.");
                     }
                 }while(!validProduct);
-                
-                service.editOrder(orderToEdit,view.getNewOrderArea(), stateTax, productCost, laborCost, productType, state);
+                Double newArea = view.getNewOrderArea();
+                if (newArea == 0.0) {
+                    newArea = service.getArea(orderToEdit);
+                }
+                service.editOrder(orderToEdit, newArea , stateTax, 
+                                    productCost, laborCost, productType, state, choosenFileName);
             }else {
                 view.displayErrorMessage("wrong order number or no order to edit.");
             }
         }catch(Exception e) {
             view.displayErrorMessage(e.getMessage());
+            e.printStackTrace();
         }
         view.hitEnter();
     }
@@ -225,7 +237,7 @@ public class FlooringMasteryController {
         java.util.Collections.sort(fileNames);
         try{
             for (String names : fileNames) {
-                view.displayName(i++ + ". " + names);
+                view.displayName( names);
             }
             String choosenFileName = null;
             boolean validDateNotFound = true;

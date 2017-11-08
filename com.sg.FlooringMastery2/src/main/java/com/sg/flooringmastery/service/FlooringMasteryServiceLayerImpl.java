@@ -74,17 +74,14 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
         totalAmount = Double.parseDouble(df2.format(totalAmount));
         order.setTotal(totalAmount);
         String fileName = makeOrderFileName();
-        for (String flName : displayExistingFiles()){
-            if (flName.equals(fileName)){
-                dao.loadOrdersFromFile(fileName);
-            }
-        }
-        
-        dao.addOrder(order);
+        dao.addOrder(order, fileName);
         return order;
     }
     @Override
-    public Order editOrder(int orderNumber, double newArea, double newStateTax, double newProductCost, double newLaborCost, String productType, String state) throws FlooringMasteryOrderNotFoundException{
+    public Order editOrder(int orderNumber, double newArea, double newStateTax, 
+                           double newProductCost, double newLaborCost, 
+                           String productType, String state, String choosenFileName) 
+                           throws FlooringMasteryOrderNotFoundException, FlooringMasteryFileNotFoundException {
         Order editOrder = null;
         List<Double> newEntries = new ArrayList<Double>();
         double productCost = (newProductCost == 0.0) ? dao.getProductCost(orderNumber) : newProductCost;
@@ -103,8 +100,28 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
         newEntries.add(2, new Double(laborCost));
         newEntries.add(3, new Double(totalTax));
         newEntries.add(4, new Double(total));
-        editOrder = dao.editOrder(orderNumber, newEntries, productType, state);
+        String fileName = fileExistsToSave(choosenFileName);
+        
+        editOrder = dao.editOrder(orderNumber, newEntries, productType, state, fileName );
         return editOrder;
+    }
+    
+    private String fileExistsToSave(String choosenFileName) {
+        List<String> existingFiles = dao.displayExistingFiles();
+        String fileName = makeOrderFileName();
+        return fileName;
+    }
+    
+    public String getProductType(int orderToEdit) {
+        return dao.getProductType(orderToEdit);
+    }
+    
+    public double getArea(int orderToEdit) {
+        return dao.getArea(orderToEdit);
+    }
+    
+    public String getState(int orderToEdit) {
+        return dao.getState(orderToEdit);
     }
     
     public List<Double> getProductCostLabor(String productType) {

@@ -14,17 +14,21 @@ import java.util.List;
  * @author apprentice
  */
 public interface FlooringMasteryDao {
-    Order addOrder(Order order) ;
+    Order addOrder(Order order, String fileName) ;
     void saveWork() throws FlooringMasteryFileNotFoundException;
     void saveWork(String fileName) throws FlooringMasteryFileNotFoundException;
     double getStateTax(String state);
     List<Double> getProductCostLabor(String productType);
     boolean validateOrderToEdit(int orderToEdit);
-    Order editOrder(int orderNumber, List<Double> newEntries, String productType, String state);
+    Order editOrder(int orderNumber, List<Double> newEntries, String productType, String state, String fileName) 
+            throws FlooringMasteryFileNotFoundException;
     Order removeOrder(int orderNumber);
+    String getProductType(int orderToEdit);
+    String getState(int orderToEdit);
     double getProductCost(int orderNumber);
     double getLaborCostPerSquareFoot(int orderNumber);
     double getStateTax(int orderNumber);
+    double getArea(int orderToEdit);
     List<String> displayExistingFiles();
     List<String> loadOrdersFromFile(String orderFileName) throws FlooringMasteryFileNotFoundException;
 }

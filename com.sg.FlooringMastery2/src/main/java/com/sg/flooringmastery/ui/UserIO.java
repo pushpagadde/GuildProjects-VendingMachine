@@ -22,5 +22,6 @@ public interface UserIO {
     long readLong(String prompt, long min, long max);
     String readString(String prompt);
     public String readString(String prompt, String option1, String option2);
+    String readNull(String prompt);
     
 }
