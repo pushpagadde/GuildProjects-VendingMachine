@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,6 +26,7 @@ public class FlooringMasteryController {
     FlooringMasteryView view = new FlooringMasteryView();
     String oldFileName = null;
     int executionMode = 2;
+    boolean dataSavePending = false;
     public FlooringMasteryController(FlooringMasteryServiceLayer service,FlooringMasteryView view){
         this.service = service;
         this. view = view;
@@ -52,22 +54,33 @@ public class FlooringMasteryController {
             menuSelection = printMenuAndGetSelection();
             switch(menuSelection) {
                 case 1: 
-                    listAllOrders();
+                    if (dataSavePending){
+                       view.displayName("************************************************");
+                       view.displayName("Please save changes before viewing other orders.");
+                       view.displayName("************************************************");
+                    } else {
+                        listAllOrders();
+                    }
                     break;
                 case 2:
                     addOrder();
+                    dataSavePending = true;
                     break;
                 case 3: 
                     editOrder();
+                    dataSavePending = true;
                     break;
                 case 4:
                     removeOrder();
+                    dataSavePending = true;
                     break;
                 case 5:
                     saveWork();
+                    dataSavePending = false;
                     break;
                 case 6: 
                     keepGoing = false;
+                    dataSavePending = false;
                     break;
                 default:
                     unknownCommand();
@@ -137,7 +150,7 @@ public class FlooringMasteryController {
                 view.displayName("No Orders found!");
             } else {
                 view.displayTopBanner();
-           
+                Collections.sort(recordsList);
                 for(String record : recordsList) {
                     view.displayName(String.format("%-10s",record));
                 }
@@ -215,12 +228,17 @@ public class FlooringMasteryController {
                        view.displayErrorMessage("Not valid product.");
                     }
                 }while(!validProduct);
+                String customerName = view.getCustomerName();
+                if (customerName.equals("") || customerName == null){
+                    customerName = service.getCustomerName(orderToEdit);
+                }
+
                 Double newArea = view.getNewOrderArea();
                 if (newArea == 0.0) {
                     newArea = service.getArea(orderToEdit);
                 }
                 service.editOrder(orderToEdit, newArea , stateTax, 
-                                    productCost, laborCost, productType, state, choosenFileName);
+                                    productCost, laborCost, productType, state, choosenFileName, customerName);
             }else {
                 view.displayErrorMessage("wrong order number or no order to edit.");
             }

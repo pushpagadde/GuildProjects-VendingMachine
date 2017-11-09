@@ -80,7 +80,7 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
     @Override
     public Order editOrder(int orderNumber, double newArea, double newStateTax, 
                            double newProductCost, double newLaborCost, 
-                           String productType, String state, String choosenFileName) 
+                           String productType, String state, String choosenFileName, String customerName) 
                            throws FlooringMasteryOrderNotFoundException, FlooringMasteryFileNotFoundException {
         Order editOrder = null;
         List<Double> newEntries = new ArrayList<Double>();
@@ -102,7 +102,7 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
         newEntries.add(4, new Double(total));
         String fileName = fileExistsToSave(choosenFileName);
         
-        editOrder = dao.editOrder(orderNumber, newEntries, productType, state, fileName );
+        editOrder = dao.editOrder(orderNumber, newEntries, productType, state, fileName, customerName );
         return editOrder;
     }
     
@@ -118,6 +118,10 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
     
     public double getArea(int orderToEdit) {
         return dao.getArea(orderToEdit);
+    }
+    
+    public String getCustomerName(int orderToEdit){
+        return dao.getCustomerName(orderToEdit);
     }
     
     public String getState(int orderToEdit) {

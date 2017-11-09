@@ -20,7 +20,8 @@ public interface FlooringMasteryDao {
     double getStateTax(String state);
     List<Double> getProductCostLabor(String productType);
     boolean validateOrderToEdit(int orderToEdit);
-    Order editOrder(int orderNumber, List<Double> newEntries, String productType, String state, String fileName) 
+    Order editOrder(int orderNumber, List<Double> newEntries, String productType, 
+            String state, String fileName, String  customerName) 
             throws FlooringMasteryFileNotFoundException;
     Order removeOrder(int orderNumber);
     String getProductType(int orderToEdit);
@@ -29,6 +30,7 @@ public interface FlooringMasteryDao {
     double getLaborCostPerSquareFoot(int orderNumber);
     double getStateTax(int orderNumber);
     double getArea(int orderToEdit);
+    String getCustomerName(int orderToEdit);
     List<String> displayExistingFiles();
     List<String> loadOrdersFromFile(String orderFileName) throws FlooringMasteryFileNotFoundException;
 }

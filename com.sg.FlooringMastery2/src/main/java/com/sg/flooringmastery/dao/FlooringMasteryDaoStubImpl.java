@@ -55,6 +55,10 @@ public class FlooringMasteryDaoStubImpl implements FlooringMasteryDao {
         
         return onlyOrder.getState();
     }
+    
+    public String getCustomerName(int orderToEdit) {
+        return onlyOrder.getCustomerName();
+    }
 
     @Override
     public boolean validateOrderToEdit(int orderToEdit) {
@@ -66,7 +70,8 @@ public class FlooringMasteryDaoStubImpl implements FlooringMasteryDao {
     }
 
     @Override
-    public Order editOrder(int orderNumber, List<Double> newEntries,String productType, String state, String fileName) {
+    public Order editOrder(int orderNumber, List<Double> newEntries,String productType, 
+            String state, String fileName, String customerName) {
         //1::CustomerName::OH::6.25::Carpet::100.0::2.1::2.25::210.0::225.0::13.27::225.52::
         onlyOrder.setState(state);
         onlyOrder.setProductType(productType);
@@ -74,6 +79,7 @@ public class FlooringMasteryDaoStubImpl implements FlooringMasteryDao {
         onlyOrder.setMaterialCost(newEntries.get(1));
         onlyOrder.setLaborCost(newEntries.get(2));
         onlyOrder.setTax(newEntries.get(3));
+        onlyOrder.setCustomerName(customerName);
         onlyOrder.setTotal(newEntries.get(4));
         return onlyOrder;
     }

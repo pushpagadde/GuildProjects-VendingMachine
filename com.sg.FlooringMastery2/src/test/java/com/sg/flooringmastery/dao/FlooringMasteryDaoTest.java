@@ -241,7 +241,7 @@ public class FlooringMasteryDaoTest {
             editValues.add(new Double(102));//labor cost
             editValues.add(new Double(103));//tax
             editValues.add(new Double(104));//total
-            Order editedOrder = dao.editOrder(1, editValues, "Laminate", "PA", "Orders_10292017.txt");
+            Order editedOrder = dao.editOrder(1, editValues, "Laminate", "PA", "Orders_10292017.txt", "cName");
             dao.saveWork();
             
             assertEquals(100, editedOrder.getArea(), DELTA);

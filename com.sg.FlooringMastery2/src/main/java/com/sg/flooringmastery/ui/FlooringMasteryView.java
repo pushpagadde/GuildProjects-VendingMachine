@@ -141,6 +141,10 @@ public class FlooringMasteryView {
         return io.readString("Enter State: ");
     }
     
+    public String getCustomerName(){
+        return io.readString("Enter new customer name:");
+    }
+    
     public String getProductType() {
         io.print("Enter product type from below:");
         io.print("1. Carpet");

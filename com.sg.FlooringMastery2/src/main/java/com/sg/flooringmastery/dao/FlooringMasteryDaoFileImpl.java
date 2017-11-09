@@ -78,7 +78,8 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
     }
     
     @Override
-    public Order editOrder(int orderNumber, List<Double> newEntries, String productType, String state, String fileName) {
+    public Order editOrder(int orderNumber, List<Double> newEntries, String productType, 
+            String state, String fileName, String customerName) {
         Order editOrder = flooringMasteryOrdersMap.get(orderNumber+"");
         removeOrder(orderNumber);
         try {
@@ -93,6 +94,7 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
         editOrder.setLaborCost(newEntries.get(2));
         editOrder.setTax(newEntries.get(3));
         editOrder.setTotal(newEntries.get(4));
+        editOrder.setCustomerName(customerName);
         addOrder(editOrder, fileName);
         return editOrder;
     }
@@ -269,6 +271,11 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
     public double getArea(int orderToEdit) {
         Order editOrder = flooringMasteryOrdersMap.get(orderToEdit+"");
         return editOrder.getArea() ;
+    }
+    
+    public String getCustomerName(int orderToEdit) {
+        Order editOrder = flooringMasteryOrdersMap.get(orderToEdit+"");
+        return editOrder.getCustomerName();
     }
     
     @Override
