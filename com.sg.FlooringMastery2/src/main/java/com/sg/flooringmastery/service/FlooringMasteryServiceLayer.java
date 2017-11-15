@@ -30,7 +30,7 @@ public interface FlooringMasteryServiceLayer {
     Order removeOrder(int orderNumber) throws FlooringMasteryOrderNotFoundException;
     Order editOrder(int orderNumber, double newArea, double stateTax, 
             double productCost, double laborCost, String productType, 
-            String state, String choosenFileName, String customerName)
+            String state, String choosenFileName, String customerName,String fileToAddTo)
             throws FlooringMasteryOrderNotFoundException, FlooringMasteryFileNotFoundException;
     
 }

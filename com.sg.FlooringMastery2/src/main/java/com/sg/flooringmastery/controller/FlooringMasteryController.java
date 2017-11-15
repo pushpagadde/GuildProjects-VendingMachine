@@ -24,9 +24,9 @@ public class FlooringMasteryController {
     
     FlooringMasteryServiceLayer service;
     FlooringMasteryView view = new FlooringMasteryView();
-    String oldFileName = null;
+    //String oldFileName = null;
     int executionMode = 2;
-    boolean dataSavePending = false;
+    //boolean dataSavePending = false;
     public FlooringMasteryController(FlooringMasteryServiceLayer service,FlooringMasteryView view){
         this.service = service;
         this. view = view;
@@ -45,7 +45,7 @@ public class FlooringMasteryController {
                 currentLine = scanner.nextLine();
                if (currentLine.equals("1")){//Prod Mode
                    executionMode = Integer.parseInt(currentLine);
-                } //Defualt mode is Test Mode
+                } //Defualt mode is Production Mode
             }
         }
         boolean keepGoing = true;
@@ -54,33 +54,22 @@ public class FlooringMasteryController {
             menuSelection = printMenuAndGetSelection();
             switch(menuSelection) {
                 case 1: 
-                    if (dataSavePending){
-                       view.displayName("************************************************");
-                       view.displayName("Please save changes before viewing other orders.");
-                       view.displayName("************************************************");
-                    } else {
-                        listAllOrders();
-                    }
+                    listAllOrders();
                     break;
                 case 2:
                     addOrder();
-                    dataSavePending = true;
                     break;
                 case 3: 
                     editOrder();
-                    dataSavePending = true;
                     break;
                 case 4:
                     removeOrder();
-                    dataSavePending = true;
                     break;
                 case 5:
                     saveWork();
-                    dataSavePending = false;
                     break;
                 case 6: 
                     keepGoing = false;
-                    dataSavePending = false;
                     break;
                 default:
                     unknownCommand();
@@ -125,7 +114,7 @@ public class FlooringMasteryController {
     }
     
     private void listAllOrders(){
-        int i = 1;
+        //int i = 1;
         List<String> fileNames = service.displayExistingFiles();
         java.util.Collections.sort(fileNames);
         try{
@@ -155,6 +144,7 @@ public class FlooringMasteryController {
                     view.displayName(String.format("%-10s",record));
                 }
                 view.displayBottomBanner();
+                
                 view.displayName("");
             }
         } catch (Exception e) {
@@ -164,11 +154,12 @@ public class FlooringMasteryController {
     }
     
     private void editOrder() {
-        int orderToEdit,i=1;
+        int orderToEdit;
         String choosenFileName = null;
+        String newFileNameToAdd;
         List<String> fileNames = service.displayExistingFiles();
         java.util.Collections.sort(fileNames);
-        try{
+        try{//list all files so user can pick a date and all orders for that date are displayed
             for (String names : fileNames) {
                 view.displayName( names);
             }
@@ -191,12 +182,16 @@ public class FlooringMasteryController {
         } catch (Exception e) {
             view.displayErrorMessage(e.getMessage());
         }
-        try{
+        try{//get order to be edited from the displayed list of orders
             orderToEdit = view.getOrderToEdit();
             if(service.validateOrderToEdit(orderToEdit)) {
                 String state, productType;
                 double stateTax=0.0, productCost=0.0, laborCost=0.0;
-                boolean validState=false, validProduct=false;
+                boolean validState=false, validProduct=false, validDate = false;
+                String customerName = view.getCustomerName();//edit customer name
+                if (customerName.equals("") || customerName == null){
+                    customerName = service.getCustomerName(orderToEdit);
+                }
                 do{//check validity of state keyed by user
                     state = view.getNullState();
                     if(state == null || state.equals("")) {
@@ -211,7 +206,7 @@ public class FlooringMasteryController {
                         validState  = true;
                     }
                 }while(!validState);
-                
+              
                 do{//check validity of proudct keyed by user
                     productType = view.getNullProductType();
                     if(productType == null || productType.equals("")) {
@@ -228,17 +223,31 @@ public class FlooringMasteryController {
                        view.displayErrorMessage("Not valid product.");
                     }
                 }while(!validProduct);
-                String customerName = view.getCustomerName();
-                if (customerName.equals("") || customerName == null){
-                    customerName = service.getCustomerName(orderToEdit);
-                }
-
-                Double newArea = view.getNewOrderArea();
+                do {
+                    newFileNameToAdd = view.getOrderDate();
+                    if( newFileNameToAdd == null) {
+                        newFileNameToAdd = choosenFileName;
+                        validDate = true;
+                        break;
+                    } else {
+                        for (String flName : fileNames){
+                            if (flName.contains("Orders_"+newFileNameToAdd+".txt")){
+                                newFileNameToAdd = "Orders_"+newFileNameToAdd+".txt";
+                                validDate = true;
+                                break;
+                            }
+                        }
+                        if(validDate == true){break;}
+                    }
+                    validDate = false;
+                }while(!validDate);
+                Double newArea = view.getNewOrderArea();//get new area
                 if (newArea == 0.0) {
                     newArea = service.getArea(orderToEdit);
-                }
+                }                                
                 service.editOrder(orderToEdit, newArea , stateTax, 
-                                    productCost, laborCost, productType, state, choosenFileName, customerName);
+                                    productCost, laborCost, productType, state, choosenFileName, 
+                                    customerName, newFileNameToAdd);
             }else {
                 view.displayErrorMessage("wrong order number or no order to edit.");
             }
@@ -250,7 +259,7 @@ public class FlooringMasteryController {
     }
         
     private void removeOrder() {
-        int orderToRemove,i=1;
+        int orderToRemove;
         List<String> fileNames = service.displayExistingFiles();
         java.util.Collections.sort(fileNames);
         try{
@@ -261,7 +270,6 @@ public class FlooringMasteryController {
             boolean validDateNotFound = true;
             do {
                 String orderDate =  view.getOrderDate();
-
                 for (String flName : fileNames){
                     if (flName.contains("Orders_"+orderDate+".txt")){                        
                         choosenFileName = flName;
@@ -287,7 +295,7 @@ public class FlooringMasteryController {
     
     private void saveWork() {
         if (executionMode == 2){
-            view.displayName("Changes cann't be saved in Test Mode");
+            view.displayName("Changes can't be saved in Test Mode");
         } else {
             String confirmSave = "";
             do {

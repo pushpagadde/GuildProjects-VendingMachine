@@ -10,7 +10,7 @@
                 <goal>org.codehaus.mojo:exec-maven-plugin:1.2.1:exec</goal>
             </goals>
             <properties>
-                <exec.args>-classpath %classpath com.sg.nullentry.NullEntry</exec.args>
+                <exec.args>-classpath %classpath com.sg.grasshopper.Grasshopper</exec.args>
                 <exec.executable>java</exec.executable>
             </properties>
         </action>

@@ -165,7 +165,7 @@ public class FlooringMasteryServiceLayerTest {
         //"1::CustomerName::OH::6.25::Carpet::100.0::2.1::2.25::210.0::225.0::13.27::225.52::"
   //double newStateTax, double newProductCost, double newLaborCost, String productType, String state
   //Laminate::1.75::2.10
-        Order editOrder = service.editOrder(1, 100.0, 6.75, 1.75, 2.10, "Laminate", "PA", "Orders_10292017.txt", "cName");
+        Order editOrder = service.editOrder(1, 100.0, 6.75, 1.75, 2.10, "Laminate", "PA", "Orders_10292017.txt", "cName", "Orders_11052017.txt");
         //210.0::225.0::13.27::225.52
         assertEquals(100.0, editOrder.getArea(), DELTA);
         assertEquals(175.0, editOrder.getMaterialCost(), DELTA);

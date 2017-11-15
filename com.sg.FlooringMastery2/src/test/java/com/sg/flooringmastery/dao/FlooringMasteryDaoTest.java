@@ -76,7 +76,7 @@ public class FlooringMasteryDaoTest {
         order.setTax(Double.parseDouble("951.73"));
         order.setTotal(Double.parseDouble("2650.03"));
         dao.addOrder(order,"Orders_10292017.txt" );
-        dao.saveWork("Orders_10292017.txt");
+        dao.saveWork();
         assertEquals(true, dao.validateOrderToEdit(40));
     }
     
@@ -241,7 +241,7 @@ public class FlooringMasteryDaoTest {
             editValues.add(new Double(102));//labor cost
             editValues.add(new Double(103));//tax
             editValues.add(new Double(104));//total
-            Order editedOrder = dao.editOrder(1, editValues, "Laminate", "PA", "Orders_10292017.txt", "cName");
+            Order editedOrder = dao.editOrder(1, editValues, "Laminate", "PA", "Orders_10292017.txt", "cName", "Orders_11052017.txt");
             dao.saveWork();
             
             assertEquals(100, editedOrder.getArea(), DELTA);

@@ -31,12 +31,7 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
     
     @Override
     public void saveOrders() throws FlooringMasteryFileNotFoundException{
-        String newFile = makeOrderFileName();
-        if(dao.displayExistingFiles().contains(newFile)){
-            dao.saveWork();
-        }else {
-            dao.saveWork(newFile);
-        }
+        dao.saveWork();
     }
     
     private String makeOrderFileName() {
@@ -80,7 +75,8 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
     @Override
     public Order editOrder(int orderNumber, double newArea, double newStateTax, 
                            double newProductCost, double newLaborCost, 
-                           String productType, String state, String choosenFileName, String customerName) 
+                           String productType, String state, String choosenFileName, 
+                           String customerName, String fileToAddTo) 
                            throws FlooringMasteryOrderNotFoundException, FlooringMasteryFileNotFoundException {
         Order editOrder = null;
         List<Double> newEntries = new ArrayList<Double>();
@@ -100,9 +96,8 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
         newEntries.add(2, new Double(laborCost));
         newEntries.add(3, new Double(totalTax));
         newEntries.add(4, new Double(total));
-        String fileName = fileExistsToSave(choosenFileName);
-        
-        editOrder = dao.editOrder(orderNumber, newEntries, productType, state, fileName, customerName );
+        //String fileName = fileExistsToSave(fileToAddTo);
+        editOrder = dao.editOrder(orderNumber, newEntries, productType, state, choosenFileName, customerName, fileToAddTo );
         return editOrder;
     }
     
@@ -143,6 +138,7 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
     
     @Override
     public boolean validateOrderToEdit(int orderToEdit){
+        System.out.println("order to edit: "+ orderToEdit + " file name: ");
         if (dao.validateOrderToEdit(orderToEdit)) {
             return true;
         } else {

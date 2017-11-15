@@ -16,12 +16,11 @@ import java.util.List;
 public interface FlooringMasteryDao {
     Order addOrder(Order order, String fileName) ;
     void saveWork() throws FlooringMasteryFileNotFoundException;
-    void saveWork(String fileName) throws FlooringMasteryFileNotFoundException;
     double getStateTax(String state);
     List<Double> getProductCostLabor(String productType);
     boolean validateOrderToEdit(int orderToEdit);
     Order editOrder(int orderNumber, List<Double> newEntries, String productType, 
-            String state, String fileName, String  customerName) 
+            String state, String fileName, String  customerName, String fileToAddTo) 
             throws FlooringMasteryFileNotFoundException;
     Order removeOrder(int orderNumber);
     String getProductType(int orderToEdit);

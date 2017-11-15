@@ -71,7 +71,7 @@ public class FlooringMasteryDaoStubImpl implements FlooringMasteryDao {
 
     @Override
     public Order editOrder(int orderNumber, List<Double> newEntries,String productType, 
-            String state, String fileName, String customerName) {
+            String state, String fileName, String customerName, String fileToAddTo) {
         //1::CustomerName::OH::6.25::Carpet::100.0::2.1::2.25::210.0::225.0::13.27::225.52::
         onlyOrder.setState(state);
         onlyOrder.setProductType(productType);
@@ -107,11 +107,6 @@ public class FlooringMasteryDaoStubImpl implements FlooringMasteryDao {
     @Override
     public void saveWork() throws FlooringMasteryFileNotFoundException {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        //do nothing
-    }
-
-    @Override
-    public void saveWork(String fileName) throws FlooringMasteryFileNotFoundException {
         //do nothing
     }
 
