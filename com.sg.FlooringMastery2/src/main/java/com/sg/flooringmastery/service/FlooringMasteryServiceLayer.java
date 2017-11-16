@@ -22,6 +22,8 @@ public interface FlooringMasteryServiceLayer {
     List<Double> getProductCostLabor(String productType);
     double getStateTax(String state);
     boolean validateOrderToEdit(int orderToEdit);
+    List<String> getProductTypes( );
+    List<String> getStatesList();
     String getState(int orderNumber);
     String getCustomerName(int orderToEdit);
     String getProductType(int orderNumber);

@@ -83,6 +83,7 @@ public class FlooringMasteryController {
         double stateTax=0.0, productCost=0.0, laborCost=0.0;
         boolean validState=false, validProduct=false;
         do{//check validity of state keyed by user
+            displayStates();
             state = view.getState();
             stateTax = service.getStateTax(state);
             if(stateTax == 0.0) {
@@ -93,6 +94,7 @@ public class FlooringMasteryController {
             }
         }while(!validState);
         do{//check validity of proudct keyed by user
+            displayProductTypes();
             productType = view.getProductType();
             List prodList = service.getProductCostLabor(productType);
             if (prodList != null){
@@ -193,6 +195,7 @@ public class FlooringMasteryController {
                     customerName = service.getCustomerName(orderToEdit);
                 }
                 do{//check validity of state keyed by user
+                    displayStates();
                     state = view.getNullState();
                     if(state == null || state.equals("")) {
                         state = service.getState(orderToEdit);
@@ -208,8 +211,10 @@ public class FlooringMasteryController {
                 }while(!validState);
               
                 do{//check validity of proudct keyed by user
+                    displayProductTypes();
                     productType = view.getNullProductType();
                     if(productType == null || productType.equals("")) {
+                        //displayProductTypes();
                         productType = service.getProductType(orderToEdit);
                         break;
                     }
@@ -292,7 +297,17 @@ public class FlooringMasteryController {
         }
         view.hitEnter();
     }
-    
+    private void displayProductTypes() {
+        List<String> productsList = new ArrayList<>();
+        productsList = service.getProductTypes();
+        view.displayProducts(productsList);
+        
+    }
+    private void displayStates() {
+        List<String> statesList = new ArrayList<>();
+        statesList = service.getStatesList();
+        view.displayStates(statesList);
+    }
     private void saveWork() {
         if (executionMode == 2){
             view.displayName("Changes can't be saved in Test Mode");

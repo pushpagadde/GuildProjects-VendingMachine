@@ -43,6 +43,25 @@ public class FlooringMasteryDaoStubImpl implements FlooringMasteryDao {
         }
     }
     
+    public List<String> getProductTypes( ) {
+        List<String> products = new ArrayList<>();
+        products.add("Carpet");
+        products.add("Wood");
+        products.add("Tile");
+        products.add("Vynal");
+        
+        return products;
+    }
+    
+    public List<String> getStatesList() {
+        List<String> states = new ArrayList<>();
+        states.add("OH");
+        states.add("VA");
+        states.add("WV");
+        states.add("PA");
+        return states;
+    }
+    
     public double getArea(int orderToEdit) {
         return onlyOrder.getArea();
     }

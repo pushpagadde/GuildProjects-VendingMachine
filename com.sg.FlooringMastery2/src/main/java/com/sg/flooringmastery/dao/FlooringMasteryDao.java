@@ -27,6 +27,8 @@ public interface FlooringMasteryDao {
     String getState(int orderToEdit);
     double getProductCost(int orderNumber);
     double getLaborCostPerSquareFoot(int orderNumber);
+    List<String> getProductTypes( );
+    List<String> getStatesList();
     double getStateTax(int orderNumber);
     double getArea(int orderToEdit);
     String getCustomerName(int orderToEdit);

@@ -133,11 +133,6 @@ public class FlooringMasteryView {
     }
     
     public String getState(){
-        io.print("Enter state from below:");
-        io.print("OH");
-        io.print("PA");
-        io.print("MI");
-        io.print("IN");
         return io.readString("Enter State: ");
     }
     
@@ -146,29 +141,30 @@ public class FlooringMasteryView {
     }
     
     public String getProductType() {
+        return io.readString("Enter product type:");
+    }
+    
+    public void displayProducts(List<String> productsList){
+        io.print("");
         io.print("Enter product type from below:");
-        io.print("Carpet");
-        io.print("Laminate");
-        io.print("Tile");
-        io.print("Wood");
-        return io.readString("Enter product type():");
+        for(int i = 0; i< productsList.size(); i++) {
+            io.print(productsList.get(i));
+        }
+    }
+    
+    public void displayStates(List<String> statesList) {
+        io.print("");
+        io.print("Enter state from below:");
+        for(int i = 0; i< statesList.size(); i++) {
+            io.print(statesList.get(i));
+        }
     }
 
     public String getNullState(){
-        io.print("Enter state from below:");
-        io.print("OH");
-        io.print("PA");
-        io.print("MI");
-        io.print("IN");
         return io.readNull("Enter State: ");
     }
     
     public String getNullProductType() {
-        io.print("Enter product type from below:");
-        io.print("Carpet");
-        io.print("Laminate");
-        io.print("Tile");
-        io.print("Wood");
         return io.readNull("Enter product type():");
     }
 

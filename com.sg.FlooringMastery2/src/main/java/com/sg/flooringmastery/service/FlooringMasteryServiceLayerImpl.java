@@ -100,6 +100,13 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
         editOrder = dao.editOrder(orderNumber, newEntries, productType, state, choosenFileName, customerName, fileToAddTo );
         return editOrder;
     }
+    public List<String> getProductTypes( ) {
+        return dao.getProductTypes();
+    }
+    
+    public List<String> getStatesList() {
+        return dao.getStatesList();
+    }
     
     private String fileExistsToSave(String choosenFileName) {
         List<String> existingFiles = dao.displayExistingFiles();

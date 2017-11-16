@@ -63,7 +63,7 @@ public class FlooringMasteryDaoTest {
     public void testAddOrder() throws Exception {
         dao.loadOrdersFromFile("Orders_10292017.txt");
         Order order = new Order();
-        order.setOrderNumber(40);
+        order.setOrderNumber(10);
         order.setCustomerName("Name 1");
         order.setState("MI");
         order.setTaxRate(Double.parseDouble("5.75") );
@@ -77,7 +77,7 @@ public class FlooringMasteryDaoTest {
         order.setTotal(Double.parseDouble("2650.03"));
         dao.addOrder(order,"Orders_10292017.txt" );
         dao.saveWork();
-        assertEquals(true, dao.validateOrderToEdit(40));
+        assertEquals(true, dao.validateOrderToEdit(10));
     }
     
     @After
@@ -304,9 +304,10 @@ public class FlooringMasteryDaoTest {
             dao.removeOrder(1);
             dao.saveWork();
             assertEquals(false, dao.validateOrderToEdit(1));
+            
             assertEquals((ordersSize), dao.loadOrdersFromFile("Orders_10292017.txt").size());
             }catch(Exception e){
-        }
+            }
     }
     /**
      * Test of getProductCost method, of class FlooringMasteryDao.

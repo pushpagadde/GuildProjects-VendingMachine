@@ -86,11 +86,26 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
         return removeOrder;
     }
     
+    public List<String> getProductTypes( ){
+        List<String> products = new ArrayList<>();
+        for(int i = 0 ; i< flooringMasteryProducts.size(); i++){
+            products.add(flooringMasteryProducts.get(i).getProduct());
+        }
+        return products;
+    }
+    
+    public List<String> getStatesList() {
+        List<String> states = new ArrayList<>();
+        for(int i = 0 ; i< flooringMasteryTaxes.size(); i++){
+            states.add(flooringMasteryTaxes.get(i).getState());
+        }
+        return states;
+    }
+    
     @Override
     public boolean validateOrderToEdit(int orderToEdit) {
         boolean validOrder = false;
         List<Order> ordersListFromMap = flooringMasteryOrdersMap.get(ordersFileName);
-        //System.out.println("order to edit: "+ orderToEdit + " file name: " + ordersFileName);
         if (flooringMasteryOrdersMap.size() == 0){
             try{             
                 listCurrentOrders();
@@ -156,7 +171,6 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
     }
     
     private List<Order> listCurrentOrders() throws FlooringMasteryFileNotFoundException {
-        //System.out.println("listCurrentOrders:DAOOrderFileName:"+ordersFileName+"  size"+flooringMasteryOrdersMap.size());
         List<Order> orderList = flooringMasteryOrdersMap.get(ordersFileName);
         return orderList;
     }
@@ -204,7 +218,6 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
     
     @Override
     public List<String> loadOrdersFromFile(String orderFileName) throws FlooringMasteryFileNotFoundException {
-        System.out.println("loadOrdersFromFile:"+orderFileName+" DAOOrderFileName:"+ordersFileName);
         ordersFileName = orderFileName; 
         List<String> orderRecords = new ArrayList<String>();
         List<Order> ordersListFromMap = flooringMasteryOrdersMap.get(orderFileName);
@@ -230,7 +243,6 @@ public class FlooringMasteryDaoFileImpl implements FlooringMasteryDao {
     }
     
     private void writeToFile(String fileName) throws FlooringMasteryFileNotFoundException {
-        System.out.println("DAOwriteToFIle:"+fileName+"   ordrs:"+ordersFileName);
         PrintWriter out;
         try{
             out = new PrintWriter(new FileWriter(fileName));
