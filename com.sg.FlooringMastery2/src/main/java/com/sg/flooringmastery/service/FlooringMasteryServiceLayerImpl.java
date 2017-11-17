@@ -145,7 +145,7 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
     
     @Override
     public boolean validateOrderToEdit(int orderToEdit){
-        System.out.println("order to edit: "+ orderToEdit + " file name: ");
+        
         if (dao.validateOrderToEdit(orderToEdit)) {
             return true;
         } else {

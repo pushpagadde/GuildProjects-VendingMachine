@@ -166,7 +166,5 @@ public class FlooringMasteryView {
     
     public String getNullProductType() {
         return io.readNull("Enter product type():");
-    }
-
-    
+    }    
 }
