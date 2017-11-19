@@ -47,8 +47,7 @@ public class Order {
         fullRecord = "Total: " + total ;
         return fullRecord;
     }
-    //order number, customer name, state, tax rate, product type,area, cost per square foot, 
-    //labor cost per square foot,material cost, labor cost, tax, and total
+    
     public void setOrderNumber(int orderNumber) {   this.orderNumber = orderNumber; }
     public void setCustomerName(String customerName) {  this.customerName = customerName;   }
     public void setState(String state) {    this.state = state; }
@@ -62,9 +61,7 @@ public class Order {
     
     public void setMaterialCost() {
         this.materialCost = this.area * this.costPerSquareFoot; 
-        this.materialCost = Double.parseDouble(df2.format(this.materialCost));
-        System.out.println("material cose=" + this.area + " * " + this.costPerSquareFoot + " = " + this.materialCost);
-        }
+        this.materialCost = Double.parseDouble(df2.format(this.materialCost)); }
     public void setLaborCost() {
         this.laborCost = this.area * this.laborCostPerSquareFoot;
         this.laborCost = Double.parseDouble(df2.format(this.laborCost)); }
