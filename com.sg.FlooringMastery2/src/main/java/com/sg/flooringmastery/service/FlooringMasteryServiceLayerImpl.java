@@ -40,6 +40,7 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
         SimpleDateFormat formatter = new SimpleDateFormat("MMddyyyy");
         String folderDate = formatter.format(today);
         fileName = "Orders_" + folderDate+".txt";
+        //LocalDate today = new LocalDate
         return fileName;
     }
         
@@ -56,18 +57,18 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
         order.setArea(area);
         order.setCostPerSquareFoot(productCost);
         order.setLaborCostPerSquareFoot(laborCost);
-        double materialCost = area * productCost;
-        materialCost = Double.parseDouble(df2.format(materialCost));
-        order.setMaterialCost(materialCost);
-        double labourCost = laborCost * area;
-        labourCost = Double.parseDouble(df2.format(labourCost));
-        order.setLaborCost(labourCost);
-        double totalTax = stateTax * 0.01 * (materialCost + laborCost);
-        totalTax = Double.parseDouble(df2.format(totalTax));
-        order.setTax(totalTax);
-        double totalAmount = materialCost + laborCost + totalTax;
-        totalAmount = Double.parseDouble(df2.format(totalAmount));
-        order.setTotal(totalAmount);
+        //double materialCost = area * productCost;
+        //materialCost = Double.parseDouble(df2.format(materialCost));
+        order.setMaterialCost();
+        //double labourCost = laborCost * area;
+        //labourCost = Double.parseDouble(df2.format(labourCost));
+        order.setLaborCost();
+        //double totalTax = stateTax * 0.01 * (materialCost + laborCost);
+        //totalTax = Double.parseDouble(df2.format(totalTax));
+        order.setTax();
+        //double totalAmount = materialCost + laborCost + totalTax;
+        //totalAmount = Double.parseDouble(df2.format(totalAmount));
+        order.setTotal();
         String fileName = makeOrderFileName();
         dao.addOrder(order, fileName);
         return order;
@@ -97,7 +98,8 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
         newEntries.add(3, new Double(totalTax));
         newEntries.add(4, new Double(total));
         //String fileName = fileExistsToSave(fileToAddTo);
-        editOrder = dao.editOrder(orderNumber, newEntries, productType, state, choosenFileName, customerName, fileToAddTo );
+        editOrder = dao.editOrder(orderNumber, newEntries, productType, state, 
+                    choosenFileName, customerName, fileToAddTo );
         return editOrder;
     }
     public List<String> getProductTypes( ) {
@@ -145,7 +147,6 @@ public class FlooringMasteryServiceLayerImpl implements FlooringMasteryServiceLa
     
     @Override
     public boolean validateOrderToEdit(int orderToEdit){
-        
         if (dao.validateOrderToEdit(orderToEdit)) {
             return true;
         } else {

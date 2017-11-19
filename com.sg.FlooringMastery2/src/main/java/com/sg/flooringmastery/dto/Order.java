@@ -5,6 +5,7 @@
  */
 package com.sg.flooringmastery.dto;
 
+import java.text.DecimalFormat;
 import java.util.Objects;
 
 /**
@@ -24,10 +25,11 @@ public class Order {
     private double laborCost;
     private double tax;
     private double total;
-    //order number, customer name, state, tax rate, product type, 
-    //area, cost per square foot, labor cost per square foot, 
-    //material cost, labor cost, tax, and total
-    
+    private static DecimalFormat df2 = new DecimalFormat(".##");
+    //Product product = new Product();
+    //Taxes taxes = new Taxes();
+    //order number, customer name, state, tax rate, product type,area, cost per square foot, 
+    //labor cost per square foot,material cost, labor cost, tax, and total
     @Override
     public String toString() {
         String fullRecord;
@@ -45,86 +47,48 @@ public class Order {
         fullRecord = "Total: " + total ;
         return fullRecord;
     }
-    
-    public Order(){
-    }
-    
-    
-    public Order(int orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-    public int getOrderNumber() {
-        return orderNumber;
-    }
-    public void setOrderNumber(int orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-    public String getCustomerName() {
-        return customerName;
-    }
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-    public String getState() {
-        return state;
-    }
-    public void setState(String state) {
-        this.state = state;
-    }
-    public double getTaxRate() {
-        return taxRate;
-    }
-    public void setTaxRate(double taxRate) {
-        this.taxRate = taxRate;
-    }
-    public String getProductType() {
-        return productType;
-    }
-    public void setProductType(String productType) {
-        this.productType = productType;
-    }
-    public double getArea() {
-        return area;
-    }
-    public void setArea(double area) {
-        this.area = area;
-    }
-    public double getCostPerSquareFoot() {
-        return costPerSquareFoot;
-    }
-    public void setCostPerSquareFoot(double costPerSquareFoot) {
-        this.costPerSquareFoot = costPerSquareFoot;
-    }
-    public double getLaborCostPerSquareFoot() {
-        return laborCostPerSquareFoot;
-    }
+    //order number, customer name, state, tax rate, product type,area, cost per square foot, 
+    //labor cost per square foot,material cost, labor cost, tax, and total
+    public void setOrderNumber(int orderNumber) {   this.orderNumber = orderNumber; }
+    public void setCustomerName(String customerName) {  this.customerName = customerName;   }
+    public void setState(String state) {    this.state = state; }
+    public void setTaxRate(double taxRate) {    this.taxRate = taxRate; }
+    public void setProductType(String productType) {    this.productType = productType; }
+    public void setArea(double area) {  this.area = area;   }
+    public void setCostPerSquareFoot(double costPerSquareFoot) {    
+        this.costPerSquareFoot = costPerSquareFoot; }
     public void setLaborCostPerSquareFoot(double laborCostPerSquareFoot) {
-        this.laborCostPerSquareFoot = laborCostPerSquareFoot;
-    }
-    public double getMaterialCost() {
-        return materialCost;
-    }
-    public void setMaterialCost(double materialCost) {
-        this.materialCost = materialCost;
-    }
-    public double getLaborCost() {
-        return laborCost;
-    }
-    public void setLaborCost(double laborCost) {
-        this.laborCost = laborCost;
-    }
-    public double getTax() {
-        return tax;
-    }
-    public void setTax(double tax) {
-        this.tax = tax;
-    }
-    public double getTotal() {
-        return total;
-    }
-    public void setTotal(double total) {
-        this.total = total;
-    }
+        this.laborCostPerSquareFoot = laborCostPerSquareFoot;   }
+    
+    public void setMaterialCost() {
+        this.materialCost = this.area * this.costPerSquareFoot; 
+        this.materialCost = Double.parseDouble(df2.format(this.materialCost));
+        System.out.println("material cose=" + this.area + " * " + this.costPerSquareFoot + " = " + this.materialCost);
+        }
+    public void setLaborCost() {
+        this.laborCost = this.area * this.laborCostPerSquareFoot;
+        this.laborCost = Double.parseDouble(df2.format(this.laborCost)); }
+    public void setTax() {
+        this.tax = this.taxRate * 0.01 * (this.materialCost + this.laborCost); 
+        this.tax = Double.parseDouble(df2.format(this.tax)); }
+    public void setTotal() {
+        this.total = this.materialCost + this.laborCost + this.tax ;
+        this.total = Double.parseDouble(df2.format(this.total)) ;}
+    
+    public Order(){ }
+    public Order(int orderNumber) { this.orderNumber = orderNumber; }
+    public int getOrderNumber() {   return orderNumber; }
+    public String getCustomerName() {   return customerName;    }
+    public String getState() {  return state;   }
+    public double getTaxRate() {    return taxRate; }
+    public String getProductType() {    return productType; }
+    public double getArea() {   return area;    }
+    public double getCostPerSquareFoot() {  return costPerSquareFoot;   }    
+    public double getLaborCostPerSquareFoot() { return laborCostPerSquareFoot;  }
+    public double getMaterialCost() {   return materialCost;    }
+    public double getLaborCost() {  return laborCost;   }
+    public double getTax() {    return tax; }
+    public double getTotal() {  return total;   }
     
     @Override
     public int hashCode() {
@@ -148,8 +112,7 @@ public class Order {
     public boolean equals(Object obj) {
         if (this == obj) {           return true;         }
         if (obj == null) {           return false;        }
-        if (getClass() != obj.getClass()) {            return false;        }
-        
+        if (getClass() != obj.getClass()) {            return false;        }        
         final Order other = (Order) obj;
         if (this.orderNumber != other.orderNumber) {            return false;        }
         if (this.customerName != other.customerName) {            return false;        }
@@ -157,7 +120,4 @@ public class Order {
         if (!Objects.equals(this.state, other.state)) {            return false;        }
         return true;
     }
-    
-    
-    
 }

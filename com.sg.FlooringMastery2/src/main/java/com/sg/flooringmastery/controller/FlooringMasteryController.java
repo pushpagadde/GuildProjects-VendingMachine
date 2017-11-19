@@ -21,12 +21,9 @@ import java.util.Scanner;
  * @author apprentice
  */
 public class FlooringMasteryController {
-    
     FlooringMasteryServiceLayer service;
     FlooringMasteryView view = new FlooringMasteryView();
-    //String oldFileName = null;
     int executionMode = 2;
-    //boolean dataSavePending = false;
     public FlooringMasteryController(FlooringMasteryServiceLayer service,FlooringMasteryView view){
         this.service = service;
         this. view = view;
@@ -45,7 +42,7 @@ public class FlooringMasteryController {
                 currentLine = scanner.nextLine();
                if (currentLine.equals("1")){//Prod Mode
                    executionMode = Integer.parseInt(currentLine);
-                } //Defualt mode is Production Mode
+                } //Default mode is Production Mode
             }
         }
         boolean keepGoing = true;
@@ -116,26 +113,24 @@ public class FlooringMasteryController {
     }
     
     private void listAllOrders(){
-        //int i = 1;
         List<String> fileNames = service.displayExistingFiles();
         java.util.Collections.sort(fileNames);
         try{
             for (String names : fileNames) {
-                view.displayName( names);
+                view.displayName(names);
             }
             String choosenFileName = null;
-            boolean validDateNotFound = true;
+            boolean invalidDate = true;
             do {
                 String orderDate =  view.getOrderDate();
 
                 for (String flName : fileNames){
                     if (flName.contains("Orders_"+orderDate+".txt")){                        
                         choosenFileName = flName;
-                        validDateNotFound = false;
+                        invalidDate = false;
                     }
                 }
-            } while(validDateNotFound);
-            
+            } while(invalidDate);
             List<String> recordsList =  service.getAllOrders(choosenFileName);
             if (recordsList.size() == 0){
                 view.displayName("No Orders found!");
@@ -146,7 +141,6 @@ public class FlooringMasteryController {
                     view.displayName(String.format("%-10s",record));
                 }
                 view.displayBottomBanner();
-                
                 view.displayName("");
             }
         } catch (Exception e) {
@@ -165,16 +159,16 @@ public class FlooringMasteryController {
             for (String names : fileNames) {
                 view.displayName( names);
             }
-            boolean validDateNotFound = true;
+            boolean invalidDate = true;
             do {
                 String orderDate =  view.getOrderDate();
                 for (String flName : fileNames){
                     if (flName.contains("Orders_"+orderDate+".txt")){                        
                         choosenFileName = flName;
-                        validDateNotFound = false;
+                        invalidDate = false;
                     }
                 }
-            } while(validDateNotFound);
+            } while(invalidDate);
             List<String> recordsList =  service.getAllOrders(choosenFileName);
             view.displayTopBanner();
             for(String record : recordsList) {
@@ -209,7 +203,6 @@ public class FlooringMasteryController {
                         validState  = true;
                     }
                 }while(!validState);
-              
                 do{//check validity of proudct keyed by user
                     displayProductTypes();
                     productType = view.getNullProductType();
@@ -272,16 +265,16 @@ public class FlooringMasteryController {
                 view.displayName( names);
             }
             String choosenFileName = null;
-            boolean validDateNotFound = true;
+            boolean invalidDate = true;
             do {
                 String orderDate =  view.getOrderDate();
                 for (String flName : fileNames){
                     if (flName.contains("Orders_"+orderDate+".txt")){                        
                         choosenFileName = flName;
-                        validDateNotFound = false;
+                        invalidDate = false;
                     }
                 }
-            } while(validDateNotFound);
+            } while(invalidDate);
             List<String> recordsList =  service.getAllOrders(choosenFileName);
             for(String record : recordsList) {
                 view.displayName(record);

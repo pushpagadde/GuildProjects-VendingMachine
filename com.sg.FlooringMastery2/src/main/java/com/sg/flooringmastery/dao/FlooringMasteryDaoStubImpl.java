@@ -27,10 +27,10 @@ public class FlooringMasteryDaoStubImpl implements FlooringMasteryDao {
         onlyOrder.setArea(Double.parseDouble("222.0"));
         onlyOrder.setCostPerSquareFoot(Double.parseDouble("2.1"));
         onlyOrder.setLaborCostPerSquareFoot(Double.parseDouble("2.25"));
-        onlyOrder.setMaterialCost(Double.parseDouble("921.3"));
-        onlyOrder.setLaborCost(Double.parseDouble("777.0"));
-        onlyOrder.setTax(Double.parseDouble("13.50"));
-        onlyOrder.setTotal(Double.parseDouble("2650.03"));
+        onlyOrder.setMaterialCost();//Double.parseDouble("921.3")
+        onlyOrder.setLaborCost();//Double.parseDouble("777.0")
+        onlyOrder.setTax();//Double.parseDouble("13.50")
+        onlyOrder.setTotal();//Double.parseDouble("2650.03")
         orderList.add(onlyOrder);
     }
     
@@ -95,11 +95,11 @@ public class FlooringMasteryDaoStubImpl implements FlooringMasteryDao {
         onlyOrder.setState(state);
         onlyOrder.setProductType(productType);
         onlyOrder.setArea(newEntries.get(0));
-        onlyOrder.setMaterialCost(newEntries.get(1));
-        onlyOrder.setLaborCost(newEntries.get(2));
-        onlyOrder.setTax(newEntries.get(3));
+        onlyOrder.setMaterialCost();//newEntries.get(1)
+        onlyOrder.setLaborCost();//newEntries.get(2)
+        onlyOrder.setTax();//newEntries.get(3)
         onlyOrder.setCustomerName(customerName);
-        onlyOrder.setTotal(newEntries.get(4));
+        onlyOrder.setTotal();//newEntries.get(4)
         return onlyOrder;
     }
 

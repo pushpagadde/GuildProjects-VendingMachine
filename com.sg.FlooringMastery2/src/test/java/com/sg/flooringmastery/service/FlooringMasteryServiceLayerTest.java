@@ -58,8 +58,8 @@ public class FlooringMasteryServiceLayerTest {
         orderDetails.add(new Double(area));                         
         Order newOrder = service.addOrder(orderDetails, "OH", 6.25, "Carpet", 2.1, 2.25);
         //order number, customer name, state, tax rate, product type, 
-    //area, cost per square foot, labor cost per square foot, 
-    //material cost, labor cost, tax, and total
+        //area, cost per square foot, labor cost per square foot, 
+        //material cost, labor cost, tax, and total
         //"1::CustomerName::OH::6.25::Carpet::100.0::2.1::2.25::210.0::225.0::13.27::225.52::"
         assertEquals(newOrder.getOrderNumber(), 0 );
         assertEquals(true, newOrder.getCustomerName().equalsIgnoreCase("ServiceAddOrderCustomer"));
@@ -71,8 +71,8 @@ public class FlooringMasteryServiceLayerTest {
         assertEquals(newOrder.getLaborCostPerSquareFoot(), 2.25, DELTA);
         assertEquals(newOrder.getMaterialCost(), 210.00, DELTA);
         assertEquals(newOrder.getLaborCost(), 225.00, DELTA);
-        assertEquals(newOrder.getTax(),13.27, DELTA);
-        assertEquals(newOrder.getTotal(), 225.52, DELTA);
+        assertEquals(newOrder.getTax(),27.19, DELTA);
+        assertEquals(newOrder.getTotal(), 462.19, DELTA);
     }
 
     /**
@@ -81,7 +81,6 @@ public class FlooringMasteryServiceLayerTest {
     @Test
     public void testGetAllOrders() throws Exception {
         //"1::CustomerName::OH::6.25::Carpet::100.0::2.1::2.25::210.0::225.0::13.27::225.52::"
-       
         List orderDetails = new ArrayList();
         String customerName = "ServiceAddOrderCustomer";
         Double area = new Double(100);
@@ -89,11 +88,9 @@ public class FlooringMasteryServiceLayerTest {
         orderDetails.add(new Double(area));                         
         Order newOrder = service.addOrder(orderDetails, "OH", 6.25, "Carpet", 2.1, 2.25);
         service.saveOrders();
-        
         List<String> listOfOrders = service.getAllOrders("Orders_10292017.txt");
         int  numberOfOrders = listOfOrders.size(); 
         System.out.println("test"+numberOfOrders);
-        
         assertEquals(true, (numberOfOrders == 1));
     }
 
@@ -158,19 +155,19 @@ public class FlooringMasteryServiceLayerTest {
     public void testEditOrder() throws Exception {
         Order onlyOrder = service.removeOrder(1);
         assertEquals(222.0, onlyOrder.getArea(), DELTA);
-        assertEquals(921.3, onlyOrder.getMaterialCost(), DELTA);
-        assertEquals(777.0, onlyOrder.getLaborCost(), DELTA);
-        assertEquals(13.5, onlyOrder.getTax(), DELTA);
-        assertEquals(2650.03, onlyOrder.getTotal(), DELTA);
+        assertEquals(466.2, onlyOrder.getMaterialCost(), DELTA);
+        assertEquals(499.5, onlyOrder.getLaborCost(), DELTA);
+        assertEquals(60.36, onlyOrder.getTax(), DELTA);
+        assertEquals(1026.06, onlyOrder.getTotal(), DELTA);
         //"1::CustomerName::OH::6.25::Carpet::100.0::2.1::2.25::210.0::225.0::13.27::225.52::"
   //double newStateTax, double newProductCost, double newLaborCost, String productType, String state
   //Laminate::1.75::2.10
         Order editOrder = service.editOrder(1, 100.0, 6.75, 1.75, 2.10, "Laminate", "PA", "Orders_10292017.txt", "cName", "Orders_11052017.txt");
         //210.0::225.0::13.27::225.52
         assertEquals(100.0, editOrder.getArea(), DELTA);
-        assertEquals(175.0, editOrder.getMaterialCost(), DELTA);
-        assertEquals(210.0, editOrder.getLaborCost(), DELTA);
-        assertEquals(25.99, editOrder.getTax(), DELTA);
-        assertEquals(410.99, editOrder.getTotal(), DELTA);
+        assertEquals(210.0, editOrder.getMaterialCost(), DELTA);
+        assertEquals(225.0, editOrder.getLaborCost(), DELTA);
+        assertEquals(27.19, editOrder.getTax(), DELTA);
+        assertEquals(462.19, editOrder.getTotal(), DELTA);
     }   
 }
