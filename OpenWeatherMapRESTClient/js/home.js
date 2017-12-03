@@ -8,7 +8,7 @@ $(document).ready(function(){
     clearAll();
     $('#errorMessages').empty();
     var haveValidationErrors = false;
-    var imageLink = "", description = "", temperature = 0, humidity = 0, windSpeed = 0, city = "", zip = "", link = "";
+    var imageLink = "", description = "", temperature = 0, humidity = 0, windSpeed = 0, city = "", zip = "", link = "", tempConvert;
     link = 'http://api.openweathermap.org/data/2.5/weather?zip=';
     imageLink = 'http://openweathermap.org/img/w/';
     haveValidationErrors = checkAndDisplayValidationErrors($('#zipCode').val());
@@ -16,6 +16,8 @@ $(document).ready(function(){
         displayError();
         return false;
     }else {
+      var listItem = $('#units option:selected').text();
+      //alert(listItem);
       $('#currentConditionDiv').show();
       $('#fiveDayForecastDiv').show();
       zip = $('#zipCode').val();
@@ -44,13 +46,29 @@ $(document).ready(function(){
             }
             if (title == 'main'){
               $.each(details, function(detID, detail) {
-                if (detID == "temp"){ temperature = detail; temperature = "Temperature: "+ temperature + ' F'; }
+                if (detID == "temp"){
+                  temperature = detail;
+                  if(listItem == "Metric") {
+                    tempConvert = (temperature - 32)/(1.8);
+                    tempConvert = Math.round(tempConvert,2);
+                    temperature = tempConvert + ' C';
+                  } else {
+                      temperature = "Temperature: "+ temperature + ' F';
+                  }
+                }
                 if (detID == "humidity"){ humidity = detail; humidity = 'Humidity:' + humidity + ' %'; }
               })
             }
             if (title == 'wind'){
               $.each(details, function(detID, detail) {
-                if (detID == "speed"){  windSpeed = detail; windSpeed = 'Wind Speed: ' + windSpeed + ' miles/hour'; }
+                if (detID == "speed"){
+                    windSpeed = detail;
+                    if(listItem == "Metric") {
+                      windSpeed = 'Wind Speed: ' + Math.round(detail*1.61,2) + ' KM/hour';
+                    }else {
+                        windSpeed = 'Wind Speed: ' + windSpeed + ' miles/hour';
+                    }
+                  }
               })
             }
           });
@@ -96,12 +114,24 @@ $(document).ready(function(){
                       forecastDate.push(date);
                     } else if (listItemId == "temp"){
                       temperatureTemp = "";
-                      $.each(listItemDetails, function(tempID, temparatureDetails) {
+                      $.each(listItemDetails, function(tempID, temperatureDetails) {
                         if(tempID == 'min') {
-                          temperatureTemp = 'Low: ' + temparatureDetails + ' F';
+                          if(listItem == "Metric") {
+                            tempConvert = (temperatureDetails - 32)/(1.8);
+                            tempConvert = Math.round(tempConvert,2);
+                            temperatureTemp = 'Low: ' + tempConvert + ' C';
+                          } else {
+                              temperatureTemp = 'Low: ' + temperatureDetails + ' F';
+                          }
                         }
                         if(tempID == 'max') {
-                          temperatureTemp = temperatureTemp + ' High: ' + temparatureDetails + ' F';
+                          if(listItem == "Metric"){
+                            temperatureDetails = (temperatureDetails - 32)/(1.8);
+                            tempConvert = Math.round(temperatureDetails,2);
+                            temperatureTemp += ' High: ' + tempConvert + ' C';
+                          }else {
+                              temperatureTemp = temperatureTemp + ' High: ' + temperatureDetails + ' F';
+                          }
                           forecastTemperature.push(temperatureTemp);
                         }
                       });
