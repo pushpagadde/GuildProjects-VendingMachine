@@ -1,9 +1,0 @@
-2017-10-01T21:34:08.860 : editItemInventoryGetChange : insufficient funds exception thrown. Item selected was # 31.0
-2017-10-01T21:37:25.534 : editItem : Wrong item selection exception thrown. Item selected was # 
-2017-10-01T21:38:58.148 : editItem : Wrong item selection exception thrown. Item selected was # [Ljava.lang.Object;@6193932a
-2017-10-01T21:40:09.507 : editItem : Wrong item selection exception thrown. Item selected was # 8
-2017-10-01T21:42:44.035 : editItemInventoryGetChange : insufficient funds exception thrown. Item selected was # 3
-2017-10-01T21:43:09.975 : validateItemSelection : invalid item selection exception thrown. Item selected was # 6
-2017-10-05T18:36:36.631 : addItem4item Number: 4 | Item Name:peanuts | Price:1.25 | Inventory:10
-2017-10-05T18:37:16.895 : editItemInventoryGetChange : insufficient funds exception thrown. Item selected was # 1
-2017-10-05T18:37:37.158 : editItemInventoryGetChange : insufficient funds exception thrown. Item selected was # 1

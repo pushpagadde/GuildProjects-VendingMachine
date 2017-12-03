@@ -1,3 +1,0 @@
-First line in the file.
-Second line in the file.
-Third line to the file.

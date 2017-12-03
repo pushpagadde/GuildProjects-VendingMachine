@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Open Weather Map REST Client</title>
+        <link href="css/bootstrap.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container"><!--main div-->
+            <h1 id="mainHeading">Weather Page</h1>
+            <hr>
+            <ul class="list-group" id="errorMessages"></ul>
+            <div class="row" >
+              <div class="col-md-6" id="mainFormDiv" style="text-align: center" >
+                <form class="form-zipCode" role="form" id="zipCode-form" >
+                  <table> <tr><td>
+                      <label for="zipCode" >ZipCode:</label>&nbsp;
+                      <input type="number" width="8" size=5 id="zipCode" placeholder="zipCode" required/>&nbsp;
+                      <label for="units" >Units:</label>&nbsp;
+                      <select id="units">
+                        <option>Imperial</option>
+                        <option>Metric</option>
+                        <option>Standard</option>
+                      </select>
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <button type="button" id="weather-button" > Show Weather </button>
+                    </td></tr></table>
+                </form>
+              </div>
+            </div>
+            <br>
+            <hr>
+            <div id="currentConditionDiv"><!-- current condition div-->
+              <h2 id="currentConditionHeading">Current Condition in :</h2>
+              <table id="currentConditionTable"><tbody id="currentConditionTbody">
+                <tr ><td rowspan=4  id="tableRow1">
+                  <img src="" id="currentConditionImage"></img>
+                </td><td rowspan=4 width="350" align="left">
+                  <h5 id="weatherDescription"></h5></td>
+                  <td width="350"><h5 id="temp"></h5></td></tr>
+                <tr ><td width="350"><h5 id="humidity"></h5></td></tr>
+                <tr ><td width="350"><h5 id="wind"></h5></td></tr>
+              </tbody>
+              </table>
+            </div>
+            <hr>
+            <div id= "fiveDayForecastDiv"><!--five day forecast -->
+              <h2>Five Day Forecast </h2>
+              <table id="forecastConditionTable">
+                <tr>
+                  <td width="320" colspan=2 align = "center"><h5 id="date1"></h5></td>
+                  <td width="320" colspan=2 align = "center"><h5 id="date2"></h5></td>
+                  <td width="320" colspan=2 align = "center"><h5 id="date3"></h5></td>
+                  <td width="320" colspan=2 align = "center"><h5 id="date4"></h5></td>
+                  <td width="320" colspan=2 align = "center"><h5 id="date5"></h5></td></tr>
+                <tr>
+                  <td id="tableColumn1">
+                    <img src="" id="day1ForecastImage" width="30%"></img></td>
+                  <td><h5 id="weatherDescription1" width="70%"></h5></td>
+                  <td id="tableColumn2">
+                    <img src="" id="day2ForecastImage" width="30%"></img></td>
+                  <td><h5 id="weatherDescription2" width="70%"></h5></td>
+                  <td id="tableColumn3">
+                    <img src="" id="day3ForecastImage"  width="30%"></img></td>
+                  <td><h5 id="weatherDescription3" width="70%"></h5></td>
+                  <td id="tableColumn4">
+                    <img src="" id="day4ForecastImage" width="30%"></img></td>
+                  <td><h5 id="weatherDescription4" width="70%"></h5></td>
+                  <td id="tableColumn5">
+                    <img src="" id="day5ForecastImage" width="30%"></img></td>
+                  <td><h5 id="weatherDescription5" width="70%"></h5></td></tr>
+                <tr>
+                  <td colspan=2><h5 id="temperature1"></h5></td>
+                  <td colspan=2><h5 id="temperature2"></h5></td>
+                  <td colspan=2><h5 id="temperature3"></h5></td>
+                  <td colspan=2><h5 id="temperature4"></h5></td>
+                  <td colspan=2><h5 id="temperature5"></h5></td></tr>
+                </table>
+            </div>
+        </div>
+        <script src="js/jquery-2.2.4.min.js"></script>
+        <script src="js/home.js"></script>
+    </body>
+</html>
