@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Vending Machine</title>
+        <link href="css/bootstrap.css" rel="stylesheet">
+    </head>
+    <style type="text/css">
+    td{  padding:0 10px 0 30px; }
+    tr{   padding: 0 25px 0 25px; }
+    </style>
+    <body>
+        <div class="container">
+            <h1 id="mainHeading" align="center">Vending Machine</h1><hr>
+        </div>
+        <div id="mainDiv" class="container">
+          <table id="toptable">
+            <tbody>
+            <tr id="ttr1">
+              <td>
+                <button id="button1" class="btn btn-default" width="400">
+                  <table id="childtable">
+                    <tbody id="contentRows">
+                    <tr align="left"   id="itemId1"><td contenteditable='true' id="itemno">1</td></tr>
+                    <tr align="center" id="itemName1"><td id="itemName1" contenteditable='true'>Snickers</td></tr>
+                    <tr align="center" id="itemPrice1"><td id="itemP1" contenteditable='true' contenteditable='true'>$1.85</td></tr>
+                    <tr align="center" id="itemQuantity1"><td id='itemPQuantity'>Quantity: 10</td></tr>
+                    </tbody>
+                  </table>
+                </button>
+              </td>
+              <td>
+                <button id="button2" class="btn btn-default" width="400">
+                  <table>
+                    <tr align="left" id="itemId2" ><td contenteditable='true'>2</td></tr>
+                    <tr align="center" id="itemName2"><td contenteditable='true'>M & M's</td></tr>
+                    <tr align="center" id="itemPrice2"><td contenteditable='true'>$1.85</td></tr>
+                    <tr align="center" id="itemQuantity2"><td contenteditable='true'>Quantity: 10</td></tr>
+                    <tbody id="contentRows"></tbody>
+                  </table>
+                </button>
+              </td>
+              <td>
+                <button id="button3" class="btn btn-default" width="400">
+                  <table>
+                    <tr align="left" id="itemId3"><td contenteditable='true'>3</td></tr>
+                    <tr align="center" id="itemName3"><td contenteditable='true'>Pringles</td></tr>
+                    <tr align="center" id='itemPrice3'><td contenteditable='true'>$1.85</td></tr>
+                    <tr align="center" id='itemQuantity3'><td contenteditable='true'>Quantity: 10</td></tr>
+                    <tbody id="contentRows"></tbody>
+                  </table>
+                </button>
+              </td>
+              <td>
+                <table>
+                  <tr colspan=2 align="center">
+                    <td><label >Total $ IN</label></td>
+                  </tr>
+                  <tr colspan=2 align="center">
+                    <td><button id="amountEntered" align="center" disabled>00.00</button></td>
+                  </tr>
+                  <tr>
+                    <td><button id="dollar">Add Dollar </button><button id= "quarter">Add Quarter</button></td>
+                  </tr>
+                  <tr>
+                    <td><button id="dime">Add Dime  </button><button id="nickle">Add Nickle</button></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr><!--row 2-->
+              <tr>
+                <td>
+                  <button id="button4" class="btn btn-default" width="400">
+                    <table>
+                      <tr align="left" id="itemId4"><td>4</td></tr>
+                      <tr align="center" id="itemName4"><td>Reeses</td></tr>
+                      <tr align="center" id="itemPrice4"><td>$1.85</td></tr>
+                      <tr align="center" id="itemQuantity4"><td>Quantity: 10</td></tr>
+                      <tbody id="contentRows"></tbody>
+                    </table>
+                  </button>
+                </td>
+                <td>
+                  <button id="button5" class="btn btn-default" width="400">
+                    <table>
+                      <tr align="left" id="itemId5"><td>5</td></tr>
+                      <tr align="center" id="itemName5"><td>Pretzels</td></tr>
+                      <tr align="center" id="itemPrice5"><td>$1.85</td></tr>
+                      <tr align="center" id="itemQuantity5"><td>Quantity: 10</td></tr>
+                      <tbody id="contentRows"></tbody>
+                    </table>
+                  </button>
+                </td>
+                <td>
+                  <button id="button6" class="btn btn-default" width="400">
+                    <table>
+                      <tr align="left" id="item6"><td>6</td></tr>
+                      <tr align="center" id="itemName6"><td>Twinkies</td></tr>
+                      <tr align="center" id="itemPrice6"><td>$1.85</td></tr>
+                      <tr align="center" id="itemQuantity6"><td>Quantity: 10</td></tr>
+                      <tbody id="contentRows"></tbody>
+                    </table>
+                  </button>
+                </td>
+                <td>
+                  <table align="center">
+                    <hr>
+                    <tr colspan=2 align="center"><td><label>Messages</label></td></tr>
+                    <tr colspan=2><td><input disabled id="messages" align="center"></input></td></tr>
+                    <tr>
+                      <td><label align="left">Item:</label><input id="itemPurchased" align="left" type="number" disabled/></td>
+                    </tr>
+                    <tr>
+                      <td colspan=2><button id="makePurchase">Make Purchase</button></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </tr>
+            <tr><!--row 3 -->
+              <td>
+                <button id="button7" class="btn btn-default" width="400">
+                  <table>
+                    <tr align="left" id="itemId7"><td>7</td></tr>
+                    <tr align="center" id="itemName7"><td>Doritos</td></tr>
+                    <tr align="center" id="itemPrice7"><td>$1.85</td></tr>
+                    <tr align="center" id="itemQuantity7"><td>Quantity: 10</td></tr>
+                    <tbody id="contentRows"></tbody>
+                  </table>
+                </button>
+              </td>
+              <td>
+                <button id="button8" class="btn btn-default" width="400">
+                  <table>
+                    <tr align="left" id="itemId8"><td contenteditable='true'>8</td></tr>
+                    <tr align="center" id="itemName8"><td contenteditable='true'>Almond Joy</td></tr>
+                    <tr align="center" id="itemPrice8"><td contenteditable='true'>$1.85</td></tr>
+                    <tr align="center" id="itemQuantity8"><td contenteditable='true'>Quantity: 10</td></tr>
+                    <tbody id="contentRows"></tbody>
+                  </table>
+                </button>
+              </td>
+              <td>
+                <button id="button9" class="btn btn-default" width="400">
+                  <table>
+                    <tr align="left" id="itemId9"><td contenteditable='true'>9</td></tr>
+                    <tr align="center" id="itemName9"><td contenteditable='true'>Trident</td></tr>
+                    <tr align="center" id="itemPrice9"><td contenteditable='true'>$1.85</td></tr>
+                    <tr align="center" id="itemQuantity9"><td contenteditable='true'>Quantity: 10</td></tr>
+                    <tbody id="contentRows"></tbody>
+                  </table>
+                </button>
+              </td>
+              <td>
+                <table>
+                  <hr>
+                  <tr><td><label>Change</label></td></tr>
+                  <tr><td><button align="center" id="changeReturnedDisplay" type='button' disabled>Change returned</button></td></tr>
+                  <tr><td><button id="changeReturnedButton">Change Return</button></td></tr>
+                </table>
+              </td>
+            </tr>
+          </tr>
+        </tbody>
+          </table>
+
+
+        </div>
+
+        <script src="js/jquery-2.2.4.min.js"></script>
+        <script src="js/home.js"></script>
+    </body>
+</html>
