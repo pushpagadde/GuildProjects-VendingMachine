@@ -143,6 +143,7 @@ $(document).ready(function(){
       }else {
         $('#messages').empty();
         var moreDeposit = priceList[Number($('#itemPurchased').val())-1] - Number($('#amountEntered').text());
+        moreDeposit = Number(moreDeposit).toFixed(2);
         $('#messages').val("deposit: " + moreDeposit +' more.');
       }
     }else {
