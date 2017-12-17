@@ -1,9 +1,9 @@
+var itemsList = $('#contentRows');
+var priceList = [], nameList = [], quantityList = [] ;
+
 $(document).ready(function(){
   clearAll();
-  //$('#itemPurchased').val('');
   $('#itemPurchased').append('Click on an item');
-  var itemsList = $('#contentRows');
-  var priceList = [], nameList = [], quantityList = [] ;
   $.ajax({
     type: "GET",
     url: "http://localhost:8080/items",
@@ -11,15 +11,16 @@ $(document).ready(function(){
     contentType: "application/x-www-form-urlencoded",
     success: function(itemsArray) {
       $.each(itemsArray, function(index, itemInfo){
-        var itemNumber = index+1;
+        var itemNumber = itemInfo.id;
         var itemName = itemInfo.name;
         var itemPrice = itemInfo.price;
         var itemQuantity = itemInfo.quantity;
         var row = '<tr>';
-            row += '<td align="left><h1><h3>' + itemNumber + '</h3></td></tr>';
+            row += '<td align="left"><h1><h3>' + itemNumber + '</h3></td></tr>';
             row += '<tr><td align="center"><h3>' + itemName + '</h3></td></tr>';
             row += '<tr><td align="center"><h3>' + Number(itemPrice).toFixed(2) + '</h3></td></tr>';
             row += '<tr><td align="center"><h3> Quantity: ' + itemQuantity + '</h3></td></tr>';
+
         itemsList.append(row);
         priceList.push(Number(itemPrice).toFixed(2));
         nameList.push(itemName);
@@ -57,30 +58,34 @@ $(document).ready(function(){
       $('#messages').text('Service unavailable.  Please try again later.');
     }
   });
+  //loadItems();
   $('#makePurchase').click(function(){//purchase button clicked
     var returnChangeString='';
     var errorCode;
     var itemP = $('#itemPurchased').text();
-    if(quantityList[itemP-1] == 0){//item sold out
+    /*if(quantityList[itemP-1] == 0){//item sold out
       $('#messages').empty();
       $('#messages').append('SOLD OUT');
       $('#itemPurchased').empty();
       $('#itemPurchased').append("Pick an Item");
       errorCode = 1 ;
       return false();
-    }
-    if($('#itemPurchased').text == null){//no item selected
+    }*/
+    /*if($('#itemPurchased').text == null){//no item selected
       errorCode = 3;
       return false();
-    }
+    }*/
     if(Number($('#amountEntered').text()) >= priceList[Number($('#itemPurchased').text())-1]){//amount entered is correct
-      errorCode = 2 ;
+      //errorCode = 2 ;
+      alert('http://localhost:8080/money/'  + $('#amountEntered').text() + '/item/' +$('#itemPurchased').text());
       $.ajax({
         type: 'GET', url: 'http://localhost:8080/money/' + $('#amountEntered').text() + '/item/' +$('#itemPurchased').text(),
         dataType: "json",
         contentType: "application/x-www-form-urlencoded",
         success: function(itemsArray) {
+          alert(itemsArray);
           $.each(itemsArray, function(index, itemInfo){
+            alert('index: ' + index + ' iteminfo: ' + itemInfo);
             if(Number(itemInfo) != 0){
               returnChangeString += " "+itemInfo +" "+ index+",";
             }
@@ -95,21 +100,25 @@ $(document).ready(function(){
           $('#changeReturnedDisplay').empty();
           $('#changeReturnedDisplay').append(returnChangeString);
           //location.reload();
-          setTimeout("location.reload(true);",5000);
+          //setTimeout("location.reload(true);",5000);
         },
-        error:  function() {
-          if(erroCode == 1 ){
+        error: function(xhr, textStatus, errorThrown) {
+      /*    if(errorCode == 1 ){
             $('#messages').empty();
             $('#messages').text('SOLD OUT.');
           }
           if(errorCode == 2) {
             $('#messages').empty();
-            $('#messages').text('Error Reading file.');
+            $('#messages').text('Error Reading file...');
           }
           if(errorCode == 3){
             $('#messages').empty();
             $('#messages').text('Select an item.');
-          }
+          }*/
+          $('#messages').clear();
+          $('#messages').append('Error calling web service.  Please try again later.');
+          //yourErrorHandler(xhr, textStatus, errorThrown);
+          alert(xhr + " " + textStatus + " " + errorThrow );
         }
       });
     }else {
@@ -122,10 +131,7 @@ $(document).ready(function(){
         $('#messages').append("deposit: " + moreDeposit +' more.');
       }
     }
-
-
   });
-
   var totalAmountEntered='0' ;
   $('#button1').click(function(){
     buttonClick('1');
