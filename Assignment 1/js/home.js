@@ -124,12 +124,14 @@ function purchaseFunction(){
     }
   });
 }
+
 function addMoney(amount){
   totalAmountEntered = Number(totalAmountEntered) + Number(amount);
   totalAmountEntered = Number(totalAmountEntered).toFixed(2);
   $('#amountEntered').empty();
   $('#amountEntered').append(totalAmountEntered);
 }
+
 function itemSelected(selectedItemNumber){
   selectedItemNumber ++;
   $('#itemPurchased').empty();
@@ -137,6 +139,7 @@ function itemSelected(selectedItemNumber){
   $('#changeReturnedDisplay').empty();
   $('#changeReturnedDisplay').append('$ 00.00');
 }
+
 function clearAll(){
   itemsList.empty();
   //buttonsList.empty();
