@@ -118,7 +118,7 @@ function purchaseFunction(){
       loadItems();
     },
     error: function (request, status, error) {
-      var msg = request.responseText;
+      var msg = request.responseJSON.message;
       $('#messages').empty();
       $('#messages').append(msg);
     }
