@@ -38,12 +38,28 @@ public class ItemListDao {
     }
 
     public List<Item> getAllItems() {        
-        Collection<Item> c = itemMap.values();        
+        Collection<Item> c = itemMap.values();     
         return new ArrayList(c);
     }        
     
-    public void updateCount(int itemNumber){
-        item = itemMap.get(itemNumber + 1);        
-        item.setItemQuantity(item.getItemQuantity() - 1);        
-    }   
+    public void updateQuantity(int id){
+        itemMap.get(id).setItemQuantity(itemMap.get(id).getItemQuantity() - 1); 
+    }
+    
+    public Item getItemById(int itemNumber){
+        item = itemMap.get(itemNumber);
+        return item;
+    }
+    
+    public boolean verifyQuantity(int id){
+        if (itemMap.get(id).getItemQuantity() == 0) {
+            return false;
+        }else {
+            return true;
+        }            
+    }
+        
+    public double getPrice(int id){
+        return itemMap.get(id).getItemPrice();
+    }
 }
