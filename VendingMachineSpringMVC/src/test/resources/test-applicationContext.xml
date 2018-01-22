@@ -15,6 +15,9 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd"> 
 
     <!-- Bean definitions go here -->
-    <bean id="itemListDao"         class="com.sg.vendingmachinespringmvc.dao.ItemListDao"/>
-    <bean id="itemListServiceImpl" class="com.sg.vendingmachinespringmvc.service.ItemListServiceImpl"/>
+    <bean id="itemListDao"         class="com.sg.vendingmachinespringmvc.dao.ItemListDao" /> 
+    
+    <bean id="itemListServiceImpl" class="com.sg.vendingmachinespringmvc.service.ItemListServiceImpl">
+        <constructor-arg index="0" ref="itemListDao"/>
+    </bean>
 </beans>

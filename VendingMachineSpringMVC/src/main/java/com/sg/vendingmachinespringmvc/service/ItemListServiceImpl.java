@@ -22,6 +22,10 @@ public class ItemListServiceImpl {
     public ItemListServiceImpl(){
     }
     
+    public void setDao(ItemListDao dao){
+        this.dao = dao;
+    }
+    
     @Inject
     public ItemListServiceImpl(ItemListDao dao) {
         returnChange = "Return Change";

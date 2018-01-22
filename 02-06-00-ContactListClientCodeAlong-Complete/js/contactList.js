@@ -7,7 +7,7 @@ $(document).ready(function () {
             return false;
         }
         $.ajax({// if we made it here, there are no errors so make the ajax call
-            type: 'POST', url: 'http://localhost:8080/contact',
+            type: 'POST', url: 'http://localhost:8080/ContactListSpringMVC/contact',
             data: JSON.stringify({
                 firstName: $('#add-first-name').val(),
                 lastName: $('#add-last-name').val(),
@@ -41,7 +41,7 @@ $(document).ready(function () {
             return false;
         }
         $.ajax({// if we get to here, there were no errors, so make the Ajax call
-          type: 'PUT', url: 'http://localhost:8080/contact/' + $('#edit-contact-id').val(),
+          type: 'PUT', url: 'http://localhost:8080/ContactListSpringMVC/contact/' + $('#edit-contact-id').val(),
           data: JSON.stringify({
             contactId: $('#edit-contact-id').val(),
             firstName: $('#edit-first-name').val(),
@@ -70,7 +70,7 @@ function loadContacts() {
     clearContactTable();  // we need to clear the previous content so we don't append to it
     var contentRows = $('#contentRows');// grab the the tbody element that will hold the rows of contact information
     $.ajax ({
-        type: "GET", url: "http://localhost:8080/contacts", dataType: "json",
+        type: "GET", url: "http://localhost:8080/ContactListSpringMVC/contacts", dataType: "json",
         contentType: "application/x-www-form-urlencoded",
         success: function(contactArray) {
             $.each(contactArray, function (index, contact) {
@@ -97,7 +97,7 @@ function loadContacts() {
 
 function deleteContact(contactId) {
     $.ajax ({
-        type: 'DELETE', url: "http://localhost:8080/contact/" + contactId,
+        type: 'DELETE', url: "http://localhost:8080/ContactListSpringMVC/contact/" + contactId,
         success: function (status) {
             loadContacts();
         }
@@ -111,7 +111,7 @@ function clearContactTable() {
 function showEditForm(contactId) {
     $('#errorMessages').empty();// clear errorMessages
     $.ajax({// get the contact details from the server and then fill and show the form on success
-        type: 'GET', url: 'http://localhost:8080/contact/' + contactId,
+        type: 'GET', url: 'http://localhost:8080/ContactListSpringMVC/contact/' + contactId,
         success: function(data, status) {
               $('#edit-first-name').val(data.firstName);
               $('#edit-last-name').val(data.lastName);

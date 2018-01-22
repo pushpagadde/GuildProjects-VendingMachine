@@ -6,10 +6,11 @@
 package com.sg.vendingmachinespringmvc.dao;
 
 import com.sg.vendingmachinespringmvc.service.ItemListServiceImpl;
-import java.beans.ConstructorProperties;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -64,15 +65,15 @@ public class VendingMachineServiceLayerTest {
         service.returnMoney();
         assertEquals("No amount entered.", service.getMessage());
     }
-    /*    
+       
     @Test
     public void Test3(){
         //test for insufficient funds
         service.setSelection(1);
         service.addMoney(1.00);
         service.validateAndCompletePurchase();
-        assertEquals("Enter more $ 0.85 ", service.getMessage());                
-    }*/
+        assertEquals("Enter more $ 0.85", service.getMessage());                
+    }
     @Test
     public void Test4(){
         //test for entered money to be correct
@@ -87,9 +88,9 @@ public class VendingMachineServiceLayerTest {
         assertEquals( testAmount, enteredMoneyTest, DELTA);        
         
         service.addMoney(1.85);//3.75 added
-//        service.validateAndCompletePurchase();
-        //assertEquals("Thankyou!", service.getMessage());
-        //assertEquals(8,dao.getItemById(0).getItemQuantity());
+        service.validateAndCompletePurchase();
+        assertEquals("Thank you!", service.getMessage());
+        assertEquals(8 ,service.getItemById(1).getItemQuantity());
     }
     
     @Test
@@ -100,10 +101,11 @@ public class VendingMachineServiceLayerTest {
         service.calculateChange(1.25);
         assertEquals("1 Dollars 1 Quarters ", service.getReturnChange());
         service.calculateChange(1.30);
-        assertEquals("1 Dollars 1 Quarters 1 Nickles ", service.getReturnChange());
-        
+        System.out.println(service.getReturnChange());
+        assertTrue(service.getReturnChange().equals("1 Dollars 1 Quarters 1 Nickles "));
+        assertFalse(service.getReturnChange().equals("1 Dollars 1 Quarters "));
     }
-    /*    
+        
     @Test
     public void Test6(){
         //test for sold out item
@@ -111,9 +113,5 @@ public class VendingMachineServiceLayerTest {
         service.validateAndCompletePurchase();
         assertEquals("SOLD OUT!", service.getMessage());
     }    
-        
-        
-        
-    */
-        
+                
 }
