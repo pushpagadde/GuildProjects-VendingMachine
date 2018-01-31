@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import com.sg.dvddb.model.DVDInfo;
+import com.sg.dvddb.service.DVDService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,11 +27,11 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class DVDController {
-    DVDDao dao;
+    DVDService service;    
     
     @Inject
-    public DVDController(DVDDao dao) {
-        this.dao = dao;
+    public DVDController(DVDService service) {
+        this.service = service;
     }
     @RequestMapping(value = "/createDVDPage", method = RequestMethod.POST)
     public String createDVDPage(HttpServletRequest request,Model model) {
@@ -53,7 +54,7 @@ public class DVDController {
             dvd1.setDirector(request.getParameter("director"));
             dvd1.setRating(request.getParameter("rating"));
             dvd1.setNotes(request.getParameter("notes"));
-            dao.addDVD(dvd1);            
+            service.addDVD(dvd1);            
         }
         return "redirect:displayDVDPage";
     }    
@@ -64,14 +65,14 @@ public class DVDController {
             return "displayEditDVDPage";
         }
         if (cancelFlag == null){            
-            dao.updateDVD(dvd);
+            service.updateDVD(dvd);
         }   
         return "redirect:displayDVDPage";        
     }            
     
     @RequestMapping(value = "/displayDVDPage", method = RequestMethod.GET)
     public String displayDVDPage(Model model) {
-        List<DVDInfo> dvdList = dao.getAllDVDs();
+        List<DVDInfo> dvdList = service.getAllDVDs();
         model.addAttribute("dvdList", dvdList);       
         return "dvds";
     }
@@ -80,7 +81,7 @@ public class DVDController {
     public String displayDVDDetails(HttpServletRequest request, Model model) {
         String dvdIdParameter = request.getParameter("dvdId");
         int dvdId = Integer.parseInt(dvdIdParameter);
-        DVDInfo dvd = dao.getDVDById(dvdId);
+        DVDInfo dvd = service.getDVDById(dvdId);
         model.addAttribute("dvd", dvd);        
         return "displayDVDDetails";
     }
@@ -94,7 +95,7 @@ public class DVDController {
     public String displayEditDVDPage(HttpServletRequest request, Model model) {
         String dvdIdParameter = request.getParameter("dvdId");
         int dvdId = Integer.parseInt(dvdIdParameter);
-        DVDInfo dvd = dao.getDVDById(dvdId);
+        DVDInfo dvd = service.getDVDById(dvdId);
         model.addAttribute("dvd", dvd);
         return "displayEditDVDPage";
     }
@@ -104,7 +105,7 @@ public class DVDController {
     public String deleteDVD(HttpServletRequest request) {
         String dvdIdParameter = request.getParameter("dvdId");
         int dvdId = Integer.parseInt(dvdIdParameter);
-        dao.removeDVD(dvdId);
+        service.removeDVD(dvdId);
         return "redirect:displayDVDPage";
     }
 }

@@ -43,4 +43,10 @@
           class="com.sg.dvddb.dao.DVDDaoImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
+    <bean id="dvdService" class="com.sg.dvddb.service.DVDService">
+        <constructor-arg index="0" ref="dvdDao"/>
+    </bean>
+    
+    
+    
 </beans>

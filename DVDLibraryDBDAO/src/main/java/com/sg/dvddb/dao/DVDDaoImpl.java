@@ -26,23 +26,18 @@ public class DVDDaoImpl implements DVDDao{
         this.jdbcTemplate = jdbcTemplate;
     }
     
-    private static final String SQL_INSERT_DVD
-    = "insert into dvdinfo (title, releaseyear, director, rating, notes) "
-    + "values (?, ?, ?, ?, ?)";
+    private static final String SQL_UPDATE_DVD
+        = "update dvdinfo set title = ?, releaseyear = ?, director = ?, "
+        + "rating = ?, notes = ? where dvdid =  ?";
 
-private static final String SQL_DELETE_DVD
-    = "delete from dvdinfo where dvdid = ?";
-
-private static final String SQL_UPDATE_DVD
-    = "update dvdinfo set title = ?, releaseyear = ?, director = ?, "
-    + "rating = ?, notes = ? where dvdid =  ?";
-
-private static final String SQL_SELECT_DVD = "select * from dvdinfo where dvdid = ?";
-private static final String SQL_SELECT_ALL_DVDS = "select * from dvdinfo";
-private static final String SQL_SELECT_DVD_BY_TITLE = "select * from dvdinfo where title = ?";
-private static final String SQL_SELECT_DVD_BY_RELEASEYEAR = "select * from dvdinfo where releaseYear = ?";
-private static final String SQL_SELECT_DVD_BY_DIRECTOR = "select * from dvdinfo where director = ?";
-private static final String SQL_SELECT_DVD_BY_RATING = "select * from dvdinfo where rating = ?";
+    private static final String SQL_SELECT_DVD = "select * from dvdinfo where dvdid = ?";
+    private static final String SQL_SELECT_ALL_DVDS = "select * from dvdinfo";
+    private static final String SQL_SELECT_DVD_BY_TITLE = "select * from dvdinfo where title = ?";
+    private static final String SQL_SELECT_DVD_BY_RELEASEYEAR = "select * from dvdinfo where releaseYear = ?";
+    private static final String SQL_SELECT_DVD_BY_DIRECTOR = "select * from dvdinfo where director = ?";
+    private static final String SQL_SELECT_DVD_BY_RATING = "select * from dvdinfo where rating = ?";
+    private static final String SQL_DELETE_DVD = "delete from dvdinfo where dvdid = ?";
+    private static final String SQL_INSERT_DVD = "insert into dvdinfo (title, releaseyear, director, rating, notes) values (?, ?, ?, ?, ?)";
     
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
@@ -52,8 +47,7 @@ private static final String SQL_SELECT_DVD_BY_RATING = "select * from dvdinfo wh
             dvd.getReleaseYear(),
             dvd.getDirector(),
             dvd.getRating(),
-            dvd.getNotes());
-        
+            dvd.getNotes());        
         int dvdID = jdbcTemplate.queryForObject("select LAST_INSERT_ID()", Integer.class);
         dvd.setDvdID(dvdID);
     }

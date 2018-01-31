@@ -5,8 +5,9 @@
  */
 package com.sg.dvddb.controller;
 
-import com.sg.dvddb.dao.DVDDao;
+
 import com.sg.dvddb.model.DVDInfo;
+import com.sg.dvddb.service.DVDService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -21,12 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @author PG
  */
 @Controller
-public class DVDSearchController {
-    DVDDao dao;
+public class DVDSearchController {    
+    DVDService service;
     
     @Inject
-    public DVDSearchController(DVDDao dao) {
-        this.dao = dao;
+    public DVDSearchController(DVDService service) {
+        this.service = service;
     }
     
     @RequestMapping(value="/searchDVDResultPage", method=RequestMethod.POST)
@@ -36,16 +37,16 @@ public class DVDSearchController {
         String term = request.getParameter("searchTerm");
         switch(category) {
             case "Title":
-                dvdList = dao.getDVDByTitle(term);
+                dvdList = service.getDVDByTitle(term);
                 break;
             case "ReleaseYear":
-                dvdList = dao.getDVDByReleaseDate(term);
+                dvdList = service.getDVDByReleaseDate(term);
                 break;
             case "Director":
-                dvdList = dao.getDVDByDirector(term);
+                dvdList = service.getDVDByDirector(term);
                 break;
             case "Rating":
-                dvdList = dao.getDVDByRating(term);
+                dvdList = service.getDVDByRating(term);
                 break;
             default:
         }        
