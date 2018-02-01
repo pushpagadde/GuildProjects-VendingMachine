@@ -11,15 +11,14 @@ import model.Member;
 /**
  *
  * @author PG
- *//*
+ */
 public interface MemberDao {
 //methods for Members table
     public void addMember(Member member);//1
     public void deleteMember(int memberID);//2
-    public void updateMember(Member memberID);//3
+    public void updateMember(Member member);//3
     public Member getMemberByID(int memberID);//4
     public  List<Member> getAllMembers();//5
     public List<Member> getMembersByOrganization();//6
         
 }
-*/

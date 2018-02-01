@@ -11,11 +11,11 @@ import model.SuperHero;
 /**
  *
  * @author PG
- *//*
+ */
 public interface SuperHeroDao {
 
     //methods for Hero table
-    public void addHero(SuperHero hero);
+    public void addHero(SuperHero hero, int organizationID);
     public void deleteHero(int heroID);
     public void updateHero(SuperHero hero);
     public SuperHero getHeroById(int heroID);
@@ -25,4 +25,3 @@ public interface SuperHeroDao {
     public List<SuperHero> getHeroLocationByDate(String Date);
         
 }
-*/

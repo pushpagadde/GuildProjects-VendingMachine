@@ -8,7 +8,7 @@ package dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import model.Organizations;
+import model.Organization;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -18,8 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  *
  * @author PG
- *//*
-public class OrganizationDaoImpl implements OrganizationsDao{    
+ */
+public class OrganizationDaoImpl implements OrganizationDao{    
     private JdbcTemplate jdbcTemplate;
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -34,7 +34,7 @@ public class OrganizationDaoImpl implements OrganizationsDao{
 
     private static final String SQL_UPDATE_ORGANIZATION//3
         = "update organizations set organizationname = ?, address = ?, "
-        + "zipcode = ?, phone = ? where organizationid =  ?";
+        + "zipcode = ?, phone = ? where organizationid = ?";
 
     private static final String SQL_SELECT_ORGANIZATION//4
         = "select * from organizations where organizationid = ?";
@@ -52,7 +52,7 @@ public class OrganizationDaoImpl implements OrganizationsDao{
     
     @Override
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public void addOrganization(Organizations organization) {
+    public void addOrganization(Organization organization) {
         jdbcTemplate.update(SQL_INSERT_ORGANIZATION,
                 organization.getOrganizationName(),
                 organization.getAddress(),
@@ -70,16 +70,17 @@ public class OrganizationDaoImpl implements OrganizationsDao{
     }
 
     @Override
-    public void updateOrganization(Organizations organization) {
+    public void updateOrganization(Organization organization) {
         jdbcTemplate.update(SQL_UPDATE_ORGANIZATION,
                 organization.getOrganizationName(),
                 organization.getAddress(),
                 organization.getZipCode(),
-                organization.getPhone());
+                organization.getPhone(),
+                organization.getOrganizationID());
     }
 
     @Override
-    public Organizations getOrganizationByID(int organizationID) {
+    public Organization getOrganizationByID(int organizationID) {
         try {
             return jdbcTemplate.queryForObject(SQL_SELECT_ORGANIZATION, 
                                                new OrganizationsMapper(), 
@@ -90,21 +91,21 @@ public class OrganizationDaoImpl implements OrganizationsDao{
         }
 
     @Override
-    public List<Organizations> getAllOrganizations() {
+    public List<Organization> getAllOrganizations() {
         return jdbcTemplate.query(SQL_SELECT_ALL_ORGANIZATIONS, 
                               new OrganizationsMapper());
     }
 
     @Override
-    public List<Organizations> getOrganizationsByHero(int heroID) {
+    public List<Organization> getOrganizationsByHero(int heroID) {
         return jdbcTemplate.query(SQL_SELECT_ORGANIZATION_BY_HERO, 
                               new OrganizationsMapper());
     }
     
-    private static final class OrganizationsMapper implements RowMapper<Organizations> {
+    private static final class OrganizationsMapper implements RowMapper<Organization> {
         @Override
-        public Organizations mapRow(ResultSet rs, int i) throws SQLException {
-            Organizations o = new Organizations();
+        public Organization mapRow(ResultSet rs, int i) throws SQLException {
+            Organization o = new Organization();
             o.setOrganizationName(rs.getString("organizationname"));
             o.setAddress(rs.getString("address"));
             o.setZipCode(rs.getString("zipcode"));
@@ -113,4 +114,4 @@ public class OrganizationDaoImpl implements OrganizationsDao{
             return o;
         }
     }    
-}*/
+}

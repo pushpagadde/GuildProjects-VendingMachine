@@ -11,7 +11,7 @@ import java.util.Objects;
  *
  * @author PG
  */
-public class Organizations {
+public class Organization {
     private int organizationID;
     private String organizationName;
     private String address;
@@ -80,7 +80,7 @@ public class Organizations {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Organizations other = (Organizations) obj;
+        final Organization other = (Organization) obj;
         if (this.organizationID != other.organizationID) {
             return false;
         }

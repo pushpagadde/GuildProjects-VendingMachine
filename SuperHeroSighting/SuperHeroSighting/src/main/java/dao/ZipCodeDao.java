@@ -11,13 +11,13 @@ import model.ZipCodeInfo;
 /**
  *
  * @author PG
- *//*
+ */
 public interface ZipCodeDao {
 
     //methods for zipcode Table
     public void addZipCode(ZipCodeInfo zipCode);//1
-    public void deleteZipCoe(int zipCode);//2
-    public void updateZipCode(ZipCodeInfo zipCode);//3
+    public void deleteZipCode(String zipCode);//2
+    //public void updateZipCode(ZipCodeInfo zipCode);//3
     public ZipCodeInfo getZipCodeByID(String zipCode);//4
     public List<ZipCodeInfo> getAllZipCodes();    //5
-}*/
+}

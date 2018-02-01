@@ -16,13 +16,12 @@ import org.springframework.jdbc.core.RowMapper;
 /**
  *
  * @author PG
- *//*
+ */
 public class ZipCodeDaoImpl implements ZipCodeDao{
     private JdbcTemplate jdbcTemplate;
 
     private static final String SQL_INSERT_ZIPCODE//1
-    = "insert into zipcodeinfo (zipcode, city, state)"
-       + " values (?, ?, ?)";
+    = "insert into zipcodeinfo (zipcode, city, state) values (?, ?, ?)";
 
     private static final String SQL_DELETE_ZIPCODE//2
         = "delete from zipcodeinfo where zipcode = ?";
@@ -50,10 +49,10 @@ public class ZipCodeDaoImpl implements ZipCodeDao{
     }
 
     @Override
-    public void deleteZipCoe(int zipCode) {
+    public void deleteZipCode(String zipCode) {
         jdbcTemplate.update(SQL_DELETE_ZIPCODE, zipCode);
     }
-
+/*
     @Override
     public void updateZipCode(ZipCodeInfo zipCode) {
         jdbcTemplate.update(SQL_UPDATE_ZIPCODE,
@@ -61,7 +60,7 @@ public class ZipCodeDaoImpl implements ZipCodeDao{
                 zipCode.getCity(),
                 zipCode.getState());
     }
-
+*/
     @Override
     public ZipCodeInfo getZipCodeByID(String zipCode) {
         try {
@@ -88,4 +87,4 @@ public class ZipCodeDaoImpl implements ZipCodeDao{
         }
     }
     
-}*/
+}        

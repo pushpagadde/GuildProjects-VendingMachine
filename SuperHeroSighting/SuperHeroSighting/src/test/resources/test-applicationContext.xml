@@ -43,4 +43,20 @@
           class="dao.LocationDaoImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
+    <bean id="memberDao" 
+          class="dao.MemberDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="organizationDao" 
+          class="dao.OrganizationDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="superHeroDao" 
+          class="dao.SuperHeroDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="zipCodeDao" 
+          class="dao.ZipCodeDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
 </beans>
