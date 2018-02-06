@@ -17,46 +17,51 @@
     <!-- Bean definitions go here -->
     <tx:annotation-driven/>
 
-    <context:component-scan base-package="dao" />
+    <context:component-scan base-package="com.sg.superherosighting.dao" />
     <bean id="dataSource"
           class="org.apache.commons.dbcp2.BasicDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url"
-                  value="jdbc:mysql://localhost:3306/superherosighting"/>
+                  value="jdbc:mysql://localhost:3306/superherosightingstub"/>
         <property name="username" value="root"/>
         <property name="password" value="root"/>
         <property name="initialSize" value="5"/>
         <property name="maxTotal" value="10"/>
     </bean>
 
-    <bean id="transactionManager"
-      class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="jdbcTemplate"
-          class="org.springframework.jdbc.core.JdbcTemplate">
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <bean id="locationDao" 
-          class="dao.LocationDaoImpl">
+    <bean id="locationDao"  class="com.sg.superherosighting.dao.LocationDaoImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
-    <bean id="memberDao" 
-          class="dao.MemberDaoImpl">
+    <bean id="memberDao" class="com.sg.superherosighting.dao.MemberDaoImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
-    <bean id="organizationDao" 
-          class="dao.OrganizationDaoImpl">
+    <bean id="organizationDao" class="com.sg.superherosighting.dao.OrganizationDaoImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
-    <bean id="superHeroDao" 
-          class="dao.SuperHeroDaoImpl">
+    <bean id="superHeroDao" class="com.sg.superherosighting.dao.SuperHeroDaoImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
     </bean>
-    <bean id="zipCodeDao" 
-          class="dao.ZipCodeDaoImpl">
+    <bean id="zipCodeDao" class="com.sg.superherosighting.dao.ZipCodeDaoImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="sightingDao" 
+          class="com.sg.superherosighting.dao.SightingDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+    <bean id="heroService" class="com.sg.superherosighting.service.HeroService">
+        <constructor-arg index="0" ref="locationDao"/>
+        <constructor-arg index="1" ref="memberDao"/>
+        <constructor-arg index="2" ref="organizationDao"/>
+        <constructor-arg index="3" ref="superHeroDao"/>
+        <constructor-arg index="4" ref="sightingDao"/>
+        <constructor-arg index="5" ref="zipCodeDao"/>
     </bean>
 </beans>
