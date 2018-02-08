@@ -17,7 +17,7 @@ import com.sg.superherosighting.model.Organization;
 import com.sg.superherosighting.model.Sighting;
 import com.sg.superherosighting.model.SuperHero;
 import com.sg.superherosighting.model.ZipCodeInfo;
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,12 +25,12 @@ import java.util.List;
  * @author PG
  */
 public class HeroService {
-    LocationDao locationDao = null;
-    MemberDao memberDao = null;
-    OrganizationDao organizationDao = null;
-    SuperHeroDao heroDao = null;
-    ZipCodeDao zipCodeDao = null;
-    SightingDao sightingDao = null;
+    LocationDao locationDao;
+    MemberDao memberDao;
+    OrganizationDao organizationDao;
+    SuperHeroDao heroDao;
+    ZipCodeDao zipCodeDao;
+    SightingDao sightingDao;
     
     HeroService(LocationDao lDao, MemberDao mDao, OrganizationDao oDao, SuperHeroDao sdao, SightingDao sDao, ZipCodeDao zDao){
         this.locationDao = lDao;
@@ -55,8 +55,8 @@ public class HeroService {
     public Sighting getSightingByID(int sightingID){//4
         return sightingDao.getSightingByID(sightingID);
     }
-    public void updateSighting(Sighting sighting){//5
-        sightingDao.updateSighting(sighting);
+    public void updateSighting(int heroID,int locationID,Date dateOfSighting, int sightingID){//5
+        sightingDao.updateSighting(heroID, locationID, dateOfSighting, sightingID);
     }
     public List<Sighting> getAllTopSightings(){
         return sightingDao.getAllTopSightings();

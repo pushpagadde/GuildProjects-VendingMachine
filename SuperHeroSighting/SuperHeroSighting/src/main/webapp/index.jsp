@@ -39,13 +39,12 @@
             <hr/>
             <div class="navbar">
                 <ul class="nav nav-tabs">
-                    <li role="presentation"><a href="${pageContext.request.contextPath}/mainPage.jsp">Home</a></li>
+                    <li role="presentation"><a href="${pageContext.request.contextPath}/mainPage">Home</a></li>
                     <li role="presentation"><a href="${pageContext.request.contextPath}/displayHerosPage">Super Heros</a></li>
                     <li role="presentation"><a href="${pageContext.request.contextPath}/displayLocationsPage">Locations</a></li>
                     <li role="presentation"><a href="${pageContext.request.contextPath}/displayOrganizationsPage">Organizations</a></li>
                     <li role="presentation"><a href="${pageContext.request.contextPath}/displayMembersPage">Members</a></li>
                     <li role="presentation"><a href="${pageContext.request.contextPath}/displaySightingsPage">Sightings</a></li>
-                    <li role="presentation"><a href="${pageContext.request.contextPath}/displayAboutPage">About</a></li>
                 </ul>    
             </div>
             <h2>Super Hero Sightings</h2>

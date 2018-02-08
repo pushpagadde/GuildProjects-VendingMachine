@@ -49,8 +49,7 @@
                 <li role="presentation"><a href="${pageContext.request.contextPath}/displayLocationsPage">Locations</a></li>
                 <li role="presentation"><a href="${pageContext.request.contextPath}/displayOrganizationsPage">Organizations</a></li>
                 <li role="presentation"><a href="${pageContext.request.contextPath}/displayMembersPage">Members</a></li>
-                <li role="presentation"><a href="${pageContext.request.contextPath}/displaySightingsPage">Sightings</a></li>
-                <li role="presentation"><a href="${pageContext.request.contextPath}/displayAboutPage">About</a></li>
+                <li role="presentation"><a href="${pageContext.request.contextPath}/displaySightingsPage">Sightings</a></li>                
             </ul>    
         </div>
         <table id="newsFeed" border="1">

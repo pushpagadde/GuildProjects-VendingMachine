@@ -9,6 +9,7 @@ import com.sg.superherosighting.model.Location;
 import com.sg.superherosighting.model.Sighting;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -22,14 +23,19 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public class SightingDaoImpl implements SightingDao { 
     private JdbcTemplate jdbcTemplate;
-    private LocationDao location = new LocationDaoImpl();
+    private LocationDao location;// = new LocationDaoImpl();
     
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public SightingDaoImpl(JdbcTemplate jdbcTemplate, LocationDao location) {
+        this.jdbcTemplate = jdbcTemplate;
+        this.location = location;
+    }
+    
     private static final String SQL_INSERT_SIGHTING//1
-    = "insert into sightings (heroid, locationid, dateofsighting) values (?, ?, ?)";
+        = "insert into sightings (heroid, locationid, dateofsighting) values (?, ?, ?)";
 
     private static final String SQL_DELETE_SIGHTING//2
         = "delete from sightings where sightingid = ?";
@@ -75,8 +81,8 @@ public class SightingDaoImpl implements SightingDao {
         }
     }
     @Override
-    public void updateSighting(Sighting sighting){//5
-        jdbcTemplate.update(SQL_UPDATE_SIGHTING, sighting);
+    public void updateSighting(int heroID,int locationID,Date dateOfSighting, int sightingID){//5
+        jdbcTemplate.update(SQL_UPDATE_SIGHTING, heroID, locationID,dateOfSighting, sightingID);
     }
     
     private static final class SightingMapper implements RowMapper<Sighting> {

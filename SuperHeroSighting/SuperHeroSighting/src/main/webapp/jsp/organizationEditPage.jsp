@@ -14,55 +14,73 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
         <title>Edit Organization Page</title>
+        <style>
+            #displayDetails{
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                font-size: 25px;
+                border-collapse: collapse;
+                width: 100%;
+                border: 1px solid #ddd;
+                padding: 8px;
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #4CAF50;
+                color: white;                
+            }             
+            #bottomPanel {
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                font-size: 50px;
+                border-collapse: collapse;
+                width: 100%;
+                padding: 8px;
+                padding-top: 12px;
+                padding-bottom: 12px;                               
+                color: gray;    
+            }
+        </style>
     </head>
     <body>
-        <h1>Edit Organization!</h1>
+        <h1 align="center">Edit Organization!</h1>
         <hr>
-        <sf:form class="form-horizontal" role="form" modelAttribute="organization" action="editOrganization" method="POST">
-            <div class="form-group">
+        <div class = "row"  id="displayDetails">
+            <sf:form class="form-horizontal" role="form" modelAttribute="organization" action="editOrganization" method="POST">
+            <div class="row">
                 <label for="add-organization-name" class="col-md-4 control-label">Organization Name:</label>
-                <div class="col-md-8">
-                    <sf:input type="text" class="form-control" id="add-organization-name"
-                              path="organizationName" placeholder="Organization Name"/>
-                    <sf:errors path="organizationName" cssclass="error"></sf:errors>
-                </div>
+                <sf:input type="text" class="form-control" id="add-organization-name" path="organizationName" placeholder="Organization Name"/>
+                <sf:errors path="organizationName" cssclass="error"></sf:errors>                
             </div>
-            <div class="form-group">
-                <label for="add-organization-address" class="col-md-4 control-label">Organization Address:</label>
-                <div class="col-md-8">
-                    <sf:input type="text" class="form-control" id="add-organization-address"
-                              path="address" placeholder="Organization Address"/>
+            <div class="row">
+                <label for="add-organization-address" class="col-md-4 control-label">Organization Address:</label>                
+                    <sf:input type="text" class="form-control" id="add-organization-address" path="address" placeholder="Organization Address"/>
                     <sf:errors path="address" cssclass="error"></sf:errors>
-                    <sf:hidden path="organizationID"/>
-                </div>
+                    <sf:hidden path="organizationID"/>                
             </div>
-            <div class="form-group">
-                <label for="add-organization-zipcode" class="col-md-4 control-label">Zip Code:</label>
-                <div class="col-md-8">
-                    <select name="zipCode" id="zipCode">
-                        <c:forEach var="currentZipCode" items="${zipCodes}">
-                            <option value="${currentZipCode.zipCode}">
-                                ${currentZipCode.zipCode}
-                            </option>
-                        </c:forEach>                                
-                    </select>           
-                    <sf:errors path="zipCode" cssclass="error"></sf:errors>                    
-                </div>
+            <div class="row">
+                <label for="add-organization-zipcode" class="col-md-4 control-label">Zip Code:</label>                
+                <select name="zipCode" id="zipCode">
+                    <c:forEach var="currentZipCode" items="${zipCodes}">
+                        <option value="${currentZipCode.zipCode}">
+                            ${currentZipCode.zipCode}
+                        </option>
+                    </c:forEach>                                
+                </select>           
+                <sf:errors path="zipCode" cssclass="error"></sf:errors>                                    
             </div>
-            <div class="form-group">
-                <label for="add-organization-phone" class="col-md-4 control-label">Phone:</label>
-                <div class="col-md-8">
-                    <sf:input type="text" class="form-control" id="add-organization-phone"
-                              path="phone" placeholder="Organization Phone"/>
-                    <sf:errors path="phone" cssclass="error"></sf:errors>                    
-                </div>
-            </div>                                                                
-            <div class="form-group">
+            <div class="row">
+                <label for="add-organization-phone" class="col-md-4 control-label">Phone:</label>                
+                <sf:input type="text" class="form-control" id="add-organization-phone" path="phone" placeholder="Organization Phone"/>
+                <sf:errors path="phone" cssclass="error"></sf:errors>                                    
+            </div>                                                                            
+            <div class="row" id="bottomPanel">
                 <div class="col-md-offset-4 col-md-8">
                     <input type="submit" class="btn btn-default" value="Cancel" name="cancelOrgEdit"/>
                     <input type="submit" class="btn btn-default" name="saveOrganization" value="Update Organization"/>                    
                 </div>
             </div>
         </sf:form>
+        </div>
+        
+            
     </body>
 </html>

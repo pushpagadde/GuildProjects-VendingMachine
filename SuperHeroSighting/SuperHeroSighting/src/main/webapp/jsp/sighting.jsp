@@ -7,6 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -46,8 +47,7 @@
                     <li role="presentation"><a href="${pageContext.request.contextPath}/displayLocationsPage">Locations</a></li>
                     <li role="presentation"><a href="${pageContext.request.contextPath}/displayOrganizationsPage">Organizations</a></li>
                     <li role="presentation" ><a href="${pageContext.request.contextPath}/displayMembersPage">Members</a></li>
-                    <li role="presentation" class="active"><a href="${pageContext.request.contextPath}/displaySightingsPage">Sightings</a></li>
-                    <li role="presentation"><a href="${pageContext.request.contextPath}/displayAboutPage">About</a></li>
+                    <li role="presentation" class="active"><a href="${pageContext.request.contextPath}/displaySightingsPage">Sightings</a></li>                    
                 </ul>    
             </div>
             <div class="row">                           
@@ -93,7 +93,7 @@
                 <div class="col-md-4">
                     <h2>Add new Sighting</h2>
                     <form class="form-horzontal" action= "createSighting" role="form" method="POST">
-                        <div class = "form-group">
+                        <div class = "row">
                             <label for="add-hero" class="col-md-4 control-label">Hero Sighted:</label>
                             <div class="col-md-8">
                                 <select name="heroID" id="heroID">
@@ -105,19 +105,19 @@
                                 </select>
                             </div>
                         </div>
-                        <div class = "form-group">                            
+                        <div class = "row">                            
                             <label for="add-description" class="col-md-4 control-label">Location Description:</label>
                             <div class="col-md-8">
                               <input type="text" class="form-control" name="description" placeholder="Description"/>
                             </div>
                         </div>
-                        <div class = "form-group">
+                        <div class = "row">
                             <label for="add-address" class="col-md-4 control-label">Address:</label>
                             <div class="col-md-8">
                               <input type="text" class="form-control" name="address" placeholder="Location Address"/>
                             </div>
                         </div>                                                                        
-                        <div class = "form-group">
+                        <div class = "row">
                             <label for="add-zipCode" class="col-md-4 control-label">Zip Code:</label>
                             <div class="col-md-8">
                                 <select name="zipCode" id="zipCode">
@@ -129,25 +129,25 @@
                                 </select>                          
                             </div>
                         </div>
-                        <div class = "form-group">
+                        <div class = "row">
                             <label for="add-latitude" class="col-md-4 control-label">Latitude:</label>
                             <div class="col-md-8">
                               <input type="text" class="form-control" name="latitude" placeholder="Latitude"/>
                             </div>
                         </div>
-                        <div class = "form-group">
+                        <div class = "row">
                             <label for="add-Longitude" class="col-md-4 control-label">Longitude:</label>
                             <div class="col-md-8">
                               <input type="text" class="form-control" name="longitude" placeholder="Longitude"/>
                             </div>
                         </div>
-                        <div class = "form-group">
+                        <div class = "row">
                             <label for="add-DateOfSighting" class="col-md-4 control-label">Date of Sighting:</label>
                             <div class="col-md-8">
-                              <input type="text" class="form-control" name="dateOfSighting" placeholder="DateOfSighting"/>
+                              <input type="date" class="form-control" name="dateOfSighting" placeholder="DateOfSighting"/>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div class="row">
                             <div class="col-md-offset-4 col-md-8">
                                 <input type="submit" class="btn btn-default" value="Create Sighting"/>
                             </div>

@@ -7,6 +7,7 @@ package com.sg.superherosighting.dao;
 
 import com.sg.superherosighting.model.Location;
 import com.sg.superherosighting.model.Sighting;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +22,6 @@ public interface SightingDao {
     public void deleteSighting(int sightingID);//2
     public List<Sighting> getAllSightings();//3
     public Sighting getSightingByID(int sightingID);//4
-    public void updateSighting(Sighting sighting);//5
+    public void updateSighting(int heroID,int locationID,Date dateOfSighting, int sightingID);//5
     public List<Sighting> getAllTopSightings();//6
 }
