@@ -22,7 +22,7 @@ public class LocationDaoImplTest {
     
     public LocationDaoImplTest() {
     }
-    
+    /*
     @Before
     public void setUp() {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("test-applicationContext.xml");
@@ -85,5 +85,5 @@ public class LocationDaoImplTest {
         
         assertEquals(2, dao.getAllLocations().size());        
     }
-     
+     */
 }

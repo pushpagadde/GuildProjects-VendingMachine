@@ -12,12 +12,10 @@ import com.sg.superherosighting.model.Sighting;
 import com.sg.superherosighting.model.SuperHero;
 import com.sg.superherosighting.model.ZipCodeInfo;
 import com.sg.superherosighting.service.HeroService;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
-import java.util.Locale;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -407,7 +405,8 @@ public class MainController {
     @RequestMapping(value = "/createSighting", method = RequestMethod.POST)
     public String createSighting( HttpServletRequest request) throws ParseException {
         
-        DateFormat format = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+        LocalDate date;
+        
         Location location = new Location();
         location.setDescription(request.getParameter("description"));
         location.setAddress(request.getParameter("address"));
@@ -418,10 +417,14 @@ public class MainController {
         
         int heroID = Integer.parseInt(request.getParameter("heroID"));
         sighting.setHeroID(heroID);        
-        String date = request.getParameter("dateOfSighting");
+        String sightingDate = request.getParameter("dateOfSighting");
+        try {
+            date = LocalDate.parse(sightingDate);
+        } catch (DateTimeParseException e) {
+            return "redirect:displaySightingsPage";
+        }
         if (date != null) {
-            Date dateOfSighting = format.parse(date);
-            sighting.setDateOfSighting(dateOfSighting);
+            sighting.setDateOfSighting(date);
         }
         service.addSighting(sighting, location);
         return "redirect:displaySightingsPage";        
@@ -457,29 +460,27 @@ public class MainController {
         Sighting sighting = service.getSightingByID(sightingID);
         Location location = service.getLocationByID(sighting.getLocationID());
         SuperHero hero = service.getHeroByID(sighting.getHeroID());
-        List<SuperHero> allHeros = service.getAllHeros();
-        List<ZipCodeInfo> zipCodes = service.getAllZipCodes();
+        //List<SuperHero> allHeros = service.getAllHeros();
+        ZipCodeInfo zipCode = service.getZipCodeByID(location.getZipCode());
         model.addAttribute("sighting",sighting);
         model.addAttribute("location",location);
-        model.addAttribute("heroid",hero.getHeroID());
-        model.addAttribute("allheros",allHeros);
-        model.addAttribute("zipCodes",zipCodes);                
+        model.addAttribute("hero",hero);        
+        model.addAttribute("zipCode",zipCode);                
         return "sightingEditPage";
     }
-    
+
     //saving sighting edit
-    @RequestMapping(params = "saveSighting", method = RequestMethod.POST)
-    public String editSighting(@Valid @ModelAttribute("sighting") Sighting sighting, 
-                               @ModelAttribute("location") Location location,
-                               HttpServletRequest request,
-                               @RequestParam(required=false , value = "cancel") String cancelFlag, BindingResult result ) {
-        if (result.hasErrors()) {
-            return "sightingEditPage";
+    @RequestMapping(value = "saveSighting", method = RequestMethod.POST)
+    public String saveSighting(String dateOfSighting, int sightingID, HttpServletRequest request)  {
+        LocalDate date = null;
+        try {
+            date = LocalDate.parse(dateOfSighting);
+        } catch (DateTimeParseException e) {
+            return "redirect:displaySightingsPage";
         }
-        if(cancelFlag == null){            
-            service.updateSighting(sighting.getHeroID(), sighting.getLocationID(),sighting.getDateOfSighting(), sighting.getSightingID());
-            service.updateLocation(location);             
-        }        
+        if (date != null) {
+            service.updateSighting(date, sightingID);
+        }
         return "redirect:sighting";
     }            
     

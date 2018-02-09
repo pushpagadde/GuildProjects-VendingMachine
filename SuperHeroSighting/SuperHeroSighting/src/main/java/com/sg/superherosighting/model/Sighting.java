@@ -6,7 +6,7 @@
 package com.sg.superherosighting.model;
 
 import java.text.DateFormat;
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 
@@ -18,7 +18,7 @@ public class Sighting {
     private int sightingID;
     private int heroID;
     private int locationID;
-    private Date dateOfSighting;
+    private LocalDate dateOfSighting;
 
     public int getSightingID() {
         return sightingID;
@@ -44,12 +44,12 @@ public class Sighting {
         this.locationID = locationID;
     }
 
-    public java.util.Date getDateOfSighting() {
-        return new java.util.Date(dateOfSighting.getTime());
+    public LocalDate getDateOfSighting() {
+        return dateOfSighting;
     }
 
-    public void setDateOfSighting(java.util.Date dateOfSighting) {
-        this.dateOfSighting = new java.sql.Date(dateOfSighting.getTime());
+    public void setDateOfSighting(LocalDate dateOfSighting) {
+        this.dateOfSighting = dateOfSighting;
     }
 
     @Override
@@ -87,6 +87,5 @@ public class Sighting {
             return false;
         }
         return true;
-    }
-          
+    }          
 }

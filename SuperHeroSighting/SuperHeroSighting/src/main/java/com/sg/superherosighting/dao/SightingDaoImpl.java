@@ -5,11 +5,10 @@
  */
 package com.sg.superherosighting.dao;
 
-import com.sg.superherosighting.model.Location;
 import com.sg.superherosighting.model.Sighting;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -41,7 +40,7 @@ public class SightingDaoImpl implements SightingDao {
         = "delete from sightings where sightingid = ?";
 
     private static final String SQL_UPDATE_SIGHTING//3
-        = "update sightings set heroid = ?, locationid = ?, dateofsighting = ?, where sightingid =  ?";
+        = "update sightings set dateofsighting = ? where sightingid = ?";
 
     private static final String SQL_SELECT_SIGHTING//4
         = "select * from sightings where sightingid = ?";
@@ -55,7 +54,7 @@ public class SightingDaoImpl implements SightingDao {
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void addSighting(Sighting sighting, int locationID){//1
         
-        jdbcTemplate.update(SQL_INSERT_SIGHTING, sighting.getHeroID(), locationID, sighting.getDateOfSighting());            
+        jdbcTemplate.update(SQL_INSERT_SIGHTING, sighting.getHeroID(), locationID, sighting.getDateOfSighting().toString());            
         int sightingID = jdbcTemplate.queryForObject("select LAST_INSERT_ID()", Integer.class);                
         sighting.setSightingID(sightingID);                
     }
@@ -81,8 +80,8 @@ public class SightingDaoImpl implements SightingDao {
         }
     }
     @Override
-    public void updateSighting(int heroID,int locationID,Date dateOfSighting, int sightingID){//5
-        jdbcTemplate.update(SQL_UPDATE_SIGHTING, heroID, locationID,dateOfSighting, sightingID);
+    public void updateSighting(LocalDate dateOfSighting, int sightingID){//5
+        jdbcTemplate.update(SQL_UPDATE_SIGHTING, dateOfSighting.toString(), sightingID);
     }
     
     private static final class SightingMapper implements RowMapper<Sighting> {
@@ -92,7 +91,7 @@ public class SightingDaoImpl implements SightingDao {
             s.setSightingID(rs.getInt("sightingID"));
             s.setHeroID(rs.getInt("heroID"));
             s.setLocationID(rs.getInt("locationID"));
-            s.setDateOfSighting(rs.getDate("dateOfSighting"));
+            s.setDateOfSighting(LocalDate.parse(rs.getDate("dateOfSighting").toString()));
             return s;
         }
     }        

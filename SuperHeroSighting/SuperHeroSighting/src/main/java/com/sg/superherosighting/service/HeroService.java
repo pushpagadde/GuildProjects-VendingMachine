@@ -17,7 +17,7 @@ import com.sg.superherosighting.model.Organization;
 import com.sg.superherosighting.model.Sighting;
 import com.sg.superherosighting.model.SuperHero;
 import com.sg.superherosighting.model.ZipCodeInfo;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -55,8 +55,8 @@ public class HeroService {
     public Sighting getSightingByID(int sightingID){//4
         return sightingDao.getSightingByID(sightingID);
     }
-    public void updateSighting(int heroID,int locationID,Date dateOfSighting, int sightingID){//5
-        sightingDao.updateSighting(heroID, locationID, dateOfSighting, sightingID);
+    public void updateSighting(LocalDate dateOfSighting, int sightingID){//5
+        sightingDao.updateSighting(dateOfSighting, sightingID);
     }
     public List<Sighting> getAllTopSightings(){
         return sightingDao.getAllTopSightings();

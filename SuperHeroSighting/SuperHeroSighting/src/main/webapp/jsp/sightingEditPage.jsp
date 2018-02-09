@@ -43,75 +43,55 @@
         <h1 align="center">Super Hero Sighting - Sighting Edit Page!</h1>
         <hr>
         <div class = "row"  id="displayDetails">
-            <sf:form class="form-horizontal" role="form" modelAttribute="sighting" action="saveSighting" method="POST">
+        <form class="form-horizontal" action="${pageContext.request.contextPath}/saveSighting" role="form" method="POST">               
             <div class="row">
                 <div class="col-md-offset-4 col-md-8">
-                <label for="add-hero-name" class="col-md-offset-4 col-md-8">Hero Name:</label>                
-                <select name="superHero" id="superHero">
-                    <c:forEach var="currentHero" items="${allheros}">
-                        <option value="${currentHero.heroID}" ${currentHero.heroID == heroid ? 'selected' : ''}>
-                            ${currentHero.heroName}
-                        </option>
-                    </c:forEach>                                
-                </select>     </div>                                          
-            </div>
-            <div class = "row">
-                <label for="add-DateOfSighting" class="col-md-4 control-label">Date of Sighting:</label>                
-                <input type="date" class="form-control" name="dateOfSighting" placeholder="DateOfSighting" value = "02/06/2018"/>                
-            </div> 
-            </sf:form>
-            <sf:form class="form-horizontal" role="form" modelAttribute="location" action="saveSighting" method="POST">
-
-            <div class="row">
-                <label for="add-description" class="col-md-4 control-label">Location Description:</label>
-                    <sf:input type="text" class="form-control" id="add-description"
-                              path="description" placeholder="Description"/>
-                    <sf:errors path="description" cssclass="error"></sf:errors>                    
-                
-            </div>
-            <div class="row">
-                <label for="add-address" class="col-md-4 control-label">Location Address:</label>
-                    <sf:input type="text" class="form-control" id="add-address"
-                              path="address" placeholder="Address"/>
-                    <sf:errors path="address" cssclass="error"></sf:errors>                    
-                
-            </div>
-            <div class="row">
-                <label for="add-latitude" class="col-md-4 control-label">Latitude:</label>
-                    <sf:input type="text" class="form-control" id="add-latitude"
-                              path="latitude" placeholder="Latitude"/>
-                    <sf:errors path="latitude" cssclass="error"></sf:errors>                    
-                
-            </div>    
-            <div class="row">
-                <label for="add-longitude" class="col-md-4 control-label">Longitude:</label>
-                    <sf:input type="text" class="form-control" id="add-longitude"
-                              path="longitude" placeholder="Longitude"/>
-                    <sf:errors path="longitude" cssclass="error"></sf:errors>                    
-                
-            </div>                                    
-            <div class="row">
-                <label for="add-location-zipcode" class="col-md-4 control-label">Zip Code:</label>
-                    <select name="zipCode" id="zipCode">
-                        <c:forEach var="currentZipCode" items="${zipCodes}">
-                            <option value="${currentZipCode.zipCode}">
-                                ${currentZipCode.zipCode}
-                            </option>
-                        </c:forEach>                                
-                    </select>                               
-                
-            </div>
-                                            
-            
-            
-        </div>
-            <div class="col-md-offset-4 col-md-8" id="bottomPanel">
-            <div class="row">
-                <div class="col-md-offset-4 col-md-8">
-                    <input type="submit" class="btn btn-default" value="Cancel" name="cancelSightingsEdit"/>
-                    <input type="submit" class="btn btn-default" value="Update Sightings" name="saveSighting"/>                    
+                    <label for="add-hero-name" class="col-md-offset-4 col-md-8">Hero Name:</label>   
+                    <input type="text" name="heroName" disabled value="${hero.heroName}">         
                 </div>
-            </div></div>
-        </sf:form>
+                <div class="row">
+                    <label for="add-description" class="col-md-4 control-label">Location Description:</label>
+                    <input type="text" name="locationDescription" disabled value="${location.description}">                                      
+                </div>
+                <div class="row">
+                    <label for="add-address" class="col-md-4 control-label">Location Address:</label>
+                    <input type="text" name="locationAddress" disabled value="${location.address}">                                                       
+                </div>
+                <div class="row">
+                    <label for="add-latitude" class="col-md-4 control-label">Latitude:</label>                                      
+                    <input type="text" name="latitude" disabled value="${location.latitude}">
+                </div>    
+                <div class="row">
+                    <label for="add-longitude" class="col-md-4 control-label">Longitude:</label>
+                    <input type="text" name="longitude" disabled value="${location.longitude}">
+                </div>   
+                <div class="row">
+                    <label for="add-city" class="col-md-4 control-label">City:</label>                
+                    <input type="text" name="city" disabled value="${zipCode.city}">
+                </div> 
+                <div class="row">
+                    <label for="add-state" class="col-md-4 control-label">State:</label>                
+                    <input type="text" name="state" disabled value="${zipCode.state}">
+                </div>                                    
+                <div class="row">
+                    <label for="add-location-zipcode" class="col-md-4 control-label">Zip Code:</label>
+                    <input type="text" name="zipCode" disabled value="${zipCode.zipCode}">
+                </div>
+                    <input type="hidden" name="sightingID"  value="${sighting.sightingID}" id="sightingID"/>
+                <div class = "row">
+                    <label for="add-DateOfSighting" class="col-md-4 control-label">Date of Sighting:</label>                
+                    <input type="date" class="form-control" name="dateOfSighting" placeholder="DateOfSighting" value="${sighting.dateOfSighting}" id="dateOfSighting"/>                
+                </div>             
+            </div>
+            <div class="col-md-offset-4 col-md-8" id="bottomPanel">
+                <div class="row">
+                    <div class="col-md-offset-4 col-md-8">
+                        <input type="submit" class="btn btn-default" value="Cancel" name="cancelSightingsEdit"/>
+                        <input type="submit" class="btn btn-default" value="Update Sightings" name="saveSighting"/>                    
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
     </body>
 </html>

@@ -29,7 +29,7 @@ public class SightingsDaoImplTest {
     
     public SightingsDaoImplTest() {
     }
-    
+    /*
     @Before
     public void setUp() {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("test-applicationContext.xml");
@@ -211,5 +211,5 @@ public class SightingsDaoImplTest {
         
     }
     
-    
+    */
 }
