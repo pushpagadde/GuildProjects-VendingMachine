@@ -61,9 +61,9 @@
                             <th width="20%"></th>                    
                         </tr>
                         
-                        <c:forEach var="currentOrganization" items="${organizationsList}">
+                        <c:forEach var="currentOrganization" items="${organizationsList}" varStatus="status">
                             <tr>
-                                <td>${currentOrganization.organizationID}</td>
+                                <td>${status.index + 1}</td>
                                 <td><a href="organizationDetailsPage?organizationID=${currentOrganization.organizationID}">
                                         ${currentOrganization.organizationName}</a>
                                 </td>

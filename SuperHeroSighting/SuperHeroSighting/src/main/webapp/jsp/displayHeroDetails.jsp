@@ -39,23 +39,46 @@
                 text-align: left;                
                 color: gray;    
             }
+            #tableHero{
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                font-size: 35px;
+                border-collapse: collapse;
+                width: 50%;
+                border: 1px solid #ddd;
+                padding: 8px;
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #4CAF50;
+                color: white;
+                align: left;
+                
+            }
         </style>
     </head>
     <body>
-        <h1>Hero details</h1>
+        <h1 align="center">Hero details</h1>
         <hr>
-        <div class = "row"  id="displayDetails">
-            <div class="col-md-offset-4 col-md-8">
-                <p> Hero Name: <c:out value="${hero.heroName}"/> </p>
-            </div>
-            <div class="col-md-offset-4 col-md-8">
-                <p> Hero Power: <c:out value="${hero.heroPower}"/> </p>
-            </div>            
+        <div class="container">
+        <div class = "row"  >
+        <table id="tableHero"   > 
+            <tr>
+                <th width="25%"></th>
+                <th width="25%"></th>
+            </tr> 
+            <tr>
+                <td>Hero Name:</td>
+                <td><c:out value="${hero.heroName}"/></td>
+            </tr> 
+            <tr>
+                <td>Hero Power:</td>
+                <td><c:out value="${hero.heroPower}"/></td>
+            </tr>                           
         </div>
         <div class="col-md-offset-4 col-md-8" id="bottomPanel">
-                <form class="form-horizontal" role="form" modelAttribute="hero" action="superHero" method="GET">
-                      <input type="submit" class="btn btn-default" value="Back" name="Back"/>
-                </form>    
+            <form class="form-horizontal" role="form" modelAttribute="hero" action="superHero" method="GET">
+                  <input type="submit" class="btn btn-default" value="Back" name="Back" style="width:100px;height:50px;font-size:25px"/>
+            </form>    
         </div>
     </body>
 </html>

@@ -40,7 +40,7 @@ public class SightingDaoImpl implements SightingDao {
         = "delete from sightings where sightingid = ?";
 
     private static final String SQL_UPDATE_SIGHTING//3
-        = "update sightings set dateofsighting = ? where sightingid = ?";
+        = "update sightings set dateofsighting = ?, heroId = ?, locationID = ? where sightingid = ?";
 
     private static final String SQL_SELECT_SIGHTING//4
         = "select * from sightings where sightingid = ?";
@@ -79,9 +79,10 @@ public class SightingDaoImpl implements SightingDao {
             return null;
         }
     }
+    
     @Override
-    public void updateSighting(LocalDate dateOfSighting, int sightingID){//5
-        jdbcTemplate.update(SQL_UPDATE_SIGHTING, dateOfSighting.toString(), sightingID);
+    public void updateSighting(LocalDate dateOfSighting, int sightingID, int heroID, int locationID){//5
+        jdbcTemplate.update(SQL_UPDATE_SIGHTING, dateOfSighting.toString(), heroID, locationID, sightingID);
     }
     
     private static final class SightingMapper implements RowMapper<Sighting> {

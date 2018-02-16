@@ -37,27 +37,60 @@
                 padding-bottom: 12px;                               
                 color: gray;    
             }
+            #tableHero{
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                font-size: 35px;
+                border-collapse: collapse;
+                width: 100%;
+                border: 1px solid #ddd;
+                padding: 8px;
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #4CAF50;
+                color: white;
+                align: left;
+                
+            }
         </style>
     </head>
     <body>
         <h1 align="center">Super Hero Sighting! - Location Details Page </h1>
-        <div class = "row"  id="displayDetails">
-            <div class="col-md-offset-4 col-md-8">
-                <p> Member Name:       <c:out value="${location.description}"/> </p></div>
-            <div class="col-md-offset-4 col-md-8">    
-                <p> Address:           <c:out value="${location.address}"/></p></div>
-            <div class="col-md-offset-4 col-md-8">
-                <p> City, State:       <c:out value="${zipCode.city}"/>, <c:out value="${zipCode.state}"/></p>  </div>
-            <div class="col-md-offset-4 col-md-8">
-                <p> Zip Code:          <c:out value="${location.zipCode}"/></p></div>
-            <div class="col-md-offset-4 col-md-8">
-                <p> Longitude:          <c:out value="${location.longitude}"/></p></div>
-            <div class="col-md-offset-4 col-md-8">
-                <p> Latitude:          <c:out value="${location.latitude}"/></p></div>
+        <hr>
+        <div class="container">
+            <table id="tableHero"   > 
+            <tr>
+                <th width="50%"></th>
+                <th width="50%"></th>
+            </tr> 
+            <tr>
+                <td>Location Description:</td>
+                <td><c:out value="${location.description}"/></td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td><c:out value="${location.address}"/></td>
+            </tr>
+            <tr>
+                <td>City, State:    </td>
+                <td><c:out value="${zipCode.city}"/>, <c:out value="${zipCode.state}"/></td>
+            </tr>
+            <tr>
+                <td>Zip Code:</td>
+                <td><c:out value="${location.zipCode}"/></td>
+            </tr>
+            <tr>
+                <td>Longitude:</td>
+                <td><c:out value="${location.longitude}"/></td>
+            </tr>
+            <tr>
+                <td>Latitude: </td>
+                <td><c:out value="${location.latitude}"/></td>
+            </tr>
         </div>
         <div class="col-md-offset-4 col-md-8" id="bottomPanel">
             <form class="form-horizontal" role="form" modelAttribute="location" action="location" method="GET">
-                <input type="submit" class="btn btn-default" value="Back" name="back"/>
+                <input type="submit" class="btn btn-default" value="Back" name="back" style="width:100px;height:50px;font-size:25px"/>
             </form>        
         </div>
     </body>

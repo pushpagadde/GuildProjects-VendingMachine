@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package com.sg.superherosighting.controller;
-
 import com.sg.superherosighting.model.Location;
 import com.sg.superherosighting.model.Member;
 import com.sg.superherosighting.model.Organization;
@@ -22,15 +21,19 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
  * @author PG
  */
+@CrossOrigin
 @Controller
 public class MainController { 
     HeroService service;
@@ -52,10 +55,16 @@ public class MainController {
         return "mainPage";
     }
 
+    //method to retrieve location information
+    @RequestMapping(value = "/sightingEditPageJasonCall/{locationid}"  , method = RequestMethod.POST   )
+    @ResponseBody
+    public Location sightingEditPageJasonCall(@PathVariable("locationid") int locationid) {
+        return service.getLocationByID(locationid);
+    }    
+    
     //method to load create hero page
     @RequestMapping( value = "/createHero", method = RequestMethod.POST)
-    public String createHero(HttpServletRequest request) {
-        
+    public String createHero(HttpServletRequest request) {        
         SuperHero hero = new SuperHero();
         hero.setHeroName(request.getParameter("heroName"));
         hero.setHeroPower(request.getParameter("heroPower"));
@@ -93,6 +102,7 @@ public class MainController {
         model.addAttribute("organizations", organizations);        
         return "superHero";
     }
+    
     //method to display hero details, picked from the table
     @RequestMapping(value = "/displayHeroDetails", method = RequestMethod.GET)
     public String displayHeroDetails( HttpServletRequest request, Model model) {
@@ -147,15 +157,12 @@ public class MainController {
     
     //create organization method
     @RequestMapping(value = "/createOrganization", method = RequestMethod.POST)
-    public String createOrganization( HttpServletRequest request) {
-        
-        
+    public String createOrganization( HttpServletRequest request) {                
         Organization organization = new Organization();
         organization.setOrganizationName(request.getParameter("organizationName"));
         organization.setAddress(request.getParameter("organizationAddress"));
         organization.setZipCode(request.getParameter("zipCode"));
-        organization.setPhone(request.getParameter("organizationPhone"));
-        
+        organization.setPhone(request.getParameter("organizationPhone"));        
         service.addOrganization(organization);
         return "redirect:displayOrganizationsPage";        
     }
@@ -165,7 +172,9 @@ public class MainController {
         String organizationIDParameter = request.getParameter("organizationID");
         int organizationID = Integer.parseInt(organizationIDParameter);
         Organization organization = service.getOrganizationByID(organizationID);
+        ZipCodeInfo zipCode = service.getZipCodeByID(organization.getZipCode());
         model.addAttribute("organization",organization);
+        model.addAttribute("zipCode",zipCode);
         return "organizationDetailsPage";
     }    
     //method for go back button press
@@ -237,8 +246,6 @@ public class MainController {
         member.setZipCode(request.getParameter("zipCode"));
         String organizationIDParameter = request.getParameter("organization");
         int organizationID = Integer.parseInt(organizationIDParameter);
-        
-        
         service.addMember(member, organizationID );
         return "redirect:displayMembersPage";        
     }
@@ -360,16 +367,16 @@ public class MainController {
         
     //save location edit
     @RequestMapping(params = "saveLocation", method = RequestMethod.POST)
-    public String editLocation(@Valid @ModelAttribute("location") Location location, HttpServletRequest request,
-                           @RequestParam(required=false , value = "cancel") String cancelFlag, BindingResult result ) {
-        if (result.hasErrors()) {
-            return "locationEditPage";
-        }
+    public String editLocation(@ModelAttribute("location") Location location, HttpServletRequest request,
+                           @RequestParam(required=false , value = "cancelLocationEdit") String cancelFlag ) {
+        
         if(cancelFlag == null){            
             service.updateLocation(location);            
         }        
         return "redirect:location";
     }
+    
+    
     
     //cancel edit location
     @RequestMapping(params= "cancelLocationEdit", method = RequestMethod.POST)
@@ -460,36 +467,46 @@ public class MainController {
         Sighting sighting = service.getSightingByID(sightingID);
         Location location = service.getLocationByID(sighting.getLocationID());
         SuperHero hero = service.getHeroByID(sighting.getHeroID());
-        //List<SuperHero> allHeros = service.getAllHeros();
+        List<Location> locations = service.getAllLocations();
+        List<SuperHero> heros = service.getAllHeros();
         ZipCodeInfo zipCode = service.getZipCodeByID(location.getZipCode());
         model.addAttribute("sighting",sighting);
         model.addAttribute("location",location);
         model.addAttribute("hero",hero);        
-        model.addAttribute("zipCode",zipCode);                
+        model.addAttribute("zipCode",zipCode);
+        model.addAttribute("locations",locations);
+        model.addAttribute("heros",heros);        
+        
         return "sightingEditPage";
     }
 
     //saving sighting edit
     @RequestMapping(value = "saveSighting", method = RequestMethod.POST)
-    public String saveSighting(String dateOfSighting, int sightingID, HttpServletRequest request)  {
+    public String saveSighting(String dateOfSighting, HttpServletRequest request,
+            @RequestParam(required=false , value = "cancelSightingsEdit") String cancelFlag)  {
         LocalDate date = null;
-        try {
-            date = LocalDate.parse(dateOfSighting);
-        } catch (DateTimeParseException e) {
-            return "redirect:displaySightingsPage";
+        if (cancelFlag == null){
+            String sightingID = request.getParameter("sightingID");
+            String heroID = request.getParameter("heroN");
+            String locationID = request.getParameter("locationN");
+            try {
+                date = LocalDate.parse(dateOfSighting);
+            } catch (DateTimeParseException e) {
+                return "redirect:displaySightingsPage";
+            }
+            if (date != null && sightingID != null) {
+                service.updateSighting(date, Integer.parseInt(sightingID), Integer.parseInt(heroID), Integer.parseInt(locationID));
+            }
         }
-        if (date != null) {
-            service.updateSighting(date, sightingID);
-        }
-        return "redirect:sighting";
+        return "redirect:displaySightingsPage";
     }            
-    
+/*    
     //cancel edit sighting 
     @RequestMapping(params= "cancelSightingsEdit", method = RequestMethod.POST)
     public String cancelSightingEdit() {
         return "redirect:sighting";
     }
-    
+  */  
     //delete sighting
     @RequestMapping(value = "/deleteSighting", method = RequestMethod.GET)
     public String deleteSighting(HttpServletRequest request) {

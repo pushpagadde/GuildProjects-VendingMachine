@@ -25,12 +25,11 @@
             <p>Rating : <c:out value="${dvd.rating}"/></p>
             <p>Notes : <c:out value="${dvd.notes}"/></p>
         </div>
-        <form name="back" action="createDVD" method="POST">
+        <form name="back" action="displayDVDPage" method="GET">
                     <button type="submit">Back</button>
         </form>
         <!-- Placed at the end of the document so the pages load faster -->
         <script src="${pageContext.request.contextPath}/js/jquery-3.1.1.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-
     </body>
 </html>

@@ -42,6 +42,7 @@
     <body>
         <h1>Top 10 Super Hero Listings!</h1>
         <hr/>
+        <div class="container">
         <div class="navbar">
              <ul class="nav nav-tabs">
                 <li role="presentation" class="active"><a href="${pageContext.request.contextPath}/mainPage.jsp">Home</a></li>
@@ -83,6 +84,7 @@
                     <td>${currentSighting.dateOfSighting}</td>            
                 </tr>                    
             </c:forEach>
-        </table>                    
+        </table>  
+        </div>
     </body>
 </html>

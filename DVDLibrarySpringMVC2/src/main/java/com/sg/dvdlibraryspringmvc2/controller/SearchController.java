@@ -7,12 +7,15 @@ package com.sg.dvdlibraryspringmvc2.controller;
 import com.sg.dvdlibraryspringmvc2.dao.DVDListDao;
 import com.sg.dvdlibraryspringmvc2.dao.SearchTerm;
 import com.sg.dvdlibraryspringmvc2.model.DVD;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -29,16 +32,18 @@ public class SearchController {
     public SearchController(DVDListDao dao) {
         this.dao = dao;
     }
-    @RequestMapping(value="/displaySearchPage", method=RequestMethod.GET)
-    public String displaySearchPage(HttpServletRequest request) {
-        DVD dvd = new DVD();
+    
+    @RequestMapping(value="/searchDVDPage", method=RequestMethod.POST)
+    public String displaySearchPage(HttpServletRequest request, Model model) {
+        List<DVD> dvdList = new ArrayList<>();
         String category = request.getParameter("searchCategory");
         String term = request.getParameter("searchTerm");
-        dao.getDVDByTitle(term);
-        return "search";
+        dvdList = dao.getDVDByTitle(term);
+        model.addAttribute("dvdList", dvdList);
+        return "searchDVDPage";
     }
-    
-    @RequestMapping(value = "/search/contacts", method = RequestMethod.POST)
+    /*
+    @RequestMapping(value = "/search/dvds", method = RequestMethod.POST)
     @ResponseBody
     public List<DVD> searchDVDs(@RequestBody Map<String, String> searchMap) {
         // Create the map of search criteria to send to the DAO
@@ -64,6 +69,6 @@ public class SearchController {
             criteriaMap.put(SearchTerm.DIRECTOR, currentTerm);
         }
 
-        return dao.search(criteriaMap);
-    }
+        return dao.searchDVDs(criteriaMap);
+    }*/
 }

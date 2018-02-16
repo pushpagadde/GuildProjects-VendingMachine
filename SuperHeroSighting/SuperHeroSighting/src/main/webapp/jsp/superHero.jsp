@@ -48,14 +48,14 @@
                 <h2>Super Heros</h2>
                 <table id="heros" border="1">
                 <tr>
-                    <th width="10%" height="20">Number</th>
+                    <th width="10%" height="20">No.</th>
                     <th width="30%">Hero Name</th>
-                    <th width="20%">Hero Power</th>                    
+                    <th width="20%">Hero Power</th>                     
                     <th width="20%"></th>
                 </tr>
-                <c:forEach var="currentHero" items="${heroList}">
+                <c:forEach var="currentHero" items="${heroList}" varStatus="status">
                     <tr>
-                        <td>${currentHero.heroID}</td>
+                        <td>${status.index + 1} </td>
                         <td><a href="displayHeroDetails?heroID=${currentHero.heroID}">
                             ${currentHero.heroName}
                         </a></td>
@@ -64,8 +64,11 @@
                             <a href="displayEditHeroPage?heroID=${currentHero.heroID}" >Edit</a> | 
                             <a href="deleteHero?heroID=${currentHero.heroID}">Delete</a>                             
                         </td>
+                        
                     </tr>                    
-                </c:forEach>                                    
+                </c:forEach>     
+                
+                    
             </table>
             </div>            
             <div class="col-md-4">

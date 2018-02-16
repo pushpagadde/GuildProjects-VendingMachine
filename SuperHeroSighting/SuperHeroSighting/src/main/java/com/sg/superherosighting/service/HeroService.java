@@ -55,8 +55,8 @@ public class HeroService {
     public Sighting getSightingByID(int sightingID){//4
         return sightingDao.getSightingByID(sightingID);
     }
-    public void updateSighting(LocalDate dateOfSighting, int sightingID){//5
-        sightingDao.updateSighting(dateOfSighting, sightingID);
+    public void updateSighting(LocalDate dateOfSighting, int sightingID, int heroID, int locationID){//5
+        sightingDao.updateSighting(dateOfSighting, sightingID, heroID, locationID);
     }
     public List<Sighting> getAllTopSightings(){
         return sightingDao.getAllTopSightings();

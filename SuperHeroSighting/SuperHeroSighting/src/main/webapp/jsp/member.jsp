@@ -39,6 +39,7 @@
     <body>
         <h1>SuperHero Sighting - Member's Page!</h1>
         <hr/>
+        <div class="container">
         <div class="navbar">
             <ul class="nav nav-tabs">
                     <li role="presentation"><a href="${pageContext.request.contextPath}/mainPage">Home</a></li>
@@ -48,7 +49,8 @@
                     <li role="presentation" class="active"><a href="${pageContext.request.contextPath}/displayMembersPage">Members</a></li>
                     <li role="presentation"><a href="${pageContext.request.contextPath}/displaySightingsPage">Sightings</a></li>                                        
             </ul>    
-        </div>        
+        </div>   
+         
         <div class="row">                           
                 <div class="col-md-6">
                     <h2>Members List</h2> 
@@ -60,9 +62,9 @@
                             <th width="10%">Zip Code</th>
                             <th width="20%"></th>                    
                         </tr>                        
-                        <c:forEach var="currentMember" items="${membersList}">
+                        <c:forEach var="currentMember" items="${membersList}" varStatus="status">
                             <tr>
-                                <td>${currentMember.memberID}</td>
+                                <td>${status.index + 1}</td>
                                 <td><a href="memberDetailsPage?memberID=${currentMember.memberID}">
                                         ${currentMember.firstName} ${currentMember.lastName} </a>
                                 </td> 
@@ -137,6 +139,7 @@
                     </form>
                 </div>
             </div>              
-        </div>            
+        </div>   
+    </div>
     </body>
 </html>

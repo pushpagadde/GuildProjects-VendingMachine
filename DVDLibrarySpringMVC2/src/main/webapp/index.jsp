@@ -16,7 +16,11 @@
                 <form name="createdvd" action="createDVDPage" method="POST">
                     <button type="submit">Create DVD</button>
                 </form>
-                <button onClick="${pageContext.request.contextPath}/searchDVDPage">Search</button>
+                
+                <form name="searchdvd" action="searchDVDPage" method="POST">
+                    <button type="submit">Search</button>
+                </form>
+           
                 <select id="searchCategory" value="Search Category">
                     <option value="Title">Title</option>
                     <option value="Release Year">Release Year</option> 

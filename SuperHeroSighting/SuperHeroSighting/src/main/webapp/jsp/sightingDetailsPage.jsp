@@ -38,28 +38,62 @@
                 padding-bottom: 12px;                               
                 color: gray;    
             }
+            #tableHero{
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                font-size: 35px;
+                border-collapse: collapse;
+                width: 50%;
+                border: 1px solid #ddd;
+                padding: 8px;
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #4CAF50;
+                color: white;
+                align: left;
+                
+            }
         </style>
     </head>
     <body>
-        <h1 align="center">Super Hero Sighting - Sighting Details page!</h1>
-        <div class = "row"  id="displayDetails">
-            <div class="col-md-offset-4 col-md-8">
-                <p> Hero Sighted: <c:out value="${hero.heroName}"/></p></div>
-            <div class="col-md-offset-4 col-md-8">
-                <p> Sighted at:           <c:out value="${location.description}"/></p></div>
-            <div class="col-md-offset-4 col-md-8">
-                <p> Address:          <c:out value="${location.address}"/></p></div>
-            <div class="col-md-offset-4 col-md-8">
-                <p> City, State:      <c:out value="${zipCode.city}"/>, <c:out value="${zipCode.state}"/>    </p></div>
-            <div class="col-md-offset-4 col-md-8">
-                <p> Longitude:             <c:out value="${location.longitude}"/></p></div>
-            <div class="col-md-offset-4 col-md-8">
-                <p> Latitude:             <c:out value="${location.latitude}"/></p></div>
-            <div class="col-md-offset-4 col-md-8">    
-                <p> Date and time of Sighting:             <c:out value="${sighting.dateOfSighting}"/></p></div>
-            <div class="col-md-offset-4 col-md-8" id="bottomPanel">
-                <form class="form-horizontal" role="form" modelAttribute="sighting" action="sighting" method="GET">
-                    <input type="submit" class="btn btn-default" value="Back" name="back"/>
-                </form>  </div>      
+        <h1 align="center">Super Hero Sighting - Sighting Details page!</h1><hr>
+        <div class="container">
+        <div class = "row"  >
+        <table id="tableHero"   > 
+            <tr>
+                <th width="25%"></th>
+                <th width="25%"></th>
+            </tr> 
+            <tr>
+                <td>Hero Sighted:</td>
+                <td><c:out value="${hero.heroName}"/></td>
+            </tr> 
+            <tr>
+                <td>Sighted at:</td>
+                <td><c:out value="${location.description}"/></td>
+            </tr>                           
+            <tr>
+                <td>City, State: </td>
+                <td><c:out value="${zipCode.city}"/>, <c:out value="${zipCode.state}"/> </td>
+            </tr>                           
+            <tr>
+                <td>Longitude:</td>
+                <td><c:out value="${location.longitude}"/></td>
+            </tr>
+            <tr>
+                <td>Latitude:</td>
+                <td><c:out value="${location.latitude}"/></td>
+            </tr>
+            <tr>
+                <td>Date of Sighting:</td>
+                <td><c:out value="${sighting.dateOfSighting}"/></td>
+            </tr>
+        </table>
+        </div>
+        <div class="col-md-offset-4 col-md-8" id="bottomPanel">
+            <form class="form-horizontal" role="form" modelAttribute="hero" action="superHero" method="GET">
+                  <input type="submit" class="btn btn-default" value="Back" name="Back" style="width:100px;height:50px;font-size:25px"/>
+            </form>    
+        </div></div>
     </body>
 </html>

@@ -60,9 +60,9 @@
                                 <th width="30%">Sight Location</th>
                                 <th width="25%">Date/Time of Sighting</th>                    
                             </tr>
-                            <c:forEach var="currentSighting" items="${sightingsList}">
+                            <c:forEach var="currentSighting" items="${sightingsList}" varStatus="status">
                             <tr>
-                                <td>${currentSighting.sightingID}</td>
+                                <td>${status.index + 1}</td>
                                 <td><a href="sightingDetailsPage?sightingID=${currentSighting.sightingID}">
                                     <c:forEach var="currentHero" items="${heros}">
                                         <c:choose >

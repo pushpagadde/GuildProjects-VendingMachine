@@ -61,9 +61,9 @@
                             <th width="12%">Longitude</th>
                             <th width="12%">Latitude</th>                              
                         </tr>                                            
-                        <c:forEach var="currentLocation" items="${locationsList}">
+                        <c:forEach var="currentLocation" items="${locationsList}" varStatus="status">
                             <tr>
-                                <td>${currentLocation.locationID}</td>
+                                <td>${status.index + 1}</td>
                                 <td><a href="locationDetailsPage?locationID=${currentLocation.locationID}">
                                         ${currentLocation.description}</a>
                                 </td> 
