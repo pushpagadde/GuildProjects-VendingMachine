@@ -44,19 +44,17 @@
             <div class="navbar">
                  <ul class="nav nav-tabs">
                     <li role="presentation"><a href="${pageContext.request.contextPath}/mainPage">Home</a></li>
-                    <li role="presentation"><a href="${pageContext.request.contextPath}/displaySightingsPage">Sightings</a></li>
+                    <li role="presentation" class="active"><a href="${pageContext.request.contextPath}/displaySightingsPage">Sightings</a></li>
                     <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_SIDEKICK')">
-                        <li role="presentation"><a href="${pageContext.request.contextPath}/displayHerosPage">Super Heros</a></li>
-                        <li role="presentation"><a href="${pageContext.request.contextPath}/displayLocationsPage">Locations</a></li>
-                        <li role="presentation"><a href="${pageContext.request.contextPath}/displayOrganizationsPage">Organizations</a></li>                                            
-                        <li role="presentation" class="active"><a href="${pageContext.request.contextPath}/displaySightingsPage">Sightings</a></li>                    
-                    </sec:authorize>                    
-                    <sec:authorize access="hasRole('ROLE_ADMIN')">
-                        <li role="presentation"><a href="${pageContext.request.contextPath}/displayMembersPage">Members</a></li>                    
-                        <li role="presentation"><a href="${pageContext.request.contextPath}/displayUserPage">Users</a></li>
+                       <li role="presentation"><a href="${pageContext.request.contextPath}/displayHerosPage">Super Heros</a></li>
+                       <li role="presentation"><a href="${pageContext.request.contextPath}/displayLocationsPage">Locations</a></li>
+                       <li role="presentation"><a href="${pageContext.request.contextPath}/displayOrganizationsPage">Organizations</a></li>
                     </sec:authorize>
-                        
-                        <li role="presentation"><a href="<c:url value="/j_spring_security_logout" />">Logout</a></li>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                       <li role="presentation"><a href="${pageContext.request.contextPath}/displayMembersPage">Members</a></li>
+                       <li role="presentation"><a href="${pageContext.request.contextPath}/displayUserPage">Users</a></li>
+                    </sec:authorize>
+                    <li role="presentation"><a href="<c:url value="/j_spring_security_logout" />">Logout</a></li>
                 </ul>    
             </div>
             <div class="row">                           

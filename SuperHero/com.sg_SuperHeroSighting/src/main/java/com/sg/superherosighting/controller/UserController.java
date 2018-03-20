@@ -7,16 +7,14 @@ package com.sg.superherosighting.controller;
 
 import com.sg.superherosighting.dao.UserDao;
 import com.sg.superherosighting.model.User;
+import com.sg.superherosighting.service.HeroService;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,19 +25,19 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class UserController {
-    private UserDao dao;
+    private HeroService service;    
     private PasswordEncoder encoder;
 
     @Inject
-    public UserController(UserDao dao, PasswordEncoder encoder) {
-        this.dao = dao;
+    public UserController(HeroService service, PasswordEncoder encoder) {
+        this.service = service;
         this.encoder = encoder;
     }
 
     // This endpoint retrieves all users from the database and puts the List of users on the model
     @RequestMapping(value = "/displayUserPage", method = RequestMethod.GET)
     public String displayUserList(Map<String, Object> model) {
-        List users = dao.getAllUsers();
+        List users = service.getAllUsers();
         model.put("users", users);
         return "user";
     }
@@ -48,7 +46,7 @@ public class UserController {
     @RequestMapping(value = "/displayUserDetails", method = RequestMethod.GET)
     public String displayUserPage(HttpServletRequest request, Model model) {
         String userName = request.getParameter("username");
-        User user = dao.getUser(userName);        
+        User user = service.getUser(userName);        
         model.addAttribute("user", user);
         return "userEditPage";
     }
@@ -72,23 +70,22 @@ public class UserController {
                 user.addAuthority("ROLE_SIDEKICK");
             }
         }
-        dao.addUser(user);
+        service.addUser(user);
         return "redirect:displayUserPage";
     }
     
     // #6 - This endpoint deletes the specified User    
     @RequestMapping(params = "saveUser", method = RequestMethod.POST)
-    public String saveUser(HttpServletRequest request,
-                           @RequestParam(required=false , value = "cancel") String cancelFlag ) {
+    public String saveUser(HttpServletRequest request, @RequestParam(required=false , value = "cancel") String cancelFlag ) {
         String username = request.getParameter("username");
         System.out.println("username------:"+username);
         if(cancelFlag == null){
             String userstatus = request.getParameter("active");
             if (userstatus != null){
                 if(userstatus.equalsIgnoreCase("yes")){
-                    dao.editUser(username, 1);
+                    service.editUser(username, 1);
                 }else if (userstatus.equalsIgnoreCase("no")){
-                    dao.editUser(username, 0);
+                    service.editUser(username, 0);
                 }                       
             }
         }        
@@ -98,7 +95,7 @@ public class UserController {
     @RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
     public String deleteUser(HttpServletRequest request) {
         String userName = request.getParameter("username");
-        dao.deleteUser(userName);
+        service.deleteUser(userName);
         return "redirect:displayUserPage";
     }
     

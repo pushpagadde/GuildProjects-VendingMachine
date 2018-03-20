@@ -10,12 +10,14 @@ import com.sg.superherosighting.dao.MemberDao;
 import com.sg.superherosighting.dao.OrganizationDao;
 import com.sg.superherosighting.dao.SightingDao;
 import com.sg.superherosighting.dao.SuperHeroDao;
+import com.sg.superherosighting.dao.UserDao;
 import com.sg.superherosighting.dao.ZipCodeDao;
 import com.sg.superherosighting.model.Location;
 import com.sg.superherosighting.model.Member;
 import com.sg.superherosighting.model.Organization;
 import com.sg.superherosighting.model.Sighting;
 import com.sg.superherosighting.model.SuperHero;
+import com.sg.superherosighting.model.User;
 import com.sg.superherosighting.model.ZipCodeInfo;
 import java.time.LocalDate;
 import java.util.List;
@@ -31,15 +33,34 @@ public class HeroService {
     SuperHeroDao heroDao;
     ZipCodeDao zipCodeDao;
     SightingDao sightingDao;
+    UserDao userDao;
     
-    HeroService(LocationDao lDao, MemberDao mDao, OrganizationDao oDao, SuperHeroDao sdao, SightingDao sDao, ZipCodeDao zDao){
+    HeroService(LocationDao lDao, MemberDao mDao, OrganizationDao oDao, SuperHeroDao sdao, SightingDao sDao, ZipCodeDao zDao, UserDao uDao){
         this.locationDao = lDao;
         this.memberDao = mDao;
         this.organizationDao = oDao;
         this.heroDao = sdao;
         this.sightingDao = sDao;
         this.zipCodeDao = zDao;
+        this.userDao = uDao;
     }
+    
+    //user methods
+    public User addUser(User user){
+        return userDao.addUser(user);
+    }    
+    public void deleteUser(String username){
+        userDao.deleteUser(username);
+    }
+    public void editUser(String username, int userstatus){
+        userDao.editUser(username, userstatus);
+    }
+    public User getUser(String username){
+        return userDao.getUser(username);
+    }
+    public List<User> getAllUsers(){
+        return userDao.getAllUsers();
+    }        
      
     //sighting methods
     public void addSighting(Sighting sighting, Location location){//1

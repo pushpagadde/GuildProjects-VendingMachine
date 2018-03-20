@@ -25,21 +25,33 @@ and open the template in the editor.
     <http auto-config="true">
         <form-login login-processing-url="/j_spring_security_check" login-page="/login" authentication-failure-url="/login?login_error=1"/>        
         <intercept-url pattern="/" access="IS_AUTHENTICATED_ANONYMOUSLY"/>    
-        <intercept-url pattern="/displayEditHeroPage" access="ROLE_ADMIN"/>
-        <intercept-url pattern="/locationEditPage" access="ROLE_ADMIN"/>
-        <intercept-url pattern="/memberEditPage" access="ROLE_ADMIN"/>
-        <intercept-url pattern="/organizationEditPage" access="ROLE_ADMIN"/>
-        <intercept-url pattern="/sightingEditPage" access="ROLE_ADMIN"/>                                       
+        <intercept-url pattern="/displayEditHeroPage?*" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/deleteHero?*" access="ROLE_ADMIN"/>
+        
+        <intercept-url pattern="/locationEditPage?*" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/deleteLocation?*" access="ROLE_ADMIN"/>
+        
+        <intercept-url pattern="/organizationEditPage?*" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/deleteOrganization?*" access="ROLE_ADMIN"/>
+        
+        <intercept-url pattern="/sightingEditPage?*" access="ROLE_ADMIN"/>  
+        <intercept-url pattern="/deleteSighting?*" access="ROLE_ADMIN"/>  
+        
+        <intercept-url pattern="/memberEditPage?*" access="ROLE_ADMIN"/>
+        <intercept-url pattern="/deleteMember?*" access="ROLE_ADMIN"/>
+                                            
         <intercept-url pattern="/displayUserList" access="ROLE_ADMIN" />
         <intercept-url pattern="/deleteUser" access="ROLE_ADMIN" />
         <intercept-url pattern="/displayUserForm" access="ROLE_ADMIN" />
         <intercept-url pattern="/deleteUser" access="ROLE_ADMIN" />
         <intercept-url pattern="/displayUserPage" access="ROLE_ADMIN" />
         <intercept-url pattern="/addUser" access="ROLE_ADMIN" /> 
-        <intercept-url pattern="/displayEditHeroPage" access="ROLE_SIDEKICK"/>
-        <intercept-url pattern="/locationEditPage" access="ROLE_SIDEKICK"/>
-        <intercept-url pattern="/organizationEditPage" access="ROLE_SIDEKICK"/>
-        <intercept-url pattern="/sightingEditPage" access="ROLE_SIDEKICK"/>                                                                              
+        
+        <intercept-url pattern="/displayEditHeroPage?*" access="ROLE_SIDEKICK"/>
+        <intercept-url pattern="/locationEditPage?*" access="ROLE_SIDEKICK"/>
+        <intercept-url pattern="/organizationEditPage?*" access="ROLE_SIDEKICK"/>
+        <intercept-url pattern="/sightingEditPage?*" access="ROLE_SIDEKICK"/> 
+                                                                                     
         <intercept-url pattern="/**" access="ROLE_USER" /> 
     </http>
     

@@ -14,7 +14,7 @@ import java.util.List;
  * @author PG
  */
 public interface UserDao {
-    public User addUser(User newUser);
+    public User addUser(User user);
     public void deleteUser(String username);
     public void editUser(String username, int userstatus);
     public User getUser(String username);
