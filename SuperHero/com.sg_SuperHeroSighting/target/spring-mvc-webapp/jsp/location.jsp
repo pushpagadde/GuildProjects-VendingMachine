@@ -91,13 +91,11 @@
                                 <td>${currentLocation.longitude}</td>   
                                 <td>${currentLocation.latitude}</td>   
                                 <td> 
-                                    <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                        <a href="locationEditPage?locationID=${currentLocation.locationID}" >Edit</a> 
-                                            |<a href="deleteLocation?locationID=${currentLocation.locationID}"> Delete</a>                             
-                                    </sec:authorize>
                                     <sec:authorize access="hasRole('ROLE_SIDEKICK')">
-                                        <a href="locationEditPage?locationID=${currentLocation.locationID}" >Edit</a>                              
+                                        <a href="locationEditPage?locationID=${currentLocation.locationID}">Edit</a>
                                     </sec:authorize>
+
+                                        |<a href="deleteLocation?locationID=${currentLocation.locationID}">Delete</a>                              
                                 </td>
                             </tr>                    
                         </c:forEach>                                                    

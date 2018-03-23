@@ -13,7 +13,7 @@
         <welcome-file>default.htm</welcome-file>
         <welcome-file>default.jsp</welcome-file>
     </welcome-file-list>
-
+    
     <servlet>
         <servlet-name>spring-dispatcher</servlet-name>            
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -63,6 +63,7 @@
         <servlet-name>default</servlet-name>
         <url-pattern>*.gif</url-pattern>
     </servlet-mapping>
+
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -71,6 +72,7 @@
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
@@ -79,10 +81,41 @@
             classpath:spring-persistence.xml
         </param-value>
     </context-param>
+    
+    <error-page>
+        <!-- Missing login -->
+        <error-code>401</error-code>
+        <location>/jsp/customError.jsp</location>
+    </error-page>
+    <error-page>
+        <!-- Forbidden directory listing -->
+        <error-code>403</error-code>
+        <location>/jsp/customError.jsp</location>
+    </error-page>
+    <error-page>
+        <!-- Missing resource -->
+        <error-code>404</error-code>
+        <location>/jsp/customError.jsp</location>
+    </error-page>
+    <error-page>
+        <!-- Uncaught exception -->
+        <error-code>500</error-code>
+        <location>/jsp/customError.jsp</location>
+    </error-page>
+    <error-page>
+        <!-- Unsupported servlet method -->
+        <error-code>503</error-code>
+        <location>/jsp/customError.jsp</location>
+    </error-page>        
+    <error-page>
+        <error-code>405</error-code>
+        <location>/jsp/customError.jsp</location>        
+    </error-page>
     <listener>
         <listener-class>
             org.springframework.web.context.ContextLoaderListener
         </listener-class>
     </listener>
+    
+    
 </web-app>
-

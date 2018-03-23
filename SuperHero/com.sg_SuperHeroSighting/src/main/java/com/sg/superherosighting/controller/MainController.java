@@ -57,7 +57,7 @@ public class MainController {
     }
 
     //method to retrieve location information
-    @RequestMapping(value = "/sightingEditPageJasonCall/{locationid}"  , method = RequestMethod.POST   )
+    @RequestMapping(value = "/sightingEditPageJsonCall/{locationid}"  , method = RequestMethod.POST   )
     @ResponseBody
     public Location sightingEditPageJasonCall(@PathVariable("locationid") int locationid) {
         return service.getLocationByID(locationid);

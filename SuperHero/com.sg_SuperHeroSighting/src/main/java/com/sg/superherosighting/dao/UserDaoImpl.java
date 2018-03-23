@@ -26,11 +26,8 @@ public class UserDaoImpl implements UserDao{
         = "insert into authorities (username, authority) values (?, ?)";
  
     private static final String SQL_UPDATE_USER
-        = "update users set enabled = ? where username =  ?";
+        = "update users set enabled = ? where username = ?";
     
-    private static final String SQL_UPDATE_AUTHORITIES
-        = "update authorities where username = ?";
- 
     private static final String SQL_DELETE_USER
         = "delete from users where username = ?";
     
@@ -82,7 +79,16 @@ public class UserDaoImpl implements UserDao{
     @Override
     public void editUser(String username, int userstatus) {
         jdbcTemplate.update(SQL_UPDATE_USER, userstatus, username);
-        //jdbcTemplate.update(SQL_UPDATE_AUTHORITIES, user.getUsername(), user.getAuthorities() );
+    }
+
+    @Override
+    public void addAuthority(String username, String authority) {
+        jdbcTemplate.update(SQL_INSERT_AUTHORITY, username, authority);
+    }
+    
+    @Override
+    public void deleteAuthorities(String username) {
+        jdbcTemplate.update(SQL_DELETE_AUTHORITIES, username);
     }
 
     @Override
@@ -98,6 +104,7 @@ public class UserDaoImpl implements UserDao{
             return user;
         }
     }
+    
     private static final class UserMapper implements RowMapper<User> {
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
             User user = new User();

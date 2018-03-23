@@ -21,6 +21,7 @@ import com.sg.superherosighting.model.User;
 import com.sg.superherosighting.model.ZipCodeInfo;
 import java.time.LocalDate;
 import java.util.List;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  *
@@ -34,8 +35,10 @@ public class HeroService {
     ZipCodeDao zipCodeDao;
     SightingDao sightingDao;
     UserDao userDao;
+    private PasswordEncoder encoder;
     
-    HeroService(LocationDao lDao, MemberDao mDao, OrganizationDao oDao, SuperHeroDao sdao, SightingDao sDao, ZipCodeDao zDao, UserDao uDao){
+    HeroService(LocationDao lDao, MemberDao mDao, OrganizationDao oDao, SuperHeroDao sdao, SightingDao sDao, 
+                ZipCodeDao zDao, UserDao uDao, PasswordEncoder encoder){
         this.locationDao = lDao;
         this.memberDao = mDao;
         this.organizationDao = oDao;
@@ -43,21 +46,59 @@ public class HeroService {
         this.sightingDao = sDao;
         this.zipCodeDao = zDao;
         this.userDao = uDao;
+        this.encoder = encoder;
     }
     
     //user methods
-    public User addUser(User user){
+    public User addUser(String username, String password, String authority){
+        User user = new User();
+                
+        String hashPw = encoder.encode(password);
+        user.setUsername(username);        
+        user.setPassword(hashPw);
+        // All users have ROLE_USER, only add ROLE_ADMIN if the isAdmin  box is checked
+        //user.addAuthority("ROLE_USER");
+        if (null != authority) {
+            if (authority.equalsIgnoreCase("Admin")){
+                user.addAuthority("ROLE_ADMIN");
+                user.addAuthority("ROLE_SIDEKICK");
+                user.addAuthority("ROLE_ANON");
+            } else if (authority.equalsIgnoreCase("SideKick")) {
+                user.addAuthority("ROLE_SIDEKICK");
+                user.addAuthority("ROLE_ANON");
+            } else {
+                user.addAuthority("ROLE_ANON");
+            }
+        }                
         return userDao.addUser(user);
-    }    
+    }
+    
     public void deleteUser(String username){
         userDao.deleteUser(username);
     }
-    public void editUser(String username, int userstatus){
-        userDao.editUser(username, userstatus);
+    
+    public void editUser(String username, String authority, int active){
+        userDao.deleteAuthorities(username);
+        User user = userDao.getUser(username);
+        userDao.editUser(username, active);
+        if (authority != null){
+            if (authority.equalsIgnoreCase("admin")){
+                userDao.addAuthority(username, "ROLE_ADMIN");
+                userDao.addAuthority(username, "ROLE_SIDEKICK");
+                userDao.addAuthority(username, "ROLE_ANON");
+            } else if (authority.equalsIgnoreCase("SideKick")) {
+                userDao.addAuthority(username, "ROLE_SIDEKICK");
+                userDao.addAuthority(username, "ROLE_ANON");
+            } else {
+                userDao.addAuthority(username, "ROLE_ANON");
+            }
+        }
     }
+
     public User getUser(String username){
         return userDao.getUser(username);
     }
+
     public List<User> getAllUsers(){
         return userDao.getAllUsers();
     }        

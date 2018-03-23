@@ -19,4 +19,6 @@ public interface UserDao {
     public void editUser(String username, int userstatus);
     public User getUser(String username);
     public List<User> getAllUsers();
+    public void addAuthority(String username, String authority);
+    public void deleteAuthorities(String username);
 }

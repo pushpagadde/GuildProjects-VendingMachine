@@ -71,11 +71,13 @@
                             ${currentHero.heroName}
                         </a></td>
                         <td>${currentHero.heroPower}</td>                        
-                        <td>                             
+                        <td>
+                            <sec:authorize access="hasRole('ROLE_SIDEKICK')">
+                               <a href="displayEditHeroPage?heroID=${currentHero.heroID}">Edit</a>
+                            </sec:authorize>                                    
                             <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                <a href="displayEditHeroPage?heroID=${currentHero.heroID}" >Edit</a> 
-                                |<a href="deleteHero?heroID=${currentHero.heroID}"> Delete</a>                             
-                            </sec:authorize>                             
+                                |<a href="deleteHero?heroID=${currentHero.heroID}"> Delete</a>
+                            </sec:authorize>
                         </td>                        
                     </tr>                    
                 </c:forEach>                                         

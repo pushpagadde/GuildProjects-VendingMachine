@@ -88,12 +88,12 @@
                                 </c:forEach>
                                 <td>${currentOrganization.zipCode}</td>                                                
                                 <td>
-                                    <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_SIDEKICK')">
-                                        <a href="organizationEditPage?organizationID=${currentOrganization.organizationID}" >Edit</a>                                     
-                                    </sec:authorize>                                             
-                                    <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                       |<a href="deleteOrganization?organizationID=${currentOrganization.organizationID}" >Delete</a>
-                                    </sec:authorize>                                                                        
+                                     <sec:authorize access="hasRole('ROLE_SIDEKICK')">
+                                        <a href="organizationEditPage?organizationID=${currentOrganization.organizationID}">Edit</a>
+                                     </sec:authorize>                                    
+                                     <sec:authorize access="hasRole('ROLE_ADMIN')">
+                                       |<a href="deleteOrganization?organizationID=${currentOrganization.organizationID}">Delete</a>
+                                     </sec:authorize>
                                 </td>
                             </tr>                    
                         </c:forEach>                                                    

@@ -93,20 +93,19 @@
                                 </td>                                 
                                 <td>${currentSighting.dateOfSighting}</td>
                                 <td> 
+                                    <sec:authorize access="hasRole('ROLE_SIDEKICK')">
+                                       <a href="sightingEditPage?sightingID=${currentSighting.sightingID}">Edit</a>
+                                    </sec:authorize>                                    
                                     <sec:authorize access="hasRole('ROLE_ADMIN')">
-                                       <a href="sightingEditPage?sightingID=${currentSighting.sightingID}" >Edit</a> 
                                        |<a href="deleteSighting?sightingID=${currentSighting.sightingID}"> Delete</a>                             
                                     </sec:authorize>  
-                                    <sec:authorize access="hasRole('ROLE_SIDEKICK')">
-                                       <a href="sightingEditPage?sightingID=${currentSighting.sightingID}" >Edit</a> 
-                                    </sec:authorize>                                    
                                 </td>
                             </tr>                    
                             </c:forEach>                                                                    
                         </table>
                 </div>       
                 <div class="col-md-4">
-                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_SIDEKICK')">
                     <h2>Add new Sighting</h2>
                     <form class="form-horzontal" action= "createSighting" role="form" method="POST">
                         <div class = "row">

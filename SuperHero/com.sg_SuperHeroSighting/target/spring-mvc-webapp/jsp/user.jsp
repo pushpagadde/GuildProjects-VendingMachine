@@ -59,7 +59,7 @@
                                 </td> 
                                 <td>
                                     <sec:authorize access="hasRole('ROLE_ADMIN')">                                        
-                                        <a href="deleteUser?username=${currentUser.username}">Delete</a><br/><br/>
+                                        |<a href="deleteUser?username=${currentUser.username}">Delete</a><br/><br/>
                                     </sec:authorize>                                                                       
                                 </td>                                
                             </tr>                    

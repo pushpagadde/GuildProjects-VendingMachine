@@ -26,12 +26,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class UserController {
     private HeroService service;    
-    private PasswordEncoder encoder;
+    
 
     @Inject
-    public UserController(HeroService service, PasswordEncoder encoder) {
-        this.service = service;
-        this.encoder = encoder;
+    public UserController(HeroService service) {
+        this.service = service;        
     }
 
     // This endpoint retrieves all users from the database and puts the List of users on the model
@@ -54,23 +53,12 @@ public class UserController {
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public String addUser(HttpServletRequest req) {
-        User user = new User();
-        // This example uses a plain HTML form so we must get values from the request
-        user.setUsername(req.getParameter("username"));
-        String clearPw = req.getParameter("password");
-        String hashPw = encoder.encode(clearPw);
         
-        user.setPassword(hashPw);
-        // All users have ROLE_USER, only add ROLE_ADMIN if the isAdmin  box is checked
-        user.addAuthority("ROLE_USER");
-        if (null != req.getParameter("userType")) {
-            if (req.getParameter("userType").equalsIgnoreCase("Admin")){
-                user.addAuthority("ROLE_ADMIN");
-            } else if (req.getParameter("userType").equalsIgnoreCase("SideKick")) {
-                user.addAuthority("ROLE_SIDEKICK");
-            }
-        }
-        service.addUser(user);
+        // This example uses a plain HTML form so we must get values from the request
+        String userName = req.getParameter("username");
+        String password = req.getParameter("password");
+        String authority = req.getParameter("userType");                
+        service.addUser(userName, password, authority);
         return "redirect:displayUserPage";
     }
     
@@ -78,14 +66,15 @@ public class UserController {
     @RequestMapping(params = "saveUser", method = RequestMethod.POST)
     public String saveUser(HttpServletRequest request, @RequestParam(required=false , value = "cancel") String cancelFlag ) {
         String username = request.getParameter("username");
-        System.out.println("username------:"+username);
+        String authority = request.getParameter("authority");
+        String userstatus = request.getParameter("active");
+        
         if(cancelFlag == null){
-            String userstatus = request.getParameter("active");
             if (userstatus != null){
                 if(userstatus.equalsIgnoreCase("yes")){
-                    service.editUser(username, 1);
+                    service.editUser(username, authority, 1);
                 }else if (userstatus.equalsIgnoreCase("no")){
-                    service.editUser(username, 0);
+                    service.editUser(username, authority, 0);
                 }                       
             }
         }        

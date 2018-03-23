@@ -89,8 +89,10 @@
                                 </td>
                                 <td>${currentMember.zipCode}</td>   
                                 <td> 
-                                    <sec:authorize access="hasRole('ROLE_ADMIN')">                                     
-                                        <a href="memberEditPage?memberID=${currentMember.memberID}" >Edit</a>
+                                    <sec:authorize access="hasRole('ROLE_SIDEKICK')">                                     
+                                        <a href="memberEditPage?memberID=${currentMember.memberID}">Edit</a>
+                                    </sec:authorize>                                                                        
+                                    <sec:authorize access="hasRole('ROLE_ADMIN')">   
                                         |<a href="deleteMember?memberID=${currentMember.memberID}">Delete</a>                             
                                     </sec:authorize>                                                                        
                                 </td>

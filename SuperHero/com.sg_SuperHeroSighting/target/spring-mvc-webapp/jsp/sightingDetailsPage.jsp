@@ -92,7 +92,7 @@
         </table>
         </div>
         <div class="col-md-offset-4 col-md-8" id="bottomPanel">
-            <form class="form-horizontal" role="form" modelAttribute="hero" action="superHero" method="GET">
+            <form class="form-horizontal" role="form" modelAttribute="hero" action="displaySightingsPage" method="GET">
                   <input type="submit" class="btn btn-default" value="Back" name="Back" style="width:100px;height:50px;font-size:25px"/>
             </form>    
         </div></div>
